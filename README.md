@@ -1,5 +1,8 @@
 # imdb-andrea
 
+## Wiki
+[Historias de usuario](https://github.com/andreadlgdo/academy-project-Imdb/wiki)
+
 ## Project setup
 ```
 npm install
