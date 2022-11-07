@@ -29,11 +29,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ChangeView from "./ChangeView.vue";
-import OptionsFilmsClose from "./OptionsFilmsClose.vue";
+import OptionsFilmsClose from "@/components/OptionsFilmsClose.vue";
 
 export default defineComponent({
   name: "OptionsFilmsOpen",
-  components: { ChangeView, OptionsFilmsClose },
+  components: { ChangeView },
   data: function () {
     return {
       isOpenFilters: false,
