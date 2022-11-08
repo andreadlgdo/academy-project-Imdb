@@ -59,6 +59,7 @@ export default defineComponent({
   display: grid;
   grid-template-rows: 70% 30%;
   background: cadetblue;
+  height: 100%;
 }
 .main_title-company {
   display: flex;
