@@ -22,11 +22,9 @@
         </div>
         <div class="nav_item-2">
           <button class="nav_button-2" @click="openSortBy(2)">Score</button>
-          <ul class="nav_sublist2">
-            <li><input type="radio" name="sort-by" />No sorted</li>
-            <li><input type="radio" name="sort-by" />By score: Low to High</li>
-            <li><input type="radio" name="sort-by" />By score: High to Low</li>
-          </ul>
+          <div>
+            <input type="range" min="0" max="10" tabindex="0" step="1" />
+          </div>
         </div>
         <div class="nav_item-3">
           <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
