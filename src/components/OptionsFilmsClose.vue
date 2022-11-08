@@ -12,19 +12,16 @@
     </section>
     <ChangeView />
   </section>
-  <MainModal v-if="isOpenFilters">
-    <OptionsFilmsOpen />
-  </MainModal>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import ChangeView from "@/components/ChangeView.vue";
-import OptionsFilmsOpen from "@/components/OptionsFilmsOpen.vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "OptionsFilmsClose",
-  components: { ChangeView, OptionsFilmsOpen },
+  components: { ChangeView },
   data: function () {
     return {
       isOpenFilters: false,
@@ -32,7 +29,7 @@ export default defineComponent({
   },
   methods: {
     goFilters: function (value: boolean) {
-      this.isOpenFilters = value;
+      createStore.dispatch("change", value);
       let element = document.querySelector(".section");
       if (element !== null) element.remove();
     },

@@ -3,7 +3,7 @@
     <aside class="sectionOpen_aside">
       <div class="aside_title">
         <h2 class="aside_sort-filters">SORT & FILTERS</h2>
-        <button class="aside_button-close" @click="closeFilters(true)">
+        <button class="aside_button-close" @click="closeFilters(false)">
           <img
             class="aside_img-close"
             src="../assets/images/cross.png"
@@ -48,29 +48,25 @@
       </div>
     </section>
   </section>
-  <MainModal v-if="isOpenFilters">
-    <OptionsFilmsClose />
-  </MainModal>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import ChangeView from "./ChangeView.vue";
-import OptionsFilmsClose from "@/components/OptionsFilmsClose.vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "OptionsFilmsOpen",
   components: { ChangeView },
   data: function () {
     return {
-      isOpenFilters: false,
       itemsOpened: [false, false, false, false, false],
       plusView: [10, 10, 10, 10, 10],
     };
   },
   methods: {
     closeFilters: function (value: boolean) {
-      this.isOpenFilters = value;
+      createStore.state.isOpen = value;
       let element = document.querySelector(".sectionOpen");
       if (element !== null) element.remove();
     },
@@ -158,29 +154,6 @@ export default defineComponent({
   border-right: solid lightgrey;
   padding-top: 2rem;
 }
-.aside_title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 2rem;
-  border-bottom: solid lightgrey 10px;
-}
-.aside_img-close {
-  height: 2rem;
-  width: 2rem;
-}
-.aside_button-close {
-  margin-right: 2rem;
-  background: white;
-  border: none;
-}
-.aside_button-close:hover {
-  border-radius: 40px;
-  background: lightblue;
-}
-.aside_sort-filters {
-  margin-left: 3rem;
-}
 .nav {
   display: grid;
   grid-template-rows: 10% 10% 10% 10% 10%;
@@ -206,5 +179,28 @@ export default defineComponent({
   background: white;
   border-bottom: solid lightgrey;
   padding: 1rem;
+}
+.aside_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: solid lightgrey 10px;
+}
+.aside_img-close {
+  height: 2rem;
+  width: 2rem;
+}
+.aside_button-close {
+  margin-right: 2rem;
+  background: white;
+  border: none;
+}
+.aside_button-close:hover {
+  border-radius: 40px;
+  background: lightblue;
+}
+.aside_sort-filters {
+  margin-left: 3rem;
 }
 </style>

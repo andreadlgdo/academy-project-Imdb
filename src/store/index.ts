@@ -2,10 +2,16 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    isOpenFilters: false,
+    isOpen: false,
   },
-  getters: {},
-  mutations: {},
-  actions: {},
-  modules: {},
+  mutations: {
+    change(state, value) {
+      state.isOpen = value;
+    },
+  },
+  actions: {
+    change(context, value) {
+      context.commit("change", value);
+    },
+  },
 });
