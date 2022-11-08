@@ -12,36 +12,32 @@
         </button>
       </div>
       <nav class="nav">
-        <div class="nav_item">
-          <button class="nav_button-sort" @click="openSortBy()">Sort by</button>
+        <div class="nav_item-1">
+          <button class="nav_button-1" @click="openSortBy(1)">Sort by</button>
           <ul class="nav_sublist1">
             <li><input type="radio" name="sort-by" />No sorted</li>
             <li><input type="radio" name="sort-by" />By score: Low to High</li>
             <li><input type="radio" name="sort-by" />By score: High to Low</li>
           </ul>
         </div>
-        <div class="nav_item-score">
-          <button class="nav_button-score" @click="openFilterByScore()">
-            Score
-          </button>
+        <div class="nav_item-2">
+          <button class="nav_button-2" @click="openSortBy(2)">Score</button>
           <ul class="nav_sublist2">
             <li><input type="radio" name="sort-by" />No sorted</li>
             <li><input type="radio" name="sort-by" />By score: Low to High</li>
             <li><input type="radio" name="sort-by" />By score: High to Low</li>
           </ul>
         </div>
-        <div class="nav_item-gender">
-          <button class="nav_button-gender" @click="openScoreBy()">
-            Gender
-          </button>
+        <div class="nav_item-3">
+          <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
           <ul class="nav_sublist3"></ul>
         </div>
-        <div class="nav_item-year">
-          <button class="nav_button-year">Year</button>
+        <div class="nav_item-4">
+          <button class="nav_button-4" @click="openSortBy(4)">Year</button>
           <ul class="nav_sublist4"></ul>
         </div>
-        <div class="nav_item-time">
-          <button class="nav_button-time">Time</button>
+        <div class="nav_item-5">
+          <button class="nav_button-5" @click="openSortBy(5)">Time</button>
           <ul class="nav_sublist5"></ul>
         </div>
       </nav>
@@ -70,9 +66,8 @@ export default defineComponent({
   data: function () {
     return {
       isOpenFilters: false,
-      isOpenSort: false,
-      isOpenScore: false,
-      itemsOpened: [],
+      itemsOpened: [false, false, false, false, false],
+      plusView: [10, 10, 10, 10, 10],
     };
   },
   methods: {
@@ -81,67 +76,67 @@ export default defineComponent({
       let element = document.querySelector(".sectionOpen");
       if (element !== null) element.remove();
     },
-    openSortBy: function () {
-      if (this.isOpenSort === false) {
-        this.isOpenSort = true;
-        let element = document.querySelector<HTMLElement>(".nav_sublist1");
+    openSortBy: function (value: number) {
+      if (!this.itemsOpened[value - 1]) {
+        this.itemsOpened[value - 1] = true;
+        let element = document.querySelector<HTMLElement>(
+          ".nav_sublist" + value
+        );
         if (element !== null) element.style.overflow = "visible";
         element = document.querySelector<HTMLElement>(".nav");
-        if (element !== null)
-          element.style.gridTemplateRows = "20% 10% 10% 10% 10%";
-        element = document.querySelector<HTMLElement>(".nav_item");
+        if (element !== null) {
+          for (let i = 0; i < this.itemsOpened.length; i++) {
+            if (this.itemsOpened[i]) this.plusView[i] = 20;
+          }
+          element.style.gridTemplateRows =
+            this.plusView[0] +
+            "% " +
+            this.plusView[1] +
+            "% " +
+            this.plusView[2] +
+            "% " +
+            this.plusView[3] +
+            "% " +
+            this.plusView[4] +
+            "%";
+        }
+        element = document.querySelector<HTMLElement>(".nav_item-" + value);
         if (element !== null) {
           element.style.display = "grid";
           element.style.gridTemplateRows = "40% 60%";
           element.style.borderBottom = "solid lightgrey";
         }
-        element = document.querySelector<HTMLElement>(".nav_button-sort");
+        element = document.querySelector<HTMLElement>(".nav_button-" + value);
         if (element !== null) element.style.borderBottom = "none";
       } else {
-        this.isOpenSort = false;
-        let element = document.querySelector<HTMLElement>(".nav_sublist1");
+        this.itemsOpened[value - 1] = false;
+        let element = document.querySelector<HTMLElement>(
+          ".nav_sublist" + value
+        );
         if (element !== null) element.style.overflow = "hidden";
         element = document.querySelector<HTMLElement>(".nav");
-        if (element !== null)
-          element.style.gridTemplateRows = "10% 10% 10% 10%";
-        element = document.querySelector<HTMLElement>(".nav_item");
+        if (element !== null) {
+          for (let i = 0; i < this.itemsOpened.length; i++) {
+            if (!this.itemsOpened[i]) this.plusView[i] = 10;
+          }
+          element.style.gridTemplateRows =
+            this.plusView[0] +
+            "% " +
+            this.plusView[1] +
+            "% " +
+            this.plusView[2] +
+            "% " +
+            this.plusView[3] +
+            "% " +
+            this.plusView[4] +
+            "%";
+        }
+        element = document.querySelector<HTMLElement>(".nav_item-" + value);
         if (element !== null) {
           element.style.display = "block";
           element.style.borderBottom = "none";
         }
-        element = document.querySelector<HTMLElement>(".nav_button-sort");
-        if (element !== null) element.style.borderBottom = "solid lightgrey";
-      }
-    },
-    openFilterByScore: function () {
-      if (this.isOpenScore === false) {
-        this.isOpenScore = true;
-        let element = document.querySelector<HTMLElement>(".nav_sublist2");
-        if (element !== null) element.style.overflow = "visible";
-        element = document.querySelector<HTMLElement>(".nav");
-        if (element !== null)
-          element.style.gridTemplateRows = "10% 20% 10% 10% 10%";
-        element = document.querySelector<HTMLElement>(".nav_item-score");
-        if (element !== null) {
-          element.style.display = "grid";
-          element.style.gridTemplateRows = "40% 60%";
-          element.style.borderBottom = "solid lightgrey";
-        }
-        element = document.querySelector<HTMLElement>(".nav_button-score");
-        if (element !== null) element.style.borderBottom = "none";
-      } else {
-        this.isOpenScore = false;
-        let element = document.querySelector<HTMLElement>(".nav_sublist2");
-        if (element !== null) element.style.overflow = "hidden";
-        element = document.querySelector<HTMLElement>(".nav");
-        if (element !== null)
-          element.style.gridTemplateRows = "10% 10% 10% 10% 10%";
-        element = document.querySelector<HTMLElement>(".nav_item-score");
-        if (element !== null) {
-          element.style.display = "block";
-          element.style.borderBottom = "none";
-        }
-        element = document.querySelector<HTMLElement>(".nav_button-score");
+        element = document.querySelector<HTMLElement>(".nav_button-" + value);
         if (element !== null) element.style.borderBottom = "solid lightgrey";
       }
     },
@@ -202,11 +197,11 @@ export default defineComponent({
   height: 0;
   overflow: scroll;
 }
-.nav_button-sort,
-.nav_button-score,
-.nav_button-gender,
-.nav_button-year,
-.nav_button-time {
+.nav_button-1,
+.nav_button-2,
+.nav_button-3,
+.nav_button-4,
+.nav_button-5 {
   height: 100%;
   width: 100%;
   border-style: none;
