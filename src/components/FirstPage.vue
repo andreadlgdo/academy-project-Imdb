@@ -14,7 +14,7 @@
       </div>
     </section>
     <section class="main_genders">
-      <h2 class="section_name">Genders</h2>
+      <h2 class="section_name">Categories</h2>
     </section>
   </main>
   <MainModal v-if="isGoToOtherPage">

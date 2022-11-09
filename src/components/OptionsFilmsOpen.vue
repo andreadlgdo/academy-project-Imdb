@@ -22,9 +22,7 @@
         </div>
         <div class="nav_item-2">
           <button class="nav_button-2" @click="openSortBy(2)">Score</button>
-          <div class="nav_sublist2">
-            <input type="range" min="0" max="10" tabindex="0" step="1" />
-          </div>
+          <div class="nav_sublist2"></div>
         </div>
         <div class="nav_item-3">
           <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
@@ -191,6 +189,12 @@ export default defineComponent({
 .nav_sublist5 {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+.nav_sublist2 {
+  display: flex;
   justify-content: center;
   align-items: center;
   visibility: hidden;
