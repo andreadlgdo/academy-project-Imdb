@@ -14,15 +14,15 @@
       <nav class="nav">
         <div class="nav_item-1">
           <button class="nav_button-1" @click="openSortBy(1)">Sort by</button>
-          <ul class="nav_sublist1">
-            <li><input type="radio" name="sort-by" />No sorted</li>
-            <li><input type="radio" name="sort-by" />By score: Low to High</li>
-            <li><input type="radio" name="sort-by" />By score: High to Low</li>
+          <ul class="nav_sublist1" hidden>
+            <li><input type="radio" name="sort-by" checked /> No sorted</li>
+            <li><input type="radio" name="sort-by" /> By score: Low to High</li>
+            <li><input type="radio" name="sort-by" /> By score: High to Low</li>
           </ul>
         </div>
         <div class="nav_item-2">
           <button class="nav_button-2" @click="openSortBy(2)">Score</button>
-          <div>
+          <div class="nav_sublist2">
             <input type="range" min="0" max="10" tabindex="0" step="1" />
           </div>
         </div>
@@ -36,9 +36,24 @@
         </div>
         <div class="nav_item-5">
           <button class="nav_button-5" @click="openSortBy(5)">Time</button>
-          <ul class="nav_sublist5"></ul>
+          <div class="nav_sublist5">
+            <p class="nav_slider5">
+              <input
+                type="range"
+                min="50"
+                max="250"
+                value="155"
+                class="slider-5"
+                step="1"
+                @click="moverValor()"
+              /><label class="slider_label">125 minutes</label>
+            </p>
+          </div>
         </div>
       </nav>
+      <div class="aside_button-aplyFilters">
+        <button class="button_view-results">View X Results</button>
+      </div>
     </aside>
     <section class="sectionOpen_view">
       <ChangeView />
@@ -70,17 +85,23 @@ export default defineComponent({
       let element = document.querySelector(".sectionOpen");
       if (element !== null) element.remove();
     },
+    moverValor: function () {
+      let element = document.querySelector(".slider-5") as HTMLInputElement;
+      let label = document.querySelector(".slider_label");
+      if (element !== null && label !== null)
+        label.textContent = element.value + " minutes";
+    },
     openSortBy: function (value: number) {
       if (!this.itemsOpened[value - 1]) {
         this.itemsOpened[value - 1] = true;
         let element = document.querySelector<HTMLElement>(
           ".nav_sublist" + value
         );
-        if (element !== null) element.style.overflow = "visible";
+        if (element !== null) element.style.visibility = "visible";
         element = document.querySelector<HTMLElement>(".nav");
         if (element !== null) {
           for (let i = 0; i < this.itemsOpened.length; i++) {
-            if (this.itemsOpened[i]) this.plusView[i] = 20;
+            if (this.itemsOpened[i]) this.plusView[i] = 30;
           }
           element.style.gridTemplateRows =
             this.plusView[0] +
@@ -107,11 +128,11 @@ export default defineComponent({
         let element = document.querySelector<HTMLElement>(
           ".nav_sublist" + value
         );
-        if (element !== null) element.style.overflow = "hidden";
+        if (element !== null) element.style.visibility = "hidden";
         element = document.querySelector<HTMLElement>(".nav");
         if (element !== null) {
           for (let i = 0; i < this.itemsOpened.length; i++) {
-            if (!this.itemsOpened[i]) this.plusView[i] = 10;
+            if (!this.itemsOpened[i]) this.plusView[i] = 12;
           }
           element.style.gridTemplateRows =
             this.plusView[0] +
@@ -150,23 +171,34 @@ export default defineComponent({
 }
 .sectionOpen_aside {
   display: grid;
-  grid-template-rows: 10% 90%;
+  grid-template-rows: 10% 75% 15%;
   border-right: solid lightgrey;
   padding-top: 2rem;
 }
 .nav {
   display: grid;
-  grid-template-rows: 10% 10% 10% 10% 10%;
+  grid-template-rows: 12% 12% 12% 12% 12%;
+  overflow: auto;
+  scroll-snap-type: y mandatory;
 }
 .nav_sublist1,
-.nav_sublist2,
 .nav_sublist3 {
   display: flex;
   flex-direction: column;
-  justify-content: left;
   list-style: none;
-  height: 0;
-  overflow: scroll;
+  visibility: hidden;
+}
+.nav_sublist5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+.nav_sublist1 li {
+  display: flex;
+  justify-content: left;
+  padding-left: 2rem;
 }
 .nav_button-1,
 .nav_button-2,
@@ -179,6 +211,7 @@ export default defineComponent({
   background: white;
   border-bottom: solid lightgrey;
   padding: 1rem;
+  font-size: 1rem;
 }
 .aside_title {
   display: flex;
@@ -202,5 +235,22 @@ export default defineComponent({
 }
 .aside_sort-filters {
   margin-left: 3rem;
+}
+.button_view-results {
+  border-radius: 30px;
+  height: 3rem;
+  width: 15rem;
+  border: none;
+  background: lightblue;
+}
+.nav_slider5 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.slider-5 {
+  width: 20rem;
+  margin-bottom: 1rem;
 }
 </style>

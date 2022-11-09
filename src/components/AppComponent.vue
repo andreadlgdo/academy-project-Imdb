@@ -21,17 +21,21 @@
   <MainModal v-if="isOpen">
     <FirstPage />
   </MainModal>
-  <MainModal v-if="isOpenRandom"> </MainModal>
+  <MainModal v-if="isOpenRandom">
+    <FirstPageRandom />
+  </MainModal>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import FirstPage from "./FirstPage.vue";
+import FirstPageRandom from "./FirstPageRandom.vue";
 
 export default defineComponent({
   name: "AppComponent",
   components: {
     FirstPage,
+    FirstPageRandom,
   },
   data: function () {
     return {
