@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <main class="main">
+  <main class="main_first-random">
     <section class="main_news">
       <div class="section_title">
         <h2 class="section_name">News</h2>
@@ -41,7 +41,7 @@ export default defineComponent({
   methods: {
     goOtherPage: function (value: boolean) {
       this.isGoToOtherPage = value;
-      let element = document.querySelector(".main");
+      let element = document.querySelector(".main_first-random");
       if (element !== null) element.remove();
     },
   },
@@ -49,7 +49,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.main {
+.main_first-random {
   margin-left: 3rem;
   margin-right: 3rem;
   margin-top: 1rem;

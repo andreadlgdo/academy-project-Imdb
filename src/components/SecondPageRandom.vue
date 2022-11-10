@@ -1,7 +1,7 @@
 <template>
-  <main class="main">
-    <h2 class="main_title">HOW MUCH TIME DO YOU HAVE?</h2>
-    <section class="main_section">
+  <main class="main_second-random">
+    <h2 class="main_second-title">HOW MUCH TIME DO YOU HAVE?</h2>
+    <section class="main_section-slider">
       <div class="main_slider">
         <input
           class="section_slide"
@@ -13,7 +13,7 @@
       </div>
     </section>
     <div class="main_buttons">
-      <button class="button_next">
+      <button @click="goToLastPage(true)" class="button_nextLast">
         <img
           class="button_next-img"
           src="../assets/images/next.png"
@@ -22,45 +22,62 @@
       </button>
     </div>
   </main>
+  <MainModal v-if="isGoLastPage">
+    <LastPageRandom />
+  </MainModal>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import LastPageRandom from "@/components/LastPageRandom.vue";
 
 export default defineComponent({
   name: "SecondPageRandom",
-  methods: {},
+  components: { LastPageRandom },
+  data: function () {
+    return {
+      isGoLastPage: false,
+    };
+  },
+  methods: {
+    goToLastPage: function (value: boolean) {
+      this.isGoLastPage = value;
+      let element = document.querySelector(".main_second-random");
+      if (element !== null) element.remove();
+    },
+  },
 });
 </script>
 
 <style scoped>
-.main {
-  display: grid;
-  grid-template-rows: 35% 55% 10%;
+.main_second-random {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
-.main_title {
+.main_second-title {
   font-family: "Bodoni 72 Oldstyle";
   font-size: 6rem;
 }
-.main_section {
+.main_section-slider {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
-  margin-bottom: 5rem;
+  margin-top: 7rem;
+  margin-bottom: 7rem;
 }
 .main_buttons {
   display: flex;
   justify-content: right;
   margin-right: 3rem;
 }
-.button_next {
+.button_nextLast {
   background: white;
   border: none;
   height: 4rem;
   width: 4rem;
 }
-.button_next:hover {
+.button_nextLast:hover {
   background: lightblue;
 }
 .button_next-img {

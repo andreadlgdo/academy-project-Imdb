@@ -1,6 +1,6 @@
 <template>
   <div class="mainPage">
-    <div class="main_title">
+    <div class="main_second-title">
       <p class="main_title-company">IMDb</p>
       <h1 class="main_title-movies">
         The world <br />
@@ -9,10 +9,10 @@
     </div>
     <div class="buttons">
       <div class="button_start-exploring">
-        <button class="button" @click="search(true)">Start exploring</button>
+        <button class="button-emotions" @click="search(true)">Start exploring</button>
       </div>
       <div class="button_random-search">
-        <button class="button" @click="searchRandom(true)">
+        <button class="button-emotions" @click="searchRandom(true)">
           Random search
         </button>
       </div>
@@ -98,7 +98,7 @@ export default defineComponent({
   justify-content: left;
   padding-left: 2rem;
 }
-.button {
+.button-emotions {
   height: 4rem;
   width: 15rem;
   border-radius: 30px;
@@ -106,7 +106,7 @@ export default defineComponent({
   background: white;
   font-size: 1rem;
 }
-.button:hover {
+.button-emotions:hover {
   background: aliceblue;
 }
 </style>
