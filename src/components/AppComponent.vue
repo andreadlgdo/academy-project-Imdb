@@ -9,7 +9,9 @@
     </div>
     <div class="buttons">
       <div class="button_start-exploring">
-        <button class="button-emotions" @click="search(true)">Start exploring</button>
+        <button class="button-emotions" @click="search(true)">
+          Start exploring
+        </button>
       </div>
       <div class="button_random-search">
         <button class="button-emotions" @click="searchRandom(true)">
@@ -29,7 +31,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import FirstPage from "./FirstPage.vue";
-import FirstPageRandom from "./FirstPageRandom.vue";
+import FirstPageRandom from "./random/FirstPageRandom.vue";
 
 export default defineComponent({
   name: "AppComponent",

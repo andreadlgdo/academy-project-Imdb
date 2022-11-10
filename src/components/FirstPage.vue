@@ -13,8 +13,9 @@
         /></a>
       </div>
     </section>
-    <section class="main_genders">
+    <section class="main_categories">
       <h2 class="section_name">Categories</h2>
+      <CategoriesOptions />
     </section>
   </main>
   <MainModal v-if="isGoToOtherPage">
@@ -26,10 +27,12 @@
 import { defineComponent } from "vue";
 import Header from "./Header.vue";
 import FilterPage from "./FilterPage.vue";
+import CategoriesOptions from "@/components/CategoriesOptions.vue";
 
 export default defineComponent({
   name: "FirstPage",
   components: {
+    CategoriesOptions,
     Header,
     FilterPage,
   },

@@ -16,7 +16,7 @@
       <button @click="goToLastPage(true)" class="button_nextLast">
         <img
           class="button_next-img"
-          src="../assets/images/next.png"
+          src="../../assets/images/next.png"
           alt="next"
         />
       </button>
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import LastPageRandom from "@/components/LastPageRandom.vue";
+import LastPageRandom from "@/components/random/LastPageRandom.vue";
 
 export default defineComponent({
   name: "SecondPageRandom",

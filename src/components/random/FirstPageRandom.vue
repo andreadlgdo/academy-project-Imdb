@@ -21,7 +21,7 @@
       <button @click="goToSecondPage()" class="button_nextSecond">
         <img
           class="button_next-img"
-          src="../assets/images/next.png"
+          src="../../assets/images/next.png"
           alt="next"
         />
       </button>

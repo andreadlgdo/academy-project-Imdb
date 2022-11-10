@@ -17,7 +17,7 @@
       <button class="button_nextResults" @click="goToResultsPage()">
         <img
           class="button_next-img"
-          src="../assets/images/next.png"
+          src="../../assets/images/next.png"
           alt="next"
         />
       </button>
@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ResultRandomSearch from "@/components/ResultRandomSearch.vue";
+import ResultRandomSearch from "@/components/random/ResultRandomSearch.vue";
 
 export default defineComponent({
   name: "LastPageRandom",
