@@ -3,7 +3,7 @@
     <h1 class="header_title">The world of movies</h1>
     <div class="header_logo">
       <img
-        src="../../assets/images/icon3.png"
+        src="../../assets/images/logo.png"
         class="header_logo-img"
         alt="logo"
       />
@@ -49,5 +49,6 @@ export default defineComponent({
   height: 10rem;
   width: 12rem;
   border-radius: 50%;
+  background: transparent;
 }
 </style>

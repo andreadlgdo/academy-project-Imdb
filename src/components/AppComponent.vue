@@ -62,33 +62,37 @@ export default defineComponent({
 
 <style scoped>
 .mainPage {
-  display: grid;
-  grid-template-rows: 70% 30%;
-  background: cadetblue;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../assets/images/movies.png");
+  background-size: cover;
   height: 100%;
 }
 .main_title-company {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   font-family: "Academy Engraved LET";
   font-size: 3rem;
+  padding-right: 21rem;
   color: black;
   font-weight: bold;
 }
 .main_title-movies {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   font-family: "Al Tarikh";
   font-size: 10rem;
+  padding-right: 6rem;
   font-variant: all-small-caps;
-  padding-bottom: 10rem;
-  color: white;
+  color: black;
 }
 .buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding-right: 8rem;
 }
 .button_start-exploring {
   display: flex;
@@ -104,11 +108,11 @@ export default defineComponent({
   height: 4rem;
   width: 15rem;
   border-radius: 30px;
-  border-color: white;
-  background: white;
+  border-color: #efc592;
+  background: #efc592;
   font-size: 1rem;
 }
 .button-emotions:hover {
-  background: aliceblue;
+  background: #faa544;
 }
 </style>
