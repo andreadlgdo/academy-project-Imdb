@@ -3,19 +3,12 @@
   <main class="main_first-random">
     <h2 class="main_second-title">HOW ARE YOU?</h2>
     <section class="main_section-slider">
-      <div class="section_buttons-1">
-        <button class="button-emotions" @click="changeColor(1)">
-          Romantic
-        </button>
-        <button class="button-emotions" @click="changeColor(2)">
-          Dramatic
-        </button>
-        <button class="button-emotions" @click="changeColor(3)">Bored</button>
-      </div>
-      <div class="section_buttons-2">
-        <button class="button-emotions" @click="changeColor(4)">Sad</button>
-        <button class="button-emotions" @click="changeColor(5)">Happy</button>
-      </div>
+      <button class="button_emotions-1" @click="selectItem(1)">Romantic</button>
+      <button class="button_emotions-2" @click="selectItem(2)">Afraid</button>
+      <button class="button_emotions-3" @click="selectItem(3)">Bored</button>
+      <button class="button_emotions-4" @click="selectItem(4)">Sad</button>
+      <button class="button_emotions-5" @click="selectItem(5)">Happy</button>
+      <button class="button_emotions-6" @click="selectItem(6)">Lazy</button>
     </section>
     <div class="main_buttons">
       <button @click="goToSecondPage()" class="button_nextSecond">
@@ -41,8 +34,9 @@ export default defineComponent({
   name: "FirstPageRandom",
   data: function () {
     return {
-      isClick: false,
+      itemsSelected: [false, false, false, false, false, false],
       goToNextPage: false,
+      numberTrue: 0,
     };
   },
   components: {
@@ -50,20 +44,46 @@ export default defineComponent({
     SecondPageRandom,
   },
   methods: {
-    changeColor: function (value: number) {
-      this.isClick = true;
-      let button =
-        document.querySelectorAll<HTMLInputElement>(".button-emotions");
-      if (button != null) {
-        button.forEach((e) => (e.style.backgroundColor = "lightblue"));
-        button[value - 1].style.backgroundColor = "cadetblue";
+    selectItem: function (value: number) {
+      if (this.numberTrue == 2 && this.itemsSelected[value - 1] == false) {
+        alert("You can only choose two options");
+      } else {
+        if (this.itemsSelected[value - 1] == true) {
+          this.itemsSelected[value - 1] = false;
+          this.numberTrue--;
+          let element = document.querySelector<HTMLElement>(
+            ".button_emotions-" + value
+          );
+          if (element != null) {
+            element.style.fontWeight = "normal";
+            element.style.opacity = "0.6";
+          }
+        } else {
+          this.numberTrue++;
+          this.itemsSelected[value - 1] = true;
+          for (let i = 0; i < this.itemsSelected.length; i++) {
+            if (this.itemsSelected[i]) {
+              let element = document.querySelector<HTMLElement>(
+                ".button_emotions-" + value
+              );
+              if (element != null) {
+                element.style.opacity = "1";
+                element.style.fontWeight = "bold";
+              }
+            }
+          }
+        }
       }
     },
     goToSecondPage: function () {
-      if (this.isClick) this.goToNextPage = true;
-      else this.goToNextPage = false;
-      let element = document.querySelector(".main_first-random");
-      if (element !== null) element.remove();
+      if (this.numberTrue > 0) {
+        this.goToNextPage = true;
+        let element = document.querySelector(".main_first-random");
+        if (element !== null) element.remove();
+      } else {
+        this.goToNextPage = false;
+        alert("You need to choose at least one option");
+      }
     },
   },
 });
@@ -81,26 +101,59 @@ export default defineComponent({
 }
 .main_section-slider {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 2rem;
-}
-.section_buttons-1,
-.section_buttons-2 {
-  display: flex;
   justify-content: space-evenly;
-  align-items: center;
-}
-.section_buttons-1 {
+  flex-wrap: wrap;
   margin-bottom: 2rem;
 }
-.button-emotions {
+.button_emotions-1,
+.button_emotions-2,
+.button_emotions-3,
+.button_emotions-4,
+.button_emotions-5,
+.button_emotions-6 {
   background: lightblue;
-  border-color: lightblue;
   border-radius: 30px;
-  height: 5rem;
-  width: 18rem;
+  height: 10rem;
+  width: 10rem;
   font-size: 2rem;
   font-family: "Al Tarikh";
+  opacity: 0.6;
+}
+.button_emotions-1 {
+  background-image: url("../../assets/images/random/1.png");
+  background-size: cover;
+}
+.button_emotions-2 {
+  background-image: url("../../assets/images/random/2.png");
+  background-size: cover;
+  color: black;
+}
+.button_emotions-3 {
+  background-image: url("../../assets/images/random/3.png");
+  background-size: cover;
+  color: darkorange;
+}
+.button_emotions-4 {
+  background-image: url("../../assets/images/random/4.png");
+  background-size: cover;
+  color: black;
+}
+.button_emotions-5 {
+  background-image: url("../../assets/images/random/5.png");
+  background-size: cover;
+}
+.button_emotions-6 {
+  background-image: url("../../assets/images/random/6.png");
+  background-size: cover;
+}
+.button_emotions-1:hover,
+.button_emotions-2:hover,
+.button_emotions-3:hover,
+.button_emotions-4:hover,
+.button_emotions-5:hover,
+.button_emotions-6:hover {
+  font-weight: bold;
+  opacity: 1;
 }
 .main_buttons {
   display: flex;

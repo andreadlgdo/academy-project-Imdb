@@ -43,7 +43,7 @@ export default defineComponent({
     };
   },
   methods: {
-    changeColor: function (value: number) {
+    selectItem: function (value: number) {
       if (this.numberBottonClick !== 0) {
         let button = document.querySelector<HTMLInputElement>(
           ".button_score-" + this.numberBottonClick
