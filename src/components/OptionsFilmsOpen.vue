@@ -22,7 +22,9 @@
         </div>
         <div class="nav_item-2">
           <button class="nav_button-2" @click="openSortBy(2)">Score</button>
-          <div class="nav_sublist2"></div>
+          <div class="nav_sublist2">
+            <Slider class="slider-2" v-model="range" :max="10" :min="0" />
+          </div>
         </div>
         <div class="nav_item-3">
           <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
@@ -57,7 +59,6 @@
       <ChangeView />
       <div>
         <h2>Movies</h2>
-        <p>all movies</p>
       </div>
     </section>
   </section>
@@ -67,14 +68,16 @@
 import { defineComponent } from "vue";
 import ChangeView from "./ChangeView.vue";
 import createStore from "@/store";
+import Slider from "@vueform/slider";
 
 export default defineComponent({
   name: "OptionsFilmsOpen",
-  components: { ChangeView },
+  components: { ChangeView, Slider },
   data: function () {
     return {
       itemsOpened: [false, false, false, false, false],
       plusView: [10, 10, 10, 10, 10],
+      range: [0, 10],
     };
   },
   methods: {
@@ -257,4 +260,9 @@ export default defineComponent({
   width: 20rem;
   margin-bottom: 1rem;
 }
+.slider-2 {
+  background: #f2ad9f;
+  width: 80%;
+}
 </style>
+<style src="@vueform/slider/themes/default.css"></style>
