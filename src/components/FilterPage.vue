@@ -18,7 +18,6 @@ export default defineComponent({
   components: { OptionsFilms, OptionsFilmsOpen },
   computed: {
     getStateFilters() {
-      console.log(createStore.state.isOpen);
       return createStore.state.isOpen;
     },
   },

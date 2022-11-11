@@ -4,7 +4,7 @@
       <button class="section_button" @click="goFilters(true)">
         <img
           class="button_filters-img"
-          src="../assets/images/filtrar.png"
+          :src="require('@/assets/images/filtrar.png')"
           alt="filter"
         />
         <p class="button_filters-name">Filters & sort</p>
@@ -18,7 +18,7 @@
 import { defineComponent } from "vue";
 import ChangeView from "@/components/ChangeView.vue";
 import createStore from "@/store";
-
+console.log(createStore.state.filterByGenre);
 export default defineComponent({
   name: "OptionsFilmsClose",
   components: { ChangeView },

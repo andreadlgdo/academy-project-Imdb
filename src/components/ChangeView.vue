@@ -4,14 +4,14 @@
     <button class="button_view">
       <img
         class="button_view-img"
-        src="../assets/images/squares.png"
+        :src="require('@/assets/images/squares.png')"
         alt="squares"
       />
     </button>
     <button class="button_view">
       <img
         class="button_view-img"
-        src="../assets/images/4-squares.png"
+        :src="require('@/assets/images/4-squares.png')"
         alt="4 squares"
       />
     </button>

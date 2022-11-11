@@ -39,20 +39,26 @@ export default defineComponent({
   opacity: 0.6;
   border: none;
 }
+.button_categories-6:hover,
+.button_categories-7:hover,
+.button_categories-8:hover,
+.button_categories-5:hover {
+  opacity: 1;
+}
 .button_categories-5 {
-  background-image: url("../assets/images/categories/sci-fi.png");
+  background-image: url("../../assets/images/categories/sci-fi.png");
   background-size: cover;
 }
 .button_categories-6 {
-  background-image: url("../assets/images/categories/drama.png");
+  background-image: url("../../assets/images/categories/drama.png");
   background-size: cover;
 }
 .button_categories-7 {
-  background-image: url("../assets/images/categories/thriller.png");
+  background-image: url("../../assets/images/categories/thriller.png");
   background-size: cover;
 }
 .button_categories-8 {
-  background-image: url("../assets/images/categories/animation.png");
+  background-image: url("../../assets/images/categories/animation.png");
   background-size: cover;
 }
 .button_categories-text {

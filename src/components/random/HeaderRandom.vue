@@ -3,7 +3,7 @@
     <h1 class="header_title">The world of movies</h1>
     <div class="header_logo">
       <img
-        src="../../assets/images/logo.png"
+        :src="require('@/assets/images/logo.png')"
         class="header_logo-img"
         alt="logo"
       />

@@ -39,20 +39,26 @@ export default defineComponent({
   opacity: 0.6;
   border: none;
 }
+.button_categories-9:hover,
+.button_categories-10:hover,
+.button_categories-11:hover,
+.button_categories-12:hover {
+  opacity: 1;
+}
 .button_categories-9 {
-  background-image: url("../assets/images/categories/crime.png");
+  background-image: url("../../assets/images/categories/crime.png");
   background-size: cover;
 }
 .button_categories-10 {
-  background-image: url("../assets/images/categories/fantasy.png");
+  background-image: url("../../assets/images/categories/fantasy.png");
   background-size: cover;
 }
 .button_categories-11 {
-  background-image: url("../assets/images/categories/adventure.png");
+  background-image: url("../../assets/images/categories/adventure.png");
   background-size: cover;
 }
 .button_categories-12 {
-  background-image: url("../assets/images/categories/superhero.png");
+  background-image: url("../../assets/images/categories/superhero.png");
   background-size: cover;
 }
 .button_categories-text {

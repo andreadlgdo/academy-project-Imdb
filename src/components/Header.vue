@@ -5,7 +5,7 @@
       <input type="text" class="header_searcher" />
       <button class="header_search-button">
         <img
-          src="../assets/images/search.png"
+          :src="require('@/assets/images/search.png')"
           class="header_search-icon"
           alt="searcher"
         />
@@ -13,7 +13,7 @@
     </div>
     <div class="header_logo">
       <img
-        src="../assets/images/icon3.png"
+        :src="require('@/assets/images/logo.png')"
         class="header_logo-img"
         alt="logo"
       />

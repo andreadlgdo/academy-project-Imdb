@@ -9,7 +9,9 @@
           min="50"
           max="250"
           value="150"
+          @click="changeValue()"
         />
+        <label class="label_slide">150 minutes</label>
       </div>
     </section>
     <div class="main_buttons">
@@ -45,6 +47,13 @@ export default defineComponent({
       let element = document.querySelector(".main_second-random");
       if (element !== null) element.remove();
     },
+    changeValue: function () {
+      let element = document.querySelector<HTMLInputElement>(".section_slide");
+      let label = document.querySelector(".label_slide");
+      if (element != null && label != null) {
+        label.textContent = element.value + " minutes";
+      }
+    },
   },
 });
 </script>
@@ -54,6 +63,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  background: #f7dfc2;
 }
 .main_second-title {
   font-family: "Bodoni 72 Oldstyle";
@@ -63,8 +73,8 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 7rem;
-  margin-bottom: 7rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 }
 .main_buttons {
   display: flex;
@@ -84,6 +94,10 @@ export default defineComponent({
   height: 3rem;
   width: 3rem;
 }
+.main_slider {
+  display: flex;
+  flex-direction: column;
+}
 .section_slide {
   width: 50rem;
   -webkit-appearance: none;
@@ -93,6 +107,7 @@ export default defineComponent({
   opacity: 0.7;
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
+  margin-bottom: 2rem;
 }
 .section_slide:hover {
   opacity: 1;
@@ -102,5 +117,8 @@ export default defineComponent({
   width: 25px;
   height: 25px;
   background: cadetblue;
+}
+.label_slide {
+  font-size: 3rem;
 }
 </style>

@@ -8,7 +8,7 @@
           >View all
           <img
             class="section_arrow"
-            src="../assets/images/arrow.png"
+            :src="require('@/assets/images/arrow.png')"
             alt="arrow"
         /></a>
       </div>
@@ -27,7 +27,7 @@
 import { defineComponent } from "vue";
 import Header from "./Header.vue";
 import FilterPage from "./FilterPage.vue";
-import CategoriesOptions from "@/components/CategoriesOptions.vue";
+import CategoriesOptions from "@/components/categories/CategoriesOptions.vue";
 
 export default defineComponent({
   name: "FirstPage",

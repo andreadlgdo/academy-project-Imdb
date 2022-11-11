@@ -2,7 +2,11 @@
   <section class="buttons_categories">
     <div class="before">
       <button class="categories_before" @click="beforePage()">
-        <img class="before_img" alt="before" src="../assets/images/next2.png" />
+        <img
+          class="before_img"
+          alt="before"
+          :src="require('@/assets/images/next2.png')"
+        />
       </button>
     </div>
     <MainModal v-if="firsPage">
@@ -16,7 +20,11 @@
     </MainModal>
     <div class="next">
       <button class="categories_next" @click="nextPage()">
-        <img class="next_img" alt="next" src="../assets/images/next2.png" />
+        <img
+          class="next_img"
+          alt="next"
+          :src="require('@/assets/images/next2.png')"
+        />
       </button>
     </div>
   </section>
@@ -24,13 +32,13 @@
 
 <script type="ts">
 import { defineComponent } from "vue";
-import FirstCategories from "@/components/FirstCategories.vue";
-import SecondCategories from "@/components/SecondCategories.vue";
-import ThreeCategories from "@/components/ThreeCategories.vue";
+import FirstCategories from "@/components/categories/FirstCategories.vue";
+import SecondCategories from "@/components/categories/SecondCategories.vue";
+import ThreeCategories from "@/components/categories/ThreeCategories.vue";
 
 export default defineComponent({
   name: "CategoriesOptions",
-  components: {ThreeCategories, SecondCategories, FirstCategories},
+  components: {ThreeCategories, SecondCategories, FirstCategories },
   data: function () {
     return {
       numberPage: 1,

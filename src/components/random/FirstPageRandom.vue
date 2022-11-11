@@ -94,6 +94,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  background: #f7dfc2;
 }
 .main_second-title {
   font-family: "Bodoni 72 Oldstyle";
@@ -159,7 +160,7 @@ export default defineComponent({
   display: flex;
   justify-content: right;
   margin-right: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 .button_nextSecond {
   background: white;

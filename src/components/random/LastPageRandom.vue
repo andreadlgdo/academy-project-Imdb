@@ -43,7 +43,7 @@ export default defineComponent({
     };
   },
   methods: {
-    selectItem: function (value: number) {
+    changeColor: function (value: number) {
       if (this.numberBottonClick !== 0) {
         let button = document.querySelector<HTMLInputElement>(
           ".button_score-" + this.numberBottonClick
@@ -60,10 +60,14 @@ export default defineComponent({
       }
     },
     goToResultsPage: function () {
-      if (this.isClickScore) this.goResultPage = true;
-      else this.goResultPage = false;
-      let element = document.querySelector(".main_last-random");
-      if (element !== null) element.remove();
+      if (this.isClickScore) {
+        this.goResultPage = true;
+        let element = document.querySelector(".main_last-random");
+        if (element !== null) element.remove();
+      } else {
+        this.goResultPage = false;
+        alert("You need to choose an option");
+      }
     },
   },
 });

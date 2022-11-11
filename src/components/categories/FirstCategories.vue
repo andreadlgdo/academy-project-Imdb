@@ -19,7 +19,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "FirstCategories"
+  name: "FirstCategories",
 });
 </script>
 
@@ -39,20 +39,26 @@ export default defineComponent({
   opacity: 0.6;
   border: none;
 }
+.button_categories-1:hover,
+.button_categories-2:hover,
+.button_categories-3:hover,
+.button_categories-4:hover {
+  opacity: 1;
+}
 .button_categories-1 {
-  background-image: url("../assets/images/categories/comedy.png");
+  background-image: url("../../assets/images/categories/comedy.png");
   background-size: cover;
 }
 .button_categories-2 {
-  background-image: url("../assets/images/categories/romantic.png");
+  background-image: url("../../assets/images/categories/romantic.png");
   background-size: cover;
 }
 .button_categories-3 {
-  background-image: url("../assets/images/categories/horror.png");
+  background-image: url("../../assets/images/categories/horror.png");
   background-size: cover;
 }
 .button_categories-4 {
-  background-image: url("../assets/images/categories/action.png");
+  background-image: url("../../assets/images/categories/action.png");
   background-size: cover;
 }
 .button_categories-text {

@@ -6,7 +6,7 @@
         <button class="aside_button-close" @click="closeFilters(false)">
           <img
             class="aside_img-close"
-            src="../assets/images/cross.png"
+            :src="require('@/assets/images/cross.png')"
             alt="cross"
           />
         </button>
@@ -32,22 +32,25 @@
         </div>
         <div class="nav_item-4">
           <button class="nav_button-4" @click="openSortBy(4)">Year</button>
-          <ul class="nav_sublist4"></ul>
+          <div class="nav_sublist4">
+            <Slider
+              class="slider-2"
+              v-model="rangeYear"
+              :max="2022"
+              :min="1980"
+            />
+          </div>
         </div>
         <div class="nav_item-5">
           <button class="nav_button-5" @click="openSortBy(5)">Time</button>
           <div class="nav_sublist5">
-            <p class="nav_slider5">
-              <input
-                type="range"
-                min="50"
-                max="250"
-                value="155"
-                class="slider-5"
-                step="1"
-                @click="moverValor()"
-              /><label class="slider_label">125 minutes</label>
-            </p>
+            <Slider
+              class="slider-2"
+              v-model="rangeTime"
+              :max="300"
+              :min="50"
+              :step="5"
+            />
           </div>
         </div>
       </nav>
@@ -78,6 +81,8 @@ export default defineComponent({
       itemsOpened: [false, false, false, false, false],
       plusView: [10, 10, 10, 10, 10],
       range: [0, 10],
+      rangeTime: [50, 300],
+      rangeYear: [1980, 2022],
     };
   },
   methods: {
@@ -85,12 +90,6 @@ export default defineComponent({
       createStore.state.isOpen = value;
       let element = document.querySelector(".sectionOpen");
       if (element !== null) element.remove();
-    },
-    moverValor: function () {
-      let element = document.querySelector(".slider-5") as HTMLInputElement;
-      let label = document.querySelector(".slider_label");
-      if (element !== null && label !== null)
-        label.textContent = element.value + " minutes";
     },
     openSortBy: function (value: number) {
       if (!this.itemsOpened[value - 1]) {
@@ -189,14 +188,9 @@ export default defineComponent({
   list-style: none;
   visibility: hidden;
 }
+.nav_sublist2,
+.nav_sublist4,
 .nav_sublist5 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-}
-.nav_sublist2 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -250,18 +244,7 @@ export default defineComponent({
   border: none;
   background: lightblue;
 }
-.nav_slider5 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.slider-5 {
-  width: 20rem;
-  margin-bottom: 1rem;
-}
 .slider-2 {
-  background: #f2ad9f;
   width: 80%;
 }
 </style>
