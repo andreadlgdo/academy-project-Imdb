@@ -2,13 +2,16 @@
   <ul class="categories">
     <li v-for="(category, index) in categories" :key="index" class="category">
       <img class="category-image" :src="category.image" alt="category image" />
-      <button class="category-title">{{ category.title }}</button>
+      <button class="category-title">
+        {{ category.title }}
+      </button>
     </li>
   </ul>
 </template>
 
 <script type="ts">
 import { defineComponent } from "vue";
+
 
 export default defineComponent({
   name: "FirstCategories",
@@ -20,6 +23,7 @@ export default defineComponent({
 .categories {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-evenly;
   gap: 30px;
   .category {
     display: flex;

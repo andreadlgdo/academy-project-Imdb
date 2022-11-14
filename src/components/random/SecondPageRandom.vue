@@ -9,7 +9,7 @@
           min="50"
           max="250"
           value="150"
-          @click="changeValue()"
+          @mousemove="changeValue()"
         />
         <label class="label_slide">150 minutes</label>
       </div>
@@ -18,7 +18,7 @@
       <button @click="goToLastPage(true)" class="button_nextLast">
         <img
           class="button_next-img"
-          src="../../assets/images/next.png"
+          :src="require('@/assets/images/next.png')"
           alt="next"
         />
       </button>
@@ -58,12 +58,11 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .main_second-random {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  background: #f7dfc2;
 }
 .main_second-title {
   font-family: "Bodoni 72 Oldstyle";
@@ -86,9 +85,11 @@ export default defineComponent({
   border: none;
   height: 4rem;
   width: 4rem;
-}
-.button_nextLast:hover {
-  background: lightblue;
+  background: #efc592;
+  margin-right: 4rem;
+  &:hover {
+    background: #faa544;
+  }
 }
 .button_next-img {
   height: 3rem;
@@ -108,15 +109,15 @@ export default defineComponent({
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
   margin-bottom: 2rem;
-}
-.section_slide:hover {
-  opacity: 1;
-}
-.section_slide::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 25px;
-  height: 25px;
-  background: cadetblue;
+  &:hover {
+    opacity: 1;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    background: cadetblue;
+  }
 }
 .label_slide {
   font-size: 3rem;

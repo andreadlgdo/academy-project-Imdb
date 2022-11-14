@@ -33,6 +33,7 @@
 <script type="ts">
 import { defineComponent } from "vue";
 import Categories from "@/components/categories/Categories.vue";
+import FirstPage from "@/components/FilterPage.vue";
 
 export default defineComponent({
   name: "CategoriesOptions",
@@ -43,6 +44,7 @@ export default defineComponent({
       firsPage: true,
       secondPage: false,
       threePage: false,
+      isGoToMoviesByGenre: false,
       categories1: [
         {
           title: "Comedy",

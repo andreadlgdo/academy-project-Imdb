@@ -21,6 +21,9 @@
   <MainModal v-if="isGoToOtherPage">
     <FilterPage />
   </MainModal>
+  <MainModal v-if="isGoToGender">
+    <FilterPage />
+  </MainModal>
 </template>
 
 <script lang="ts">
@@ -28,7 +31,8 @@ import { defineComponent } from "vue";
 import Header from "./Header.vue";
 import FilterPage from "./FilterPage.vue";
 import CategoriesOptions from "@/components/categories/CategoriesOptions.vue";
-
+import createStore from "@/store";
+console.log(createStore.state.isGoToSeeAllMoviesByGenre);
 export default defineComponent({
   name: "FirstPage",
   components: {
@@ -39,6 +43,7 @@ export default defineComponent({
   data: function () {
     return {
       isGoToOtherPage: false,
+      isGoToGender: createStore.state.isGoToSeeAllMoviesByGenre,
     };
   },
   methods: {

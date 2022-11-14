@@ -17,7 +17,7 @@
       <button class="button_nextResults" @click="goToResultsPage()">
         <img
           class="button_next-img"
-          src="../../assets/images/next.png"
+          :src="require('@/assets/images/next.png')"
           alt="next"
         />
       </button>
@@ -73,7 +73,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .main_last-random {
   display: flex;
   flex-direction: column;
@@ -101,9 +101,12 @@ export default defineComponent({
   border: none;
   height: 4rem;
   width: 4rem;
-}
-.button_nextResults:hover {
-  background: lightblue;
+  background: #efc592;
+  margin-top: 5rem;
+  margin-right: 6rem;
+  &:hover {
+    background: #faa544;
+  }
 }
 .button_next-img {
   height: 3rem;
@@ -115,6 +118,7 @@ export default defineComponent({
   width: 3rem;
   border: none;
   border-radius: 50%;
+  font-size: 1rem;
 }
 .button_score-2 {
   background: #f7dfc2;
@@ -122,6 +126,7 @@ export default defineComponent({
   width: 4rem;
   border: none;
   border-radius: 50%;
+  font-size: 1rem;
 }
 .button_score-3 {
   background: #f7dfc2;
@@ -129,6 +134,7 @@ export default defineComponent({
   width: 5rem;
   border: none;
   border-radius: 50%;
+  font-size: 1rem;
 }
 .button_score-4 {
   background: #efc592;
@@ -136,6 +142,7 @@ export default defineComponent({
   width: 6rem;
   border: none;
   border-radius: 50%;
+  font-size: 1.5rem;
 }
 .button_score-5 {
   background: #efc592;
@@ -143,6 +150,7 @@ export default defineComponent({
   width: 7rem;
   border: none;
   border-radius: 50%;
+  font-size: 1.5rem;
 }
 .button_score-6 {
   background: #efc592;
@@ -150,6 +158,7 @@ export default defineComponent({
   width: 8rem;
   border: none;
   border-radius: 50%;
+  font-size: 1.5rem;
 }
 .button_score-7 {
   background: #f2ad9f;
@@ -157,6 +166,7 @@ export default defineComponent({
   width: 9rem;
   border: none;
   border-radius: 50%;
+  font-size: 2rem;
 }
 .button_score-8 {
   background: #f2ad9f;
@@ -164,6 +174,7 @@ export default defineComponent({
   width: 10rem;
   border: none;
   border-radius: 50%;
+  font-size: 2rem;
 }
 .button_score-9 {
   background: #faa544;
@@ -171,6 +182,7 @@ export default defineComponent({
   width: 13rem;
   border: none;
   border-radius: 50%;
+  font-size: 4rem;
 }
 .button_score-10 {
   background: #faa544;
@@ -178,5 +190,6 @@ export default defineComponent({
   width: 14rem;
   border: none;
   border-radius: 50%;
+  font-size: 4rem;
 }
 </style>
