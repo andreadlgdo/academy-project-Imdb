@@ -13,7 +13,7 @@ export default createStore({
     changeGenre(state, value) {
       state.filterByGenre = value;
     },
-    setMoviesByGenre(state, value){
+    setMoviesByGenre(state, value) {
       state.isGoToSeeAllMoviesByGenre = value;
     },
   },
@@ -24,7 +24,7 @@ export default createStore({
     changeGenre(context, value) {
       context.commit("changeGenre", value);
     },
-    setMovieByGenre(context, value){
+    setMovieByGenre(context, value) {
       context.commit("setMoviesByGenre", value);
     },
   },

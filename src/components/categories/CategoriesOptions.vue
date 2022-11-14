@@ -10,13 +10,13 @@
       </button>
     </div>
     <MainModal v-if="firsPage">
-      <FirstCategories />
+      <Categories :categories="categories1" />
     </MainModal>
     <MainModal v-if="secondPage">
-      <SecondCategories />
+      <Categories :categories="categories2" />
     </MainModal>
     <MainModal v-if="threePage">
-      <ThreeCategories />
+      <Categories :categories="categories3" />
     </MainModal>
     <div class="next">
       <button class="categories_next" @click="nextPage()">
@@ -32,19 +32,71 @@
 
 <script type="ts">
 import { defineComponent } from "vue";
-import FirstCategories from "@/components/categories/FirstCategories.vue";
-import SecondCategories from "@/components/categories/SecondCategories.vue";
-import ThreeCategories from "@/components/categories/ThreeCategories.vue";
+import Categories from "@/components/categories/Categories.vue";
 
 export default defineComponent({
   name: "CategoriesOptions",
-  components: {ThreeCategories, SecondCategories, FirstCategories },
+  components: { Categories },
   data: function () {
     return {
       numberPage: 1,
       firsPage: true,
       secondPage: false,
       threePage: false,
+      categories1: [
+        {
+          title: "Comedy",
+          image: require("@/assets/images/categories/comedy.png")
+        },
+        {
+          title: "Romantic",
+          image: require("@/assets/images/categories/romantic.png")
+        },
+        {
+          title: "Horror",
+          image: require("@/assets/images/categories/horror.png")
+        },
+        {
+          title: "Action",
+          image: require("@/assets/images/categories/action.png")
+        }
+      ],
+      categories2: [
+        {
+          title: "SCI-FI",
+          image: require("@/assets/images/categories/sci-fi.png")
+        },
+        {
+          title: "Drama",
+          image: require("@/assets/images/categories/drama.png")
+        },
+        {
+          title: "Thriller",
+          image: require("@/assets/images/categories/thriller.png")
+        },
+        {
+          title: "Animation",
+          image: require("@/assets/images/categories/animation.png")
+        }
+      ],
+      categories3: [
+        {
+          title: "Crime",
+          image: require("@/assets/images/categories/crime.png")
+        },
+        {
+          title: "Fantasy",
+          image: require("@/assets/images/categories/fantasy.png")
+        },
+        {
+          title: "Adventure",
+          image: require("@/assets/images/categories/adventure.png")
+        },
+        {
+          title: "Superhero",
+          image: require("@/assets/images/categories/superhero.png")
+        }
+      ],
     };
   },
   methods: {
