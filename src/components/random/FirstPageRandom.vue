@@ -3,18 +3,25 @@
   <main class="main_first-random">
     <h2 class="main_second-title">HOW ARE YOU?</h2>
     <section class="main_section-slider">
-      <button class="button_emotions-1" @click="selectItem(1)">Romantic</button>
-      <button class="button_emotions-2" @click="selectItem(2)">Afraid</button>
-      <button class="button_emotions-3" @click="selectItem(3)">Bored</button>
-      <button class="button_emotions-4" @click="selectItem(4)">Sad</button>
-      <button class="button_emotions-5" @click="selectItem(5)">Happy</button>
-      <button class="button_emotions-6" @click="selectItem(6)">Lazy</button>
+      <button
+        v-for="(emotions, index) in buttons"
+        :key="index"
+        class="button_emotions"
+        @click="selectItem(index)"
+      >
+        <img
+          :src="emotions.image"
+          alt="image emotion"
+          class="button_emotions-img"
+        />
+        <p class="button_emotions-title">{{ emotions.title }}</p>
+      </button>
     </section>
     <div class="main_buttons">
       <button @click="goToSecondPage()" class="button_nextSecond">
         <img
           class="button_next-img"
-          src="../../assets/images/next.png"
+          :src="require('@/assets/images/next.png')"
           alt="next"
         />
       </button>
@@ -37,6 +44,32 @@ export default defineComponent({
       itemsSelected: [false, false, false, false, false, false],
       goToNextPage: false,
       numberTrue: 0,
+      buttons: [
+        {
+          title: "Romantic",
+          image: require("@/assets/images/random/1.png"),
+        },
+        {
+          title: "Afraid",
+          image: require("@/assets/images/random/2.png"),
+        },
+        {
+          title: "Bored",
+          image: require("@/assets/images/random/3.png"),
+        },
+        {
+          title: "Sad",
+          image: require("@/assets/images/random/4.png"),
+        },
+        {
+          title: "Happy",
+          image: require("@/assets/images/random/5.png"),
+        },
+        {
+          title: "Lazy",
+          image: require("@/assets/images/random/6.png"),
+        },
+      ],
     };
   },
   components: {
@@ -45,30 +78,31 @@ export default defineComponent({
   },
   methods: {
     selectItem: function (value: number) {
-      if (this.numberTrue == 2 && this.itemsSelected[value - 1] == false) {
+      if (this.numberTrue == 2 && this.itemsSelected[value] == false) {
         alert("You can only choose two options");
       } else {
-        if (this.itemsSelected[value - 1] == true) {
-          this.itemsSelected[value - 1] = false;
+        if (this.itemsSelected[value] == true) {
+          this.itemsSelected[value] = false;
           this.numberTrue--;
-          let element = document.querySelector<HTMLElement>(
-            ".button_emotions-" + value
-          );
-          if (element != null) {
-            element.style.fontWeight = "normal";
-            element.style.opacity = "0.6";
+          let element =
+            document.querySelectorAll<HTMLElement>(".button_emotions");
+          if (element[value] != null) {
+            element[value].style.fontWeight = "normal";
+            element[value].style.opacity = "0.6";
           }
         } else {
           this.numberTrue++;
-          this.itemsSelected[value - 1] = true;
+          this.itemsSelected[value] = true;
           for (let i = 0; i < this.itemsSelected.length; i++) {
             if (this.itemsSelected[i]) {
-              let element = document.querySelector<HTMLElement>(
-                ".button_emotions-" + value
+              let element =
+                document.querySelectorAll<HTMLElement>(".button_emotions");
+              let elementImg = document.querySelectorAll<HTMLElement>(
+                ".button_emotions-img"
               );
-              if (element != null) {
-                element.style.opacity = "1";
-                element.style.fontWeight = "bold";
+              if (element[value] != null && elementImg[value] !== null) {
+                elementImg[value].style.opacity = "1";
+                element[value].style.fontWeight = "bold";
               }
             }
           }
@@ -89,12 +123,11 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .main_first-random {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  background: #f7dfc2;
 }
 .main_second-title {
   font-family: "Bodoni 72 Oldstyle";
@@ -106,70 +139,46 @@ export default defineComponent({
   flex-wrap: wrap;
   margin-bottom: 2rem;
 }
-.button_emotions-1,
-.button_emotions-2,
-.button_emotions-3,
-.button_emotions-4,
-.button_emotions-5,
-.button_emotions-6 {
-  background: lightblue;
+.button_emotions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 30px;
   height: 10rem;
   width: 10rem;
   font-size: 2rem;
   font-family: "Al Tarikh";
-  opacity: 0.6;
-}
-.button_emotions-1 {
-  background-image: url("../../assets/images/random/1.png");
-  background-size: cover;
-}
-.button_emotions-2 {
-  background-image: url("../../assets/images/random/2.png");
-  background-size: cover;
-  color: black;
-}
-.button_emotions-3 {
-  background-image: url("../../assets/images/random/3.png");
-  background-size: cover;
-  color: darkorange;
-}
-.button_emotions-4 {
-  background-image: url("../../assets/images/random/4.png");
-  background-size: cover;
-  color: black;
-}
-.button_emotions-5 {
-  background-image: url("../../assets/images/random/5.png");
-  background-size: cover;
-}
-.button_emotions-6 {
-  background-image: url("../../assets/images/random/6.png");
-  background-size: cover;
-}
-.button_emotions-1:hover,
-.button_emotions-2:hover,
-.button_emotions-3:hover,
-.button_emotions-4:hover,
-.button_emotions-5:hover,
-.button_emotions-6:hover {
-  font-weight: bold;
-  opacity: 1;
+  position: relative;
+  border: none;
+  &-img {
+    position: absolute;
+    height: 10rem;
+    width: 10rem;
+    opacity: 0.6;
+    border-radius: 30px;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &-title {
+    position: absolute;
+  }
 }
 .main_buttons {
   display: flex;
-  justify-content: right;
-  margin-right: 3rem;
-  margin-bottom: 3rem;
+  justify-content: flex-end;
+  margin-right: 6rem;
+  margin-top: 5rem;
 }
 .button_nextSecond {
   background: white;
   border: none;
   height: 4rem;
   width: 4rem;
-}
-.button_nextSecond:hover {
-  background: lightblue;
+  background: #f7dfc2;
+  &:hover {
+    background: #efc592;
+  }
 }
 .button_next-img {
   height: 3rem;

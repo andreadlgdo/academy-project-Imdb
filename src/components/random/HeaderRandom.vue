@@ -19,7 +19,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -28,6 +28,7 @@ export default defineComponent({
   border-bottom: solid black;
   padding: 1rem;
   border-width: 0.3rem;
+  background: #f7dfc2;
 }
 .header_title {
   display: flex;
@@ -44,11 +45,10 @@ export default defineComponent({
   justify-content: right;
   padding-right: 7rem;
   align-items: center;
-}
-.header_logo-img {
-  height: 10rem;
-  width: 12rem;
-  border-radius: 50%;
-  background: transparent;
+  &-img {
+    height: 10rem;
+    width: 12rem;
+    border-radius: 50%;
+  }
 }
 </style>
