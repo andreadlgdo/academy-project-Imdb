@@ -80,7 +80,6 @@ export default defineComponent({
 .categories {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-evenly;
   gap: 30px;
   .category {
     display: flex;
