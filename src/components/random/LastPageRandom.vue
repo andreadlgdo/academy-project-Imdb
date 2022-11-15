@@ -1,5 +1,5 @@
 <template>
-  <main class="main_last-random">
+  <main class="main_last-random" v-if="!goResultPage">
     <h2 class="main_last-title">ARE YOU DEMANDING?</h2>
     <section class="main_section-buttons">
       <button class="button_score-1" @click="changeColor(1)">1</button>
@@ -23,9 +23,7 @@
       </button>
     </section>
   </main>
-  <MainModal v-if="goResultPage">
-    <ResultRandomSearch />
-  </MainModal>
+  <ResultRandomSearch v-if="goResultPage" />
 </template>
 
 <script lang="ts">
@@ -62,8 +60,6 @@ export default defineComponent({
     goToResultsPage: function () {
       if (this.isClickScore) {
         this.goResultPage = true;
-        let element = document.querySelector(".main_last-random");
-        if (element !== null) element.remove();
       } else {
         this.goResultPage = false;
         alert("You need to choose an option");

@@ -1,5 +1,5 @@
 <template>
-  <main class="main_second-random">
+  <main class="main_second-random" v-if="!isGoLastPage">
     <h2 class="app_section-title">HOW MUCH TIME DO YOU HAVE?</h2>
     <section class="main_section-slider">
       <div class="main_slider">
@@ -24,9 +24,7 @@
       </button>
     </div>
   </main>
-  <MainModal v-if="isGoLastPage">
-    <LastPageRandom />
-  </MainModal>
+  <LastPageRandom v-if="isGoLastPage" />
 </template>
 
 <script lang="ts">
@@ -44,8 +42,6 @@ export default defineComponent({
   methods: {
     goToLastPage: function (value: boolean) {
       this.isGoLastPage = value;
-      let element = document.querySelector(".main_second-random");
-      if (element !== null) element.remove();
     },
     changeValue: function () {
       let element = document.querySelector<HTMLInputElement>(".section_slide");

@@ -1,6 +1,6 @@
 <template>
   <HeaderRandom />
-  <main class="main_first-random">
+  <main class="main_first-random" v-if="!goToNextPage">
     <h2 class="app_section-title">HOW ARE YOU?</h2>
     <section class="main_section-slider">
       <button
@@ -27,9 +27,7 @@
       </button>
     </div>
   </main>
-  <MainModal v-if="goToNextPage">
-    <SecondPageRandom />
-  </MainModal>
+  <SecondPageRandom v-if="goToNextPage" />
 </template>
 
 <script lang="ts">
@@ -112,8 +110,6 @@ export default defineComponent({
     goToSecondPage: function () {
       if (this.numberTrue > 0) {
         this.goToNextPage = true;
-        let element = document.querySelector(".main_first-random");
-        if (element !== null) element.remove();
       } else {
         this.goToNextPage = false;
         alert("You need to choose at least one option");
