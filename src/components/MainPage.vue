@@ -26,11 +26,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Header from "./Header.vue";
-import FilterPage from "./FilterPage.vue";
-import Categories from "@/components/categories/Categories.vue";
+import FilterPage from "./ViewMovies.vue";
+import Categories from "@/components/categories/AllCategories.vue";
 
 export default defineComponent({
-  name: "FirstPage",
+  name: "MainPage",
   components: {
     Header,
     FilterPage,

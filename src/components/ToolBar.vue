@@ -1,7 +1,7 @@
 <template>
-  <section class="section">
+  <section class="section_toolbar">
     <section class="section_filters-sort">
-      <button class="section_button" @click="goFilters(true)">
+      <button class="button_open-filters" @click="goFilters(true)">
         <img
           class="button_filters-img"
           :src="require('@/assets/images/filtrar.png')"
@@ -18,28 +18,20 @@
 import { defineComponent } from "vue";
 import ChangeView from "@/components/ChangeView.vue";
 import createStore from "@/store";
-console.log(createStore.state.filterByGenre);
+
 export default defineComponent({
-  name: "OptionsFilmsClose",
+  name: "ToolBar",
   components: { ChangeView },
-  data: function () {
-    return {
-      isOpenFilters: false,
-    };
-  },
   methods: {
     goFilters: function (value: boolean) {
-      createStore.dispatch("change", value);
-      console.log(createStore.dispatch("setFilms"));
-      let element = document.querySelector(".section");
-      if (element !== null) element.remove();
+      createStore.dispatch("change", true);
     },
   },
 });
 </script>
 
-<style scoped>
-.section {
+<style lang="scss" scoped>
+.section_toolbar {
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-top: 1rem;
@@ -50,13 +42,16 @@ export default defineComponent({
   align-items: center;
   padding-left: 2rem;
 }
-.section_button {
+.button_open-filters {
   display: flex;
   justify-content: left;
   align-items: center;
   border: none;
   background: white;
   padding-right: 1rem;
+  &:hover {
+    background: gainsboro;
+  }
 }
 .button_filters-name {
   padding-left: 1rem;
@@ -66,8 +61,5 @@ export default defineComponent({
 .button_filters-img {
   height: 2.5rem;
   width: 2.5rem;
-}
-.section_button:hover {
-  background: gainsboro;
 }
 </style>

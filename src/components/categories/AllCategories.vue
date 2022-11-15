@@ -18,7 +18,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "FirstCategories",
+  name: "AllCategories",
   data() {
     return {
       categories: [

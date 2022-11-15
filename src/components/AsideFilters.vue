@@ -1,87 +1,78 @@
 <template>
-  <section class="sectionOpen">
-    <aside class="sectionOpen_aside">
-      <div class="aside_title">
-        <h2 class="aside_sort-filters">SORT & FILTERS</h2>
-        <button class="aside_button-close" @click="closeFilters(false)">
-          <img
-            class="aside_img-close"
-            :src="require('@/assets/images/cross.png')"
-            alt="cross"
+  <aside class="aside">
+    <div class="aside_title">
+      <h2 class="aside_sort-filters">SORT & FILTERS</h2>
+      <button class="aside_button-close" @click="closeFilters(false)">
+        <img
+          class="aside_img-close"
+          :src="require('@/assets/images/cross.png')"
+          alt="cross"
+        />
+      </button>
+    </div>
+    <nav class="nav">
+      <div class="nav_item-1">
+        <button class="nav_button-1" @click="openSortBy(1)">Sort by</button>
+        <ul class="nav_sublist1" hidden>
+          <li><input type="radio" name="sort-by" checked /> No sorted</li>
+          <li><input type="radio" name="sort-by" /> By score: Low to High</li>
+          <li><input type="radio" name="sort-by" /> By score: High to Low</li>
+        </ul>
+      </div>
+      <div class="nav_item-2">
+        <button class="nav_button-2" @click="openSortBy(2)">Score</button>
+        <div class="nav_sublist2">
+          <Slider class="slider-2" v-model="range" :max="10" :min="0" />
+        </div>
+      </div>
+      <div class="nav_item-3">
+        <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
+        <div class="nav_sublist3">
+          <section class="slide_section-center">
+            <input type="range" class="input-1" value="0" max="100" min="0" />
+            <button class="input-button" disabled />
+            <input type="range" class="input-2" value="0" max="100" min="0" />
+          </section>
+        </div>
+      </div>
+      <div class="nav_item-4">
+        <button class="nav_button-4" @click="openSortBy(4)">Year</button>
+        <div class="nav_sublist4">
+          <Slider
+            class="slider-2"
+            v-model="rangeYear"
+            :max="2022"
+            :min="1980"
           />
-        </button>
+        </div>
       </div>
-      <nav class="nav">
-        <div class="nav_item-1">
-          <button class="nav_button-1" @click="openSortBy(1)">Sort by</button>
-          <ul class="nav_sublist1" hidden>
-            <li><input type="radio" name="sort-by" checked /> No sorted</li>
-            <li><input type="radio" name="sort-by" /> By score: Low to High</li>
-            <li><input type="radio" name="sort-by" /> By score: High to Low</li>
-          </ul>
+      <div class="nav_item-5">
+        <button class="nav_button-5" @click="openSortBy(5)">Time</button>
+        <div class="nav_sublist5">
+          <Slider
+            class="slider-2"
+            v-model="rangeTime"
+            :max="300"
+            :min="50"
+            :step="5"
+          />
         </div>
-        <div class="nav_item-2">
-          <button class="nav_button-2" @click="openSortBy(2)">Score</button>
-          <div class="nav_sublist2">
-            <Slider class="slider-2" v-model="range" :max="10" :min="0" />
-          </div>
-        </div>
-        <div class="nav_item-3">
-          <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
-          <div class="nav_sublist3">
-            <section class="slide_section-center">
-              <input type="range" class="input-1" value="0" max="100" min="0" />
-              <button class="input-button" disabled />
-              <input type="range" class="input-2" value="0" max="100" min="0" />
-            </section>
-          </div>
-        </div>
-        <div class="nav_item-4">
-          <button class="nav_button-4" @click="openSortBy(4)">Year</button>
-          <div class="nav_sublist4">
-            <Slider
-              class="slider-2"
-              v-model="rangeYear"
-              :max="2022"
-              :min="1980"
-            />
-          </div>
-        </div>
-        <div class="nav_item-5">
-          <button class="nav_button-5" @click="openSortBy(5)">Time</button>
-          <div class="nav_sublist5">
-            <Slider
-              class="slider-2"
-              v-model="rangeTime"
-              :max="300"
-              :min="50"
-              :step="5"
-            />
-          </div>
-        </div>
-      </nav>
-      <div class="aside_button-aplyFilters">
-        <button class="button_view-results">View X Results</button>
       </div>
-    </aside>
-    <section class="sectionOpen_view">
-      <ChangeView />
-      <div>
-        <h2>Movies</h2>
-      </div>
-    </section>
-  </section>
+    </nav>
+    <div class="aside_button-applyFilters">
+      <button class="button_view-results">View X Results</button>
+    </div>
+  </aside>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ChangeView from "./ChangeView.vue";
 import createStore from "@/store";
 import Slider from "@vueform/slider";
 
 export default defineComponent({
-  name: "OptionsFilmsOpen",
-  components: { ChangeView, Slider },
+  name: "AsideFilters",
+  components: { Slider },
   data: function () {
     return {
       itemsOpened: [false, false, false, false, false],
@@ -166,16 +157,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.sectionOpen {
-  display: grid;
-  grid-template-columns: 35% 65%;
+.aside {
+  position: absolute;
+  top: 0;
+  background: white;
   height: 100%;
-}
-.sectionOpen_view {
-  display: flex;
-  flex-direction: column;
-}
-.sectionOpen_aside {
   display: grid;
   grid-template-rows: 10% 75% 15%;
   border-right: solid lightgrey;
