@@ -17,10 +17,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ChangeView from "@/components/ChangeView.vue";
-import createStore from "@/store";
-console.log(createStore.state.filterByGenre);
+
 export default defineComponent({
-  name: "OptionsFilmsClose",
+  name: "ToolbarComponent",
   components: { ChangeView },
   data: function () {
     return {
@@ -29,9 +28,7 @@ export default defineComponent({
   },
   methods: {
     goFilters: function (value: boolean) {
-      createStore.dispatch("change", value);
-      let element = document.querySelector(".section");
-      if (element !== null) element.remove();
+      this.$store.dispatch("change", value);
     },
   },
 });

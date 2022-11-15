@@ -2,7 +2,10 @@
   <ul class="categories">
     <li v-for="(category, index) in categories" :key="index" class="category">
       <img class="category-image" :src="category.image" alt="category image" />
-      <button class="category-title">
+      <button
+        class="category-title"
+        @click="$emit('change-page', category.title)"
+      >
         {{ category.title }}
       </button>
     </li>
@@ -15,7 +18,60 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "FirstCategories",
-  props: ['categories'],
+  data() {
+    return {
+      categories: [
+        {
+          title: "Comedy",
+          image: require("@/assets/images/categories/comedy.png"),
+        },
+        {
+          title: "Romantic",
+          image: require("@/assets/images/categories/romantic.png"),
+        },
+        {
+          title: "Horror",
+          image: require("@/assets/images/categories/horror.png"),
+        },
+        {
+          title: "Action",
+          image: require("@/assets/images/categories/action.png"),
+        },
+        {
+          title: "SCI-FI",
+          image: require("@/assets/images/categories/sci-fi.png"),
+        },
+        {
+          title: "Drama",
+          image: require("@/assets/images/categories/drama.png"),
+        },
+        {
+          title: "Thriller",
+          image: require("@/assets/images/categories/thriller.png"),
+        },
+        {
+          title: "Animation",
+          image: require("@/assets/images/categories/animation.png"),
+        },
+        {
+          title: "Crime",
+          image: require("@/assets/images/categories/crime.png"),
+        },
+        {
+          title: "Fantasy",
+          image: require("@/assets/images/categories/fantasy.png"),
+        },
+        {
+          title: "Adventure",
+          image: require("@/assets/images/categories/adventure.png"),
+        },
+        {
+          title: "Superhero",
+          image: require("@/assets/images/categories/superhero.png"),
+        },
+      ]
+    }
+  }
 });
 </script>
 
@@ -23,7 +79,6 @@ export default defineComponent({
 .categories {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-evenly;
   gap: 30px;
   .category {
     display: flex;

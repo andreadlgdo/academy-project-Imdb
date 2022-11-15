@@ -1,27 +1,36 @@
 <template>
-  <MainModal v-if="!getStateFilters">
-    <OptionsFilms />
-  </MainModal>
-  <MainModal v-if="getStateFilters">
-    <OptionsFilmsOpen />
-  </MainModal>
+  <div class="main">
+    <Toolbar />
+    <div style="display: flex">
+      <p>Results 1</p>
+      <p>Results 1</p>
+      <p>Results 1</p>
+      <p>Results 1</p>
+      <p>Results 1</p>
+      <p>Results 1</p>
+    </div>
+    <Facets v-if="isOpen" />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import OptionsFilms from "@/components/OptionsFilmsClose.vue";
-import OptionsFilmsOpen from "@/components/OptionsFilmsOpen.vue";
-import createStore from "@/store";
+import Toolbar from "@/components/toolbar.vue";
+import Facets from "@/components/facets.vue";
 
 export default defineComponent({
   name: "FirstPage",
-  components: { OptionsFilms, OptionsFilmsOpen },
+  components: { Toolbar, Facets },
   computed: {
-    getStateFilters() {
-      return createStore.state.isOpen;
+    isOpen() {
+      return this.$store.state.isOpen;
     },
   },
 });
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.main {
+  position: relative;
+}
+</style>

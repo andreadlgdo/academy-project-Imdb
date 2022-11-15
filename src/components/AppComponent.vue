@@ -1,5 +1,6 @@
 <template>
-  <div class="mainPage">
+  <div class="mainPage" v-if="open.length === 0">
+    {{ open.length }}
     <div class="main_second-title">
       <p class="main_title-company">IMDb</p>
       <h1 class="main_title-movies">
@@ -9,23 +10,21 @@
     </div>
     <div class="buttons">
       <div class="button_start-exploring">
-        <button class="button-emotions" @click="search(true)">
+        <button class="button-emotions" @click="search('normal')">
           Start exploring
         </button>
       </div>
       <div class="button_random-search">
-        <button class="button-emotions" @click="searchRandom(true)">
+        <button class="button-emotions" @click="search('random')">
           Random search
         </button>
       </div>
     </div>
   </div>
-  <MainModal v-if="isOpen">
-    <FirstPage />
-  </MainModal>
-  <MainModal v-if="isOpenRandom">
-    <FirstPageRandom />
-  </MainModal>
+  <div>
+    <FirstPage v-if="open === 'normal'" />
+    <FirstPageRandom v-else />
+  </div>
 </template>
 
 <script lang="ts">
@@ -41,20 +40,12 @@ export default defineComponent({
   },
   data: function () {
     return {
-      isOpen: false,
-      isOpenRandom: false,
+      open: "",
     };
   },
   methods: {
-    search: function (value: boolean) {
-      this.isOpen = value;
-      let element = document.querySelector(".mainPage");
-      if (element !== null) element.remove();
-    },
-    searchRandom: function (value: boolean) {
-      this.isOpenRandom = value;
-      let element = document.querySelector(".mainPage");
-      if (element !== null) element.remove();
+    search: function (value: string) {
+      this.open = value;
     },
   },
 });

@@ -12,12 +12,6 @@
     <MainModal v-if="firsPage">
       <Categories :categories="categories1" />
     </MainModal>
-    <MainModal v-if="secondPage">
-      <Categories :categories="categories2" />
-    </MainModal>
-    <MainModal v-if="threePage">
-      <Categories :categories="categories3" />
-    </MainModal>
     <div class="next">
       <button class="categories_next" @click="nextPage()">
         <img
@@ -33,7 +27,6 @@
 <script type="ts">
 import { defineComponent } from "vue";
 import Categories from "@/components/categories/Categories.vue";
-import FirstPage from "@/components/FilterPage.vue";
 
 export default defineComponent({
   name: "CategoriesOptions",
