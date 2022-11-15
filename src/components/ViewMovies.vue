@@ -5,7 +5,9 @@
       <section class="main_movies">
         <h1>Hola</h1>
       </section>
-      <AsideFilters v-if="getOpenFilters" />
+      <transition name="slide-fade">
+        <AsideFilters v-if="getOpenFilters" />
+      </transition>
     </main>
   </div>
 </template>
@@ -39,5 +41,27 @@ export default defineComponent({
 .main_movies {
   display: flex;
   flex-direction: column;
+}
+.slide-fade-enter-active {
+  animation: bounce-in 0.5s;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 </style>

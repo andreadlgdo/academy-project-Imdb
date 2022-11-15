@@ -1,25 +1,27 @@
 <template>
-  <main class="main_app" v-if="typeOfSearch.length === 0">
-    <section class="app_section-title">
-      <p class="main_title-company">IMDb</p>
-      <h1 class="main_title-movies">
-        The world <br />
-        of movies
-      </h1>
-    </section>
-    <section class="app_section-buttons">
-      <div class="button_start-exploring">
-        <button class="button-search" @click="setSearchType('normal')">
-          Start exploring
-        </button>
-      </div>
-      <div class="button_random-search">
-        <button class="button-search" @click="setSearchType('random')">
-          Random search
-        </button>
-      </div>
-    </section>
-  </main>
+  <transition name="init">
+    <main class="main_app" v-if="typeOfSearch.length === 0">
+      <section class="app_section-title">
+        <p class="main_title-company">IMDb</p>
+        <h1 class="main_title-movies">
+          The world <br />
+          of movies
+        </h1>
+      </section>
+      <section class="app_section-buttons">
+        <div class="button_start-exploring">
+          <button class="button-search" @click="setSearchType('normal')">
+            Start exploring
+          </button>
+        </div>
+        <div class="button_random-search">
+          <button class="button-search" @click="setSearchType('random')">
+            Random search
+          </button>
+        </div>
+      </section>
+    </main>
+  </transition>
   <FirstPage v-if="typeOfSearch === 'normal'" />
   <FirstPageRandom v-if="typeOfSearch === 'random'" />
 </template>
@@ -114,5 +116,16 @@ body {
   &:hover {
     background: #faa544;
   }
+}
+.init-enter-active {
+  transition: all 0.3s ease;
+}
+.init-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.init-enter, .init-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
