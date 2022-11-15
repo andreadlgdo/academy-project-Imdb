@@ -30,6 +30,7 @@ export default defineComponent({
   methods: {
     goFilters: function (value: boolean) {
       createStore.dispatch("change", value);
+      console.log(createStore.dispatch("setFilms"));
       let element = document.querySelector(".section");
       if (element !== null) element.remove();
     },

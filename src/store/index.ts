@@ -5,6 +5,7 @@ export default createStore({
     isOpen: false,
     filterByGenre: "",
     isGoToSeeAllMoviesByGenre: false,
+    films: [] as any[],
   },
   mutations: {
     change(state, value) {
@@ -15,6 +16,9 @@ export default createStore({
     },
     setMoviesByGenre(state, value) {
       state.isGoToSeeAllMoviesByGenre = value;
+    },
+    setFilms(state, value) {
+      state.films = value;
     },
   },
   actions: {

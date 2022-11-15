@@ -28,23 +28,27 @@
       </button>
     </div>
   </section>
+  <MainModal v-if="isGoToMoviesByGenre">
+    <OptionsFilmsClose />
+  </MainModal>
 </template>
 
 <script type="ts">
 import { defineComponent } from "vue";
 import Categories from "@/components/categories/Categories.vue";
-import FirstPage from "@/components/FilterPage.vue";
+import createStore from "@/store";
+import OptionsFilmsClose from "@/components/OptionsFilmsClose.vue";
 
 export default defineComponent({
   name: "CategoriesOptions",
-  components: { Categories },
+  components: {OptionsFilmsClose, Categories },
   data: function () {
     return {
       numberPage: 1,
       firsPage: true,
       secondPage: false,
       threePage: false,
-      isGoToMoviesByGenre: false,
+      isGoToMoviesByGenre:  false,
       categories1: [
         {
           title: "Comedy",

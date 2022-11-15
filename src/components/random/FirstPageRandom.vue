@@ -1,7 +1,7 @@
 <template>
   <HeaderRandom />
   <main class="main_first-random">
-    <h2 class="main_second-title">HOW ARE YOU?</h2>
+    <h2 class="app_section-title">HOW ARE YOU?</h2>
     <section class="main_section-slider">
       <button
         v-for="(emotions, index) in buttons"
@@ -129,7 +129,7 @@ export default defineComponent({
   flex-direction: column;
   flex-wrap: wrap;
 }
-.main_second-title {
+.app_section-title {
   font-family: "Bodoni 72 Oldstyle";
   font-size: 7rem;
 }

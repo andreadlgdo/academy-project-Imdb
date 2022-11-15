@@ -28,7 +28,13 @@
         </div>
         <div class="nav_item-3">
           <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
-          <ul class="nav_sublist3"></ul>
+          <div class="nav_sublist3">
+            <section class="slide_section-center">
+              <input type="range" class="input-1" value="0" max="100" min="0" />
+              <button class="input-button" disabled />
+              <input type="range" class="input-2" value="0" max="100" min="0" />
+            </section>
+          </div>
         </div>
         <div class="nav_item-4">
           <button class="nav_button-4" @click="openSortBy(4)">Year</button>
@@ -246,6 +252,29 @@ export default defineComponent({
 }
 .slider-2 {
   width: 80%;
+}
+.slide_section-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input-1 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 15rem;
+}
+.input-2 {
+  width: 15rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  transform: scaleX(-1);
+}
+.input-button {
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
 }
 </style>
 <style src="@vueform/slider/themes/default.css"></style>

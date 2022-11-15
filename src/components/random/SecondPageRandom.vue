@@ -1,6 +1,6 @@
 <template>
   <main class="main_second-random">
-    <h2 class="main_second-title">HOW MUCH TIME DO YOU HAVE?</h2>
+    <h2 class="app_section-title">HOW MUCH TIME DO YOU HAVE?</h2>
     <section class="main_section-slider">
       <div class="main_slider">
         <input
@@ -64,7 +64,7 @@ export default defineComponent({
   flex-direction: column;
   flex-wrap: wrap;
 }
-.main_second-title {
+.app_section-title {
   font-family: "Bodoni 72 Oldstyle";
   font-size: 6rem;
 }
