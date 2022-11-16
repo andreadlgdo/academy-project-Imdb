@@ -27,7 +27,7 @@ export default defineComponent({
           image: require("@/assets/images/categories/comedy.png"),
         },
         {
-          title: "Romantic",
+          title: "Romance",
           image: require("@/assets/images/categories/romantic.png"),
         },
         {

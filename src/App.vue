@@ -30,6 +30,7 @@
 import { defineComponent } from "vue";
 import FirstPage from "@/components/MainPage.vue";
 import FirstPageRandom from "@/components/random/FirstPageRandom.vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "App",
@@ -45,6 +46,9 @@ export default defineComponent({
   methods: {
     setSearchType: function (value: string) {
       this.typeOfSearch = value;
+      if (value === "normal") {
+        createStore.dispatch("setFilmsNew");
+      }
     },
   },
 });

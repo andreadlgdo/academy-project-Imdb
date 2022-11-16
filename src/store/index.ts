@@ -1,5 +1,9 @@
 import { createStore } from "vuex";
-import { requestFilms } from "../js/index";
+import {
+  requestAllFilms,
+  requestFilmsByGenre,
+  requestLatestFilms,
+} from "../js/index";
 
 export default createStore({
   state: {
@@ -7,7 +11,9 @@ export default createStore({
     filterByGenre: "",
     isGoToSeeAllMoviesByGenre: false,
     changeView: false,
-    films: [] as any[],
+    filmsByGenre: [] as any[],
+    filmsNew: [] as any[],
+    allFilms: [] as any[],
   },
   mutations: {
     change(state, value) {
@@ -20,7 +26,13 @@ export default createStore({
       state.isGoToSeeAllMoviesByGenre = value;
     },
     setFilms(state, value) {
-      state.films = value;
+      state.filmsByGenre = value;
+    },
+    setAllFilms(state, value) {
+      state.allFilms = value;
+    },
+    setFilmsNew(state, value) {
+      state.filmsNew = value;
     },
     setView(state, value) {
       state.changeView = value;
@@ -40,8 +52,16 @@ export default createStore({
       context.commit("setView", value);
     },
     async setMovieFilter(context, value) {
-      const response = await requestFilms(value);
+      const response = await requestFilmsByGenre(value);
       context.commit("setFilms", response);
+    },
+    async setFilmsNew(context) {
+      const response = await requestLatestFilms();
+      context.commit("setFilmsNew", response);
+    },
+    async setAllFilms(context) {
+      const response = await requestAllFilms();
+      context.commit("setAllFilms", response);
     },
   },
 });

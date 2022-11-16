@@ -3,7 +3,10 @@
     <ToolBar />
     <main class="main_view-movies">
       <div class="main_all">
-        <section class="main_movies">
+        <section
+          :class="{ 'main_movies-little': getIsToChangeView }"
+          class="main_movies"
+        >
           <div
             class="main_movie"
             v-for="(movie, index) in getMovies"
@@ -11,6 +14,11 @@
           >
             <h2>{{ movie.primaryTitle }}</h2>
             <p>Score : {{ movie.averageRating }}</p>
+            <ul>
+              <li v-for="(genre, index) in movie.genres" :key="index">
+                {{ genre }}
+              </li>
+            </ul>
           </div>
         </section>
       </div>
@@ -34,13 +42,16 @@ export default defineComponent({
     getOpenFilters() {
       return createStore.state.isOpen;
     },
-    getMovies() {
-      return createStore.state.films;
+    getIsToChangeView() {
+      console.log(createStore.state.changeView);
+      return createStore.state.changeView;
     },
-  },
-  methods: {
-    test: function (value: boolean) {
-      console.log(value);
+    getMovies() {
+      if (createStore.state.filmsByGenre.length === 0) {
+        return createStore.state.allFilms;
+      } else {
+        return createStore.state.filmsByGenre;
+      }
     },
   },
 });
@@ -50,6 +61,9 @@ export default defineComponent({
 .main {
   position: relative;
   height: 100%;
+}
+.main_all {
+  overflow-y: scroll;
 }
 .main_view-movies {
   display: flex;

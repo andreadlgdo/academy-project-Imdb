@@ -4,13 +4,25 @@
     <section class="main_section-news">
       <div class="section_news">
         <h2 class="section_title">News</h2>
-        <a class="section_view-all" @click="goViewAllMovies(true)"
+        <a class="section_view-all" @click="goViewAllMovies(true, '')"
           >View all
           <img
             class="section_icon-arrow"
             :src="require('@/assets/images/arrow.png')"
             alt="arrow"
         /></a>
+      </div>
+      <div class="section_news-films">
+        <section class="section_news-movies">
+          <div
+            class="main_new-movie"
+            v-for="(movie, index) in getNewsMovies"
+            :key="index"
+          >
+            <h2>{{ movie.primaryTitle }}</h2>
+            <p>Score : {{ movie.averageRating }}</p>
+          </div>
+        </section>
       </div>
     </section>
     <section class="main_section-categories">
@@ -42,10 +54,16 @@ export default defineComponent({
       isGoToSeeAllMovies: false,
     };
   },
+  computed: {
+    getNewsMovies() {
+      return createStore.state.filmsNew;
+    },
+  },
   methods: {
     goViewAllMovies: function (value: boolean, genre: string) {
       this.isGoToSeeAllMovies = value;
-      createStore.dispatch("setMovieFilter", genre);
+      if (genre === "") createStore.dispatch("setAllFilms");
+      else createStore.dispatch("setMovieFilter", genre);
     },
   },
 });
@@ -56,6 +74,9 @@ export default defineComponent({
   margin-left: 3rem;
   margin-right: 3rem;
   margin-top: 1rem;
+}
+.main_section-categories {
+  padding-bottom: 5rem;
 }
 .sliding-panel {
   width: 100%;
@@ -85,5 +106,19 @@ export default defineComponent({
 }
 .section_icon-arrow {
   margin-left: 1rem;
+}
+.section_news-films {
+  width: 100%;
+  overflow-x: scroll;
+}
+.section_news-movies {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 30px;
+}
+.main_new-movie {
+  display: flex;
+  flex-direction: column;
 }
 </style>

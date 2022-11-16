@@ -4,7 +4,7 @@
     <button class="button_view">
       <img
         class="button_view-img"
-        @click="$emit('change-view', false)"
+        @click="changeView(false)"
         :src="require('@/assets/images/squares.png')"
         alt="squares"
       />
@@ -12,7 +12,7 @@
     <button class="button_view">
       <img
         class="button_view-img"
-        @click="$emit('change-view', true)"
+        @click="changeView(true)"
         :src="require('@/assets/images/4-squares.png')"
         alt="4 squares"
       />
@@ -22,9 +22,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "ChangeView",
+  methods: {
+    changeView: function (value: boolean) {
+      createStore.dispatch("setView", value);
+      console.log(createStore.state.changeView);
+    },
+  },
 });
 </script>
 
