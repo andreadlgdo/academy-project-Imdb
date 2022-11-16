@@ -1,10 +1,12 @@
 import { createStore } from "vuex";
+import { requestFilms } from "../js/index";
 
 export default createStore({
   state: {
     isOpen: false,
     filterByGenre: "",
     isGoToSeeAllMoviesByGenre: false,
+    changeView: false,
     films: [] as any[],
   },
   mutations: {
@@ -20,6 +22,9 @@ export default createStore({
     setFilms(state, value) {
       state.films = value;
     },
+    setView(state, value) {
+      state.changeView = value;
+    },
   },
   actions: {
     change(context, value) {
@@ -30,6 +35,13 @@ export default createStore({
     },
     setMovieByGenre(context, value) {
       context.commit("setMoviesByGenre", value);
+    },
+    setView(context, value) {
+      context.commit("setView", value);
+    },
+    async setMovieFilter(context, value) {
+      const response = await requestFilms(value);
+      context.commit("setFilms", response);
     },
   },
 });

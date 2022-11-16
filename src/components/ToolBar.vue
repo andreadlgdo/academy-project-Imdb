@@ -24,7 +24,7 @@ export default defineComponent({
   components: { ChangeView },
   methods: {
     goFilters: function (value: boolean) {
-      createStore.dispatch("change", true);
+      createStore.dispatch("change", value);
     },
   },
 });

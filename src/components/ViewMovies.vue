@@ -2,9 +2,18 @@
   <div class="main">
     <ToolBar />
     <main class="main_view-movies">
-      <section class="main_movies">
-        <h1>Hola</h1>
-      </section>
+      <div class="main_all">
+        <section class="main_movies">
+          <div
+            class="main_movie"
+            v-for="(movie, index) in getMovies"
+            :key="index"
+          >
+            <h2>{{ movie.primaryTitle }}</h2>
+            <p>Score : {{ movie.averageRating }}</p>
+          </div>
+        </section>
+      </div>
       <transition name="slide-fade">
         <AsideFilters v-if="getOpenFilters" />
       </transition>
@@ -25,6 +34,14 @@ export default defineComponent({
     getOpenFilters() {
       return createStore.state.isOpen;
     },
+    getMovies() {
+      return createStore.state.films;
+    },
+  },
+  methods: {
+    test: function (value: boolean) {
+      console.log(value);
+    },
   },
 });
 </script>
@@ -36,11 +53,24 @@ export default defineComponent({
 }
 .main_view-movies {
   display: flex;
+  flex-direction: column;
   height: 100%;
 }
 .main_movies {
+  display: grid;
+  margin: 2rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.main_movies_little {
+  display: grid;
+  margin: 2rem;
+  grid-template-columns: 1fr 1fr;
+}
+.main_movie {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .slide-fade-enter-active {
   animation: bounce-in 0.5s;

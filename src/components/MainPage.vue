@@ -16,7 +16,7 @@
     <section class="main_section-categories">
       <h2 class="section_title">Categories</h2>
       <div class="sliding-panel">
-        <Categories @change-page="goViewAllMovies(true)" />
+        <Categories @change-page="(genre) => goViewAllMovies(true, genre)" />
       </div>
     </section>
   </main>
@@ -28,6 +28,7 @@ import { defineComponent } from "vue";
 import Header from "./Header.vue";
 import FilterPage from "./ViewMovies.vue";
 import Categories from "@/components/categories/AllCategories.vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "MainPage",
@@ -42,8 +43,9 @@ export default defineComponent({
     };
   },
   methods: {
-    goViewAllMovies: function (value: boolean) {
+    goViewAllMovies: function (value: boolean, genre: string) {
       this.isGoToSeeAllMovies = value;
+      createStore.dispatch("setMovieFilter", genre);
     },
   },
 });
