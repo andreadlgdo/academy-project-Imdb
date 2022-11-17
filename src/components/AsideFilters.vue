@@ -29,6 +29,7 @@
         <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
         <div class="nav_sublist3">
           <section class="slide_section-center">
+            <round-slider v-model="range" />
             <input type="range" class="input-1" value="0" max="100" min="0" />
             <button class="input-button" disabled />
             <input type="range" class="input-2" value="0" max="100" min="0" />
@@ -69,10 +70,11 @@
 import { defineComponent } from "vue";
 import createStore from "@/store";
 import Slider from "@vueform/slider";
+import RoundSlider from "vue-round-slider/src/round-slider.vue";
 
 export default defineComponent({
   name: "AsideFilters",
-  components: { Slider },
+  components: { Slider, RoundSlider },
   data: function () {
     return {
       itemsOpened: [false, false, false, false, false],

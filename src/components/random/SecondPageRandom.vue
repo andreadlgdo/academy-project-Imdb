@@ -30,6 +30,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import LastPageRandom from "@/components/random/LastPageRandom.vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "SecondPageRandom",
@@ -37,17 +38,21 @@ export default defineComponent({
   data: function () {
     return {
       isGoLastPage: false,
+      minutesFinal: "150",
     };
   },
   methods: {
     goToLastPage: function (value: boolean) {
       this.isGoLastPage = value;
+      createStore.dispatch("setRandomFilters", "maxMinutes");
+      createStore.dispatch("setRandomParams", this.minutesFinal);
     },
     changeValue: function () {
       let element = document.querySelector<HTMLInputElement>(".section_slide");
       let label = document.querySelector(".label_slide");
       if (element != null && label != null) {
-        label.textContent = element.value + " minutes";
+        this.minutesFinal = element.value;
+        label.textContent = this.minutesFinal + " minutes";
       }
     },
   },

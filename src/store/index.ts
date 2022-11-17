@@ -3,6 +3,7 @@ import {
   requestAllFilms,
   requestFilmsByGenre,
   requestImages,
+  requestFilterFilms,
   requestLatestFilms,
 } from "../js/index";
 
@@ -16,6 +17,9 @@ export default createStore({
     filmsNew: [] as any[],
     allFilms: [] as any[],
     images: [] as any[],
+    paramsOfSearchRandom: [] as any[],
+    filtersOfSearchRandom: [] as any[],
+    randomFilms: [] as any[],
   },
   mutations: {
     change(state, value) {
@@ -42,6 +46,15 @@ export default createStore({
     setImages(state, value) {
       state.images = value;
     },
+    setRandomFilms(state, value) {
+      state.randomFilms = value;
+    },
+    setRandomParams(state: any, value: string) {
+      state.paramsOfSearchRandom[state.paramsOfSearchRandom.length] = value;
+    },
+    setRandomFilters(state: any, value: string) {
+      state.filtersOfSearchRandom[state.filtersOfSearchRandom.length] = value;
+    },
   },
   actions: {
     change(context, value) {
@@ -55,6 +68,12 @@ export default createStore({
     },
     setView(context, value) {
       context.commit("setView", value);
+    },
+    setRandomParams(context: any, value: string) {
+      context.commit("setRandomParams", value);
+    },
+    setRandomFilters(context: any, value: string) {
+      context.commit("setRandomFilters", value);
     },
     async setMovieFilter(context, value) {
       const response = await requestFilmsByGenre(value);
@@ -79,6 +98,14 @@ export default createStore({
         allImages[i] = image;
       }
       context.commit("setImages", allImages);
+    },
+    async searchRandom(context) {
+      const response = await requestFilterFilms(
+        context.state.paramsOfSearchRandom,
+        context.state.filtersOfSearchRandom
+      );
+      await context.dispatch("findImages", response);
+      context.commit("setRandomFilms", response);
     },
   },
 });

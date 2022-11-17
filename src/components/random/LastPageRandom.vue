@@ -29,6 +29,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ResultRandomSearch from "@/components/random/ResultRandomSearch.vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "LastPageRandom",
@@ -60,6 +61,9 @@ export default defineComponent({
     goToResultsPage: function () {
       if (this.isClickScore) {
         this.goResultPage = true;
+        createStore.dispatch("setRandomParams", this.numberBottonClick);
+        createStore.dispatch("setRandomFilters", "minScore");
+        createStore.dispatch("searchRandom");
       } else {
         this.goResultPage = false;
         alert("You need to choose an option");

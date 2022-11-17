@@ -28,3 +28,47 @@ export async function requestImages(title: string) {
   const results = await data.json();
   return results.Poster;
 }
+export async function requestFilterFilms(params: any[], filters: any[]) {
+  if (params.length === 3) {
+    const data = await fetch(
+      "http://localhost:8080/search/?type=movie&" +
+        filters[0] +
+        "=" +
+        params[0] +
+        "&" +
+        filters[1] +
+        "=" +
+        params[1] +
+        "&" +
+        filters[2] +
+        "=6"
+    );
+    const results = await data.json();
+    results.hits.splice(8, results.hits.length);
+    console.log(results.hits);
+    return results.hits;
+  } else {
+    const data = await fetch(
+      "http://localhost:8080/search/?type=movie&" +
+        filters[0] +
+        "=" +
+        params[0] +
+        "&" +
+        filters[1] +
+        "=" +
+        params[1] +
+        "&" +
+        filters[2] +
+        "=" +
+        params[2] +
+        "&" +
+        filters[3] +
+        "=" +
+        params[3]
+    );
+    const results = await data.json();
+    results.hits.splice(8, results.hits.length);
+    console.log(results.hits);
+    return results.hits;
+  }
+}

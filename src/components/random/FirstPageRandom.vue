@@ -34,6 +34,7 @@
 import { defineComponent } from "vue";
 import HeaderRandom from "./HeaderRandom.vue";
 import SecondPageRandom from "./SecondPageRandom.vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "FirstPageRandom",
@@ -107,9 +108,30 @@ export default defineComponent({
         }
       }
     },
+    sendEmotions: function () {
+      const emotions = [
+        "romance",
+        "horror",
+        "drama",
+        "crime",
+        "comedy",
+        "action",
+      ];
+      for (let i = 0; i < this.itemsSelected.length; i++) {
+        if (this.itemsSelected[i]) {
+          let element =
+            document.querySelectorAll<HTMLElement>(".button_emotions");
+          if (element !== null) {
+            createStore.dispatch("setRandomParams", emotions[i]);
+            createStore.dispatch("setRandomFilters", "genres");
+          }
+        }
+      }
+    },
     goToSecondPage: function () {
       if (this.numberTrue > 0) {
         this.goToNextPage = true;
+        this.sendEmotions();
       } else {
         this.goToNextPage = false;
         alert("You need to choose at least one option");
