@@ -13,14 +13,26 @@
         /></a>
       </div>
       <div class="section_news-films">
-        <section class="section_news-movies">
-          <div
-            class="main_new-movie"
-            v-for="(movie, index) in getNewsMovies"
-            :key="index"
-          >
-            <h2>{{ movie.primaryTitle }}</h2>
-            <p>Score : {{ movie.averageRating }}</p>
+        <section class="section">
+          <div class="section_news-info">
+            <section class="movie_info">
+              <section
+                class="movie_all-info"
+                v-for="(movie, index) in getNewsMovies"
+                :key="index"
+              >
+                <img
+                  v-if="getImages[index] !== 'button'"
+                  class="image-img"
+                  :src="getImages[index]"
+                />
+                <button
+                  v-if="getImages[index] === 'button'"
+                  class="image-button"
+                ></button>
+                <p class="title_movie">{{ movie.primaryTitle }}</p>
+              </section>
+            </section>
           </div>
         </section>
       </div>
@@ -57,6 +69,15 @@ export default defineComponent({
   computed: {
     getNewsMovies() {
       return createStore.state.filmsNew;
+    },
+    getImages() {
+      createStore.state.images.forEach((e, index) => {
+        if (e === "N/A" || e === undefined) {
+          createStore.state.images[index] = "button";
+        }
+      });
+      console.log(createStore.state.images);
+      return createStore.state.images;
     },
   },
   methods: {
@@ -111,14 +132,41 @@ export default defineComponent({
   width: 100%;
   overflow-x: scroll;
 }
-.section_news-movies {
+.section {
   display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  gap: 30px;
 }
-.main_new-movie {
+.section_news-info {
   display: flex;
   flex-direction: column;
+}
+.movie_info {
+  display: flex;
+  gap: 2rem;
+}
+.image-img,
+.image-button {
+  height: 13rem;
+  width: 8rem;
+  border-radius: 30px;
+  border: none;
+  opacity: 0.6;
+  &:hover {
+    opacity: 1;
+  }
+}
+.image-button {
+  background-image: url("@/assets/images/NotFound1.png");
+  background-size: cover;
+  &:hover {
+    opacity: 1;
+  }
+}
+.title_movie {
+  font-weight: bold;
+}
+.movie_all-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

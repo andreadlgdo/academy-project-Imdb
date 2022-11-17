@@ -4,7 +4,7 @@
     <main class="main_view-movies">
       <div class="main_all">
         <section
-          :class="{ 'main_movies-little': getIsToChangeView }"
+          :class="{ 'main_movies-little': getChangeView }"
           class="main_movies"
         >
           <div
@@ -13,6 +13,15 @@
             :key="index"
           >
             <h2>{{ movie.primaryTitle }}</h2>
+            <img
+              v-if="getImages[index] !== 'button'"
+              class="image-img"
+              :src="getImages[index]"
+            />
+            <button
+              v-if="getImages[index] === 'button'"
+              class="image-button"
+            ></button>
             <p>Score : {{ movie.averageRating }}</p>
             <ul>
               <li v-for="(genre, index) in movie.genres" :key="index">
@@ -42,9 +51,13 @@ export default defineComponent({
     getOpenFilters() {
       return createStore.state.isOpen;
     },
-    getIsToChangeView() {
-      console.log(createStore.state.changeView);
-      return createStore.state.changeView;
+    getImages() {
+      createStore.state.images.forEach((e, index) => {
+        if (e === "N/A" || e === undefined) {
+          createStore.state.images[index] = "button";
+        }
+      });
+      return createStore.state.images;
     },
     getMovies() {
       if (createStore.state.filmsByGenre.length === 0) {
@@ -52,6 +65,10 @@ export default defineComponent({
       } else {
         return createStore.state.filmsByGenre;
       }
+    },
+    getChangeView() {
+      console.log(createStore.state.changeView);
+      return createStore.state.changeView;
     },
   },
 });
@@ -75,7 +92,7 @@ export default defineComponent({
   margin: 2rem;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
-.main_movies_little {
+.main_movies-little {
   display: grid;
   margin: 2rem;
   grid-template-columns: 1fr 1fr;
@@ -85,6 +102,9 @@ export default defineComponent({
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  margin: 1rem;
 }
 .slide-fade-enter-active {
   animation: bounce-in 0.5s;
@@ -107,5 +127,16 @@ export default defineComponent({
   100% {
     transform: scale(1);
   }
+}
+.image-img,
+.image-button {
+  height: 20rem;
+  width: 15rem;
+  border-radius: 30px;
+  border: none;
+}
+.image-button {
+  background-image: url("@/assets/images/NotFound1.png");
+  background-size: cover;
 }
 </style>
