@@ -102,7 +102,7 @@ export default createStore({
       const allImages = [] as any[];
       for (let i = 0; i < films.length; i++) {
         const image = "N/A";
-        //await requestImages(films[i].primaryTitle);
+        //const image = await requestImages(films[i].primaryTitle);
         allImages[i] = image;
       }
       context.commit("setImages", allImages);

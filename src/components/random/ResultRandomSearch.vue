@@ -34,7 +34,10 @@
       </section>
     </section>
     <section v-if="getMovies.length === 0">
-      <img src="../../assets/images/NoResults.png" class="image_NoResults" />
+      <img
+        :src="require('../../assets/images/NoResults.png')"
+        class="image_NoResults"
+      />
       <button class="button_repeat-search">Repeat search</button>
     </section>
   </main>
