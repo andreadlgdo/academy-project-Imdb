@@ -90,6 +90,14 @@ export default createStore({
       await context.dispatch("findImages", response);
       context.commit("setAllFilms", response);
     },
+    async searchRandom(context) {
+      const response = await requestFilterFilms(
+        context.state.paramsOfSearchRandom,
+        context.state.filtersOfSearchRandom
+      );
+      await context.dispatch("findImages", response);
+      context.commit("setRandomFilms", response);
+    },
     async findImages(context, films) {
       const allImages = [] as any[];
       for (let i = 0; i < films.length; i++) {
@@ -98,14 +106,6 @@ export default createStore({
         allImages[i] = image;
       }
       context.commit("setImages", allImages);
-    },
-    async searchRandom(context) {
-      const response = await requestFilterFilms(
-        context.state.paramsOfSearchRandom,
-        context.state.filtersOfSearchRandom
-      );
-      await context.dispatch("findImages", response);
-      context.commit("setRandomFilms", response);
     },
   },
 });

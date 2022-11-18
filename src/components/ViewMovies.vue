@@ -22,7 +22,11 @@
               v-if="getImages[index] === 'button'"
               class="image-button"
             ></button>
-            <p>Score : {{ movie.averageRating }}</p>
+            <div class="movie_score">
+              <Starts :rating="movie.averageRating"></Starts>
+              <p class="score_number">Score: {{ movie.averageRating }}</p>
+            </div>
+
             <ul>
               <li v-for="(genre, index) in movie.genres" :key="index">
                 {{ genre }}
@@ -42,11 +46,12 @@
 import { defineComponent } from "vue";
 import ToolBar from "@/components/ToolBar.vue";
 import AsideFilters from "@/components/AsideFilters.vue";
+import Starts from "@/components/StartRating.vue";
 import createStore from "@/store";
 
 export default defineComponent({
   name: "ViewMovies",
-  components: { ToolBar, AsideFilters },
+  components: { ToolBar, AsideFilters, Starts },
   computed: {
     getOpenFilters() {
       return createStore.state.isOpen;
@@ -138,5 +143,14 @@ export default defineComponent({
 .image-button {
   background-image: url("@/assets/images/NotFound1.png");
   background-size: cover;
+}
+.movie_score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.score_number {
+  font-size: 1rem;
 }
 </style>

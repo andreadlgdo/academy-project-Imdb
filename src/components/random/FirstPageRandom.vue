@@ -110,12 +110,12 @@ export default defineComponent({
     },
     sendEmotions: function () {
       const emotions = [
-        "romance",
-        "horror",
-        "drama",
-        "crime",
-        "comedy",
-        "action",
+        "Romance",
+        "Horror",
+        "Drama",
+        "Crime",
+        "Comedy",
+        "Action",
       ];
       for (let i = 0; i < this.itemsSelected.length; i++) {
         if (this.itemsSelected[i]) {

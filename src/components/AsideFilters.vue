@@ -1,6 +1,6 @@
 <template>
   <aside class="aside">
-    <div class="aside_title">
+    <section class="aside_title">
       <h2 class="aside_sort-filters">SORT & FILTERS</h2>
       <button class="aside_button-close" @click="closeFilters(false)">
         <img
@@ -9,56 +9,59 @@
           alt="cross"
         />
       </button>
-    </div>
-    <nav class="nav">
-      <div class="nav_item-1">
-        <button class="nav_button-1" @click="openSortBy(1)">Sort by</button>
-        <ul class="nav_sublist1" hidden>
+    </section>
+    <nav class="nav_aside">
+      <section class="nav_item">
+        <button class="button_aside" @click="isOpenSort = !isOpenSort">
+          Sort by
+        </button>
+        <ul class="nav_subItem" v-if="isOpenSort">
           <li><input type="radio" name="sort-by" checked /> No sorted</li>
           <li><input type="radio" name="sort-by" /> By score: Low to High</li>
           <li><input type="radio" name="sort-by" /> By score: High to Low</li>
         </ul>
-      </div>
-      <div class="nav_item-2">
-        <button class="nav_button-2" @click="openSortBy(2)">Score</button>
-        <div class="nav_sublist2">
-          <Slider class="slider-2" v-model="range" :max="10" :min="0" />
+      </section>
+      <section class="nav_item">
+        <button class="button_aside" @click="isOpenScore = !isOpenScore">
+          Score
+        </button>
+        <div class="nav_subItem" v-if="isOpenScore">
+          <div class="slider_score">
+            <Slider class="slider" v-model="range" :max="10" :min="0" />
+          </div>
         </div>
-      </div>
-      <div class="nav_item-3">
-        <button class="nav_button-3" @click="openSortBy(3)">Gender</button>
-        <div class="nav_sublist3">
-          <section class="slide_section-center">
-            <round-slider v-model="range" />
-            <input type="range" class="input-1" value="0" max="100" min="0" />
-            <button class="input-button" disabled />
-            <input type="range" class="input-2" value="0" max="100" min="0" />
-          </section>
+      </section>
+      <section class="nav_item">
+        <button class="button_aside" @click="isOpenGenre = !isOpenGenre">
+          Genre
+        </button>
+        <div class="nav_subItem" v-if="isOpenGenre"></div>
+      </section>
+      <section class="nav_item">
+        <button class="button_aside" @click="isOpenYear = !isOpenYear">
+          Time
+        </button>
+        <div class="nav_subItem" v-if="isOpenYear">
+          <div class="slider_score">
+            <Slider
+              class="slider"
+              v-model="rangeYear"
+              :max="2022"
+              :min="1980"
+            />
+          </div>
         </div>
-      </div>
-      <div class="nav_item-4">
-        <button class="nav_button-4" @click="openSortBy(4)">Year</button>
-        <div class="nav_sublist4">
-          <Slider
-            class="slider-2"
-            v-model="rangeYear"
-            :max="2022"
-            :min="1980"
-          />
+      </section>
+      <section class="nav_item">
+        <button class="button_aside" @click="isOpenMinutes = !isOpenMinutes">
+          Minutes
+        </button>
+        <div class="nav_subItem" v-if="isOpenMinutes">
+          <div class="slider_score">
+            <Slider class="slider" v-model="rangeTime" :max="300" :min="50" />
+          </div>
         </div>
-      </div>
-      <div class="nav_item-5">
-        <button class="nav_button-5" @click="openSortBy(5)">Time</button>
-        <div class="nav_sublist5">
-          <Slider
-            class="slider-2"
-            v-model="rangeTime"
-            :max="300"
-            :min="50"
-            :step="5"
-          />
-        </div>
-      </div>
+      </section>
     </nav>
     <div class="aside_button-applyFilters">
       <button class="button_view-results">View X Results</button>
@@ -70,15 +73,17 @@
 import { defineComponent } from "vue";
 import createStore from "@/store";
 import Slider from "@vueform/slider";
-import RoundSlider from "vue-round-slider/src/round-slider.vue";
 
 export default defineComponent({
   name: "AsideFilters",
-  components: { Slider, RoundSlider },
+  components: { Slider },
   data: function () {
     return {
-      itemsOpened: [false, false, false, false, false],
-      plusView: [10, 10, 10, 10, 10],
+      isOpenSort: false,
+      isOpenScore: false,
+      isOpenYear: false,
+      isOpenGenre: false,
+      isOpenMinutes: false,
       range: [0, 10],
       rangeTime: [50, 300],
       rangeYear: [1980, 2022],
@@ -90,127 +95,53 @@ export default defineComponent({
       let element = document.querySelector(".sectionOpen");
       if (element !== null) element.remove();
     },
-    openSortBy: function (value: number) {
-      if (!this.itemsOpened[value - 1]) {
-        this.itemsOpened[value - 1] = true;
-        let element = document.querySelector<HTMLElement>(
-          ".nav_sublist" + value
-        );
-        if (element !== null) element.style.visibility = "visible";
-        element = document.querySelector<HTMLElement>(".nav");
-        if (element !== null) {
-          for (let i = 0; i < this.itemsOpened.length; i++) {
-            if (this.itemsOpened[i]) this.plusView[i] = 30;
-          }
-          element.style.gridTemplateRows =
-            this.plusView[0] +
-            "% " +
-            this.plusView[1] +
-            "% " +
-            this.plusView[2] +
-            "% " +
-            this.plusView[3] +
-            "% " +
-            this.plusView[4] +
-            "%";
-        }
-        element = document.querySelector<HTMLElement>(".nav_item-" + value);
-        if (element !== null) {
-          element.style.display = "grid";
-          element.style.gridTemplateRows = "40% 60%";
-          element.style.borderBottom = "solid lightgrey";
-        }
-        element = document.querySelector<HTMLElement>(".nav_button-" + value);
-        if (element !== null) element.style.borderBottom = "none";
-      } else {
-        this.itemsOpened[value - 1] = false;
-        let element = document.querySelector<HTMLElement>(
-          ".nav_sublist" + value
-        );
-        if (element !== null) element.style.visibility = "hidden";
-        element = document.querySelector<HTMLElement>(".nav");
-        if (element !== null) {
-          for (let i = 0; i < this.itemsOpened.length; i++) {
-            if (!this.itemsOpened[i]) this.plusView[i] = 12;
-          }
-          element.style.gridTemplateRows =
-            this.plusView[0] +
-            "% " +
-            this.plusView[1] +
-            "% " +
-            this.plusView[2] +
-            "% " +
-            this.plusView[3] +
-            "% " +
-            this.plusView[4] +
-            "%";
-        }
-        element = document.querySelector<HTMLElement>(".nav_item-" + value);
-        if (element !== null) {
-          element.style.display = "block";
-          element.style.borderBottom = "none";
-        }
-        element = document.querySelector<HTMLElement>(".nav_button-" + value);
-        if (element !== null) element.style.borderBottom = "solid lightgrey";
-      }
-    },
   },
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .aside {
   position: absolute;
   top: 0;
   background: white;
   height: 100%;
-  display: grid;
-  grid-template-rows: 10% 75% 15%;
+  display: flex;
+  flex-direction: column;
   border-right: solid lightgrey;
   padding-top: 2rem;
 }
-.nav {
-  display: grid;
-  grid-template-rows: 12% 12% 12% 12% 12%;
+.nav_scroll {
   overflow: auto;
-  scroll-snap-type: y mandatory;
+  scoll-snap-type: y mandatory;
 }
-.nav_sublist1,
-.nav_sublist3 {
+.nav_aside {
   display: flex;
   flex-direction: column;
+  margin-bottom: 3rem;
+}
+.nav_subItem {
   list-style: none;
-  visibility: hidden;
+  li {
+    display: flex;
+    justify-content: left;
+    padding-bottom: 0.5rem;
+  }
 }
-.nav_sublist2,
-.nav_sublist4,
-.nav_sublist5 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
+.nav_item {
+  border-bottom: solid lightgrey;
 }
-.nav_sublist1 li {
-  display: flex;
-  justify-content: left;
-  padding-left: 2rem;
-}
-.nav_button-1,
-.nav_button-2,
-.nav_button-3,
-.nav_button-4,
-.nav_button-5 {
-  height: 100%;
+.button_aside {
   width: 100%;
   border-style: none;
   background: white;
-  border-bottom: solid lightgrey;
-  padding: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   font-size: 1rem;
 }
 .aside_title {
   display: flex;
   justify-content: space-between;
+  gap: 2rem;
   align-items: center;
   padding-bottom: 2rem;
   border-bottom: solid lightgrey 10px;
@@ -231,38 +162,25 @@ export default defineComponent({
 .aside_sort-filters {
   margin-left: 3rem;
 }
+.slider {
+  width: 80%;
+}
+.slider_score {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
 .button_view-results {
   border-radius: 30px;
   height: 3rem;
   width: 15rem;
   border: none;
   background: lightblue;
-}
-.slider-2 {
-  width: 80%;
-}
-.slide_section-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.input-1 {
-  margin-left: 1rem;
-  margin-right: 1rem;
-  width: 15rem;
-}
-.input-2 {
-  width: 15rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  transform: scaleX(-1);
-}
-.input-button {
-  display: flex;
-  justify-content: center;
-  border-radius: 50%;
-  height: 3rem;
-  width: 3rem;
+  &:hover {
+    background: rgba(166, 235, 255, 0.67);
+  }
 }
 </style>
 <style src="@vueform/slider/themes/default.css"></style>

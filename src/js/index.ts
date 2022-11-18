@@ -29,7 +29,7 @@ export async function requestImages(title: string) {
   return results.Poster;
 }
 export async function requestFilterFilms(params: any[], filters: any[]) {
-  if (params.length === 3) {
+  if (filters.length === 3) {
     const data = await fetch(
       "http://localhost:8080/search/?type=movie&" +
         filters[0] +
@@ -41,11 +41,11 @@ export async function requestFilterFilms(params: any[], filters: any[]) {
         params[1] +
         "&" +
         filters[2] +
-        "=6"
+        "=" +
+        params[2]
     );
     const results = await data.json();
     results.hits.splice(8, results.hits.length);
-    console.log(results.hits);
     return results.hits;
   } else {
     const data = await fetch(
@@ -53,9 +53,7 @@ export async function requestFilterFilms(params: any[], filters: any[]) {
         filters[0] +
         "=" +
         params[0] +
-        "&" +
-        filters[1] +
-        "=" +
+        "," +
         params[1] +
         "&" +
         filters[2] +
@@ -68,7 +66,6 @@ export async function requestFilterFilms(params: any[], filters: any[]) {
     );
     const results = await data.json();
     results.hits.splice(8, results.hits.length);
-    console.log(results.hits);
     return results.hits;
   }
 }
