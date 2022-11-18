@@ -1,4 +1,9 @@
 <template>
+  <link
+    href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
+    rel="stylesheet"
+    type="text/css"
+  />
   <div class="main">
     <ToolBar />
     <main class="main_view-movies">
@@ -8,30 +13,50 @@
           class="main_movies"
         >
           <div
+            @click="changeCart = !changeCart"
             class="main_movie"
             v-for="(movie, index) in getMovies"
             :key="index"
           >
-            <h2>{{ movie.primaryTitle }}</h2>
-            <img
-              v-if="getImages[index] !== 'button'"
-              class="image-img"
-              :src="getImages[index]"
-            />
-            <button
-              v-if="getImages[index] === 'button'"
-              class="image-button"
-            ></button>
-            <div class="movie_score">
-              <Starts :rating="movie.averageRating"></Starts>
-              <p class="score_number">Score: {{ movie.averageRating }}</p>
-            </div>
-
-            <ul>
-              <li v-for="(genre, index) in movie.genres" :key="index">
-                {{ genre }}
-              </li>
-            </ul>
+            <transition
+              name="custom-classes-transition"
+              leave-active-class="animated bounceOutRight"
+            >
+              <div class="first_side" v-if="!changeCart">
+                <h2>{{ movie.primaryTitle }}</h2>
+                <img
+                  v-if="getImages[index] !== 'button'"
+                  class="image-img"
+                  :src="getImages[index]"
+                />
+                <button
+                  v-if="getImages[index] === 'button'"
+                  class="image-button"
+                ></button>
+                <div class="movie_score">
+                  <Starts :rating="movie.averageRating"></Starts>
+                  <p class="score_number">Score: {{ movie.averageRating }}</p>
+                </div>
+              </div>
+            </transition>
+            <transition>
+              <div class="second_side" v-if="changeCart">
+                <h2>{{ movie.primaryTitle }}</h2>
+                <div class="movie_score">
+                  <Starts :rating="movie.averageRating"></Starts>
+                  <p class="score_number">Score: {{ movie.averageRating }}</p>
+                </div>
+                <div class="buttons_genre">
+                  <button
+                    class="genre"
+                    v-for="(genre, index) in movie.genres"
+                    :key="index"
+                  >
+                    {{ genre }}
+                  </button>
+                </div>
+              </div>
+            </transition>
           </div>
         </section>
       </div>
@@ -52,6 +77,11 @@ import createStore from "@/store";
 export default defineComponent({
   name: "ViewMovies",
   components: { ToolBar, AsideFilters, Starts },
+  data: function () {
+    return {
+      changeCart: false,
+    };
+  },
   computed: {
     getOpenFilters() {
       return createStore.state.isOpen;
@@ -103,13 +133,15 @@ export default defineComponent({
   grid-template-columns: 1fr 1fr;
 }
 .main_movie {
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  margin: 1rem;
+}
+.first_side {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
-  margin: 1rem;
 }
 .slide-fade-enter-active {
   animation: bounce-in 0.5s;
@@ -152,5 +184,23 @@ export default defineComponent({
 }
 .score_number {
   font-size: 1rem;
+}
+.second_side {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.buttons_genre {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.genre {
+  border: none;
+  background: lightblue;
+  border-radius: 30px;
+  padding: 1rem;
 }
 </style>

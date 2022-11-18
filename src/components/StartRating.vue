@@ -22,7 +22,6 @@ export default defineComponent({
   computed: {
     getScore() {
       let number = [false, false, false, false, false];
-      console.log(this.rating);
       if (this.rating < 3) number = [true, false, false, false, false];
       else if (this.rating < 5) number = [true, true, false, false, false];
       else if (this.rating < 7) number = [true, true, true, false, false];
