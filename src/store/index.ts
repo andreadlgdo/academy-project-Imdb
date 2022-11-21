@@ -3,6 +3,7 @@ import {
   requestAllFilms,
   requestFilmsByGenre,
   requestImages,
+  requestFilterRandomFilms,
   requestFilterFilms,
   requestLatestFilms,
 } from "../js/index";
@@ -20,6 +21,10 @@ export default createStore({
     paramsOfSearchRandom: [] as any[],
     filtersOfSearchRandom: [] as any[],
     randomFilms: [] as any[],
+    paramsOfAside: [] as any[],
+    filtersOfAside: [] as any[],
+    isFilters: false,
+    moviesByFilters: [] as any[],
   },
   mutations: {
     change(state, value) {
@@ -49,11 +54,27 @@ export default createStore({
     setRandomFilms(state, value) {
       state.randomFilms = value;
     },
+    setMoviesByFilters(state, value) {
+      state.moviesByFilters = value;
+    },
+    setIsFilter(state, value) {
+      state.isFilters = value;
+    },
     setRandomParams(state: any, value: string) {
       state.paramsOfSearchRandom[state.paramsOfSearchRandom.length] = value;
     },
     setRandomFilters(state: any, value: string) {
       state.filtersOfSearchRandom[state.filtersOfSearchRandom.length] = value;
+    },
+    setAsideParams(state: any, value: string) {
+      for (let i = 0; i < value.length; i++) {
+        state.paramsOfAside[i] = value[i];
+      }
+    },
+    setAsideFilters(state: any, value: string) {
+      for (let i = 0; i < value.length; i++) {
+        state.filtersOfAside[i] = value[i];
+      }
     },
   },
   actions: {
@@ -75,6 +96,15 @@ export default createStore({
     setRandomFilters(context: any, value: string) {
       context.commit("setRandomFilters", value);
     },
+    setAsideParams(context: any, value: string) {
+      context.commit("setAsideParams", value);
+    },
+    setAsideFilters(context: any, value: string) {
+      context.commit("setAsideFilters", value);
+    },
+    setIsFilter(context: any, value: boolean) {
+      context.commit("setIsFilter", value);
+    },
     async setMovieFilter(context, value) {
       const response = await requestFilmsByGenre(value);
       await context.dispatch("findImages", response);
@@ -91,12 +121,20 @@ export default createStore({
       context.commit("setAllFilms", response);
     },
     async searchRandom(context) {
-      const response = await requestFilterFilms(
+      const response = await requestFilterRandomFilms(
         context.state.paramsOfSearchRandom,
         context.state.filtersOfSearchRandom
       );
       await context.dispatch("findImages", response);
       context.commit("setRandomFilms", response);
+    },
+    async searchFiltersAside(context) {
+      const response = await requestFilterFilms(
+        context.state.paramsOfAside,
+        context.state.filtersOfAside
+      );
+      console.log(response);
+      context.commit("setMoviesByFilters", response);
     },
     async findImages(context, films) {
       const allImages = [] as any[];

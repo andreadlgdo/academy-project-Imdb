@@ -27,7 +27,13 @@
         </button>
         <div class="nav_subItem" v-if="isOpenScore">
           <div class="slider_score">
-            <Slider class="slider" v-model="range" :max="10" :min="0" />
+            <Slider
+              @click="setValue()"
+              class="slider"
+              v-model="range"
+              :max="10"
+              :min="0"
+            />
           </div>
         </div>
       </section>
@@ -35,15 +41,46 @@
         <button class="button_aside" @click="isOpenGenre = !isOpenGenre">
           Genre
         </button>
-        <div class="nav_subItem" v-if="isOpenGenre"></div>
+        <div class="nav_subItem" v-if="isOpenGenre">
+          <div class="filters_genre">
+            <div
+              class="square"
+              @dragenter="enter($event)"
+              @dragover="over($event)"
+              @dragleave="leave($event)"
+              @drop="drop($event)"
+            >
+              <button
+                v-for="(category, index) in categories"
+                :key="index"
+                class="button_genre-drag"
+                :id="'arrastable' + index"
+                draggable="true"
+                @dragstart="start($event)"
+                @dragend="end($event)"
+                :style="'background:' + category.color"
+              >
+                {{ category.title }}
+              </button>
+            </div>
+            <div
+              class="square"
+              @dragenter="enter($event)"
+              @dragover="over($event)"
+              @dragleave="leave($event)"
+              @drop="drop($event)"
+            ></div>
+          </div>
+        </div>
       </section>
       <section class="nav_item">
         <button class="button_aside" @click="isOpenYear = !isOpenYear">
-          Time
+          Year
         </button>
         <div class="nav_subItem" v-if="isOpenYear">
           <div class="slider_score">
             <Slider
+              @click="setValue()"
               class="slider"
               v-model="rangeYear"
               :max="2022"
@@ -58,13 +95,21 @@
         </button>
         <div class="nav_subItem" v-if="isOpenMinutes">
           <div class="slider_score">
-            <Slider class="slider" v-model="rangeTime" :max="300" :min="50" />
+            <Slider
+              @click="setValue()"
+              class="slider"
+              v-model="rangeTime"
+              :max="300"
+              :min="50"
+            />
           </div>
         </div>
       </section>
     </nav>
     <div class="aside_button-applyFilters">
-      <button class="button_view-results">View X Results</button>
+      <button @click="applyFilters()" class="button_view-results">
+        View X Results
+      </button>
     </div>
   </aside>
 </template>
@@ -87,6 +132,45 @@ export default defineComponent({
       range: [0, 10],
       rangeTime: [50, 300],
       rangeYear: [1980, 2022],
+      filters: [
+        "minScore",
+        "maxScore",
+        "minYear",
+        "maxYear",
+        "minMinutes",
+        "maxMinutes",
+      ],
+      params: ["0", "10", "1980", "2022", "50", "300"],
+      categories: [
+        {
+          title: "Romance",
+          color: "lightblue",
+        },
+        {
+          title: "Horror",
+          color: "#f2ad9f",
+        },
+        {
+          title: "Action",
+          color: "rgba(224, 255, 74, 0.67)",
+        },
+        {
+          title: "Animation",
+          color: "#efc592",
+        },
+        {
+          title: "Comedy",
+          color: "rgba(193, 132, 255, 0.67)",
+        },
+        {
+          title: "Fantasy",
+          color: "rgba(177, 255, 247, 0.67)",
+        },
+        {
+          title: "SCI-FI",
+          color: "rgba(151, 255, 130, 0.67)",
+        },
+      ],
     };
   },
   methods: {
@@ -94,6 +178,69 @@ export default defineComponent({
       createStore.state.isOpen = value;
       let element = document.querySelector(".sectionOpen");
       if (element !== null) element.remove();
+    },
+    setValue: function () {
+      let element = document.querySelectorAll(".slider-handle");
+      if (element !== null) {
+        console.log(element);
+        for (let i = 0; i < element.length; i = i + 2) {
+          if (element[i].ariaValueMin === "0.0") {
+            console.log(element[i]);
+            this.params[0] = element[i].ariaValueNow;
+            this.params[1] = element[i].ariaValueMax;
+          } else if (element[i].ariaValueMin === "1980.0") {
+            this.params[2] = element[i].ariaValueNow.substring(
+              0,
+              element[i].ariaValueNow.length - 2
+            );
+            this.params[3] = element[i].ariaValueMax.substring(
+              0,
+              element[i].ariaValueMax.length - 2
+            );
+          } else if (element[i].ariaValueMin === "50.0") {
+            this.params[4] = element[i].ariaValueNow.substring(
+              0,
+              element[i].ariaValueNow.length - 2
+            );
+            this.params[5] = element[i].ariaValueMax.substring(
+              0,
+              element[i].ariaValueMax.length - 2
+            );
+          }
+        }
+      }
+    },
+    applyFilters: function () {
+      createStore.dispatch("setAsideFilters", this.filters);
+      createStore.dispatch("setAsideParams", this.params);
+      createStore.dispatch("setIsFilter", true);
+      createStore.dispatch("searchFiltersAside");
+      this.closeFilters(false);
+    },
+    drop: function (e: any) {
+      var elementoArrastrado = e.dataTransfer.getData("Data"); // Elemento arrastrado
+      e.target.appendChild(document.getElementById(elementoArrastrado));
+      e.target.style.border = ""; // Quita el borde
+    },
+    over: function (e: any) {
+      e.preventDefault();
+    },
+    start: function (e: any) {
+      console.log(e.target.id);
+      e.dataTransfer.effecAllowed = "move"; // Define el efecto como mover (Es el por defecto)
+      e.dataTransfer.setData("Data", e.target.id); // Coje el elemento que se va a mover
+      e.dataTransfer.setDragImage(e.target, 0, 0); // Define la imagen que se vera al ser arrastrado el elemento y por donde se coje el elemento que se va a mover (el raton aparece en la esquina sup_izq con 0,0)
+      e.target.style.opacity = "0.4";
+    },
+    end: function (e: any) {
+      e.target.style.opacity = ""; // Pone la opacidad del elemento a 1
+      e.dataTransfer.clearData("Data");
+    },
+    enter: function (e: any) {
+      e.target.style.border = "3px dotted #555";
+    },
+    leave: function (e: any) {
+      e.target.style.border = "";
     },
   },
 });
@@ -181,6 +328,24 @@ export default defineComponent({
   &:hover {
     background: rgba(166, 235, 255, 0.67);
   }
+}
+.filters_genre {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.square {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 30rem;
+}
+.button_genre-drag {
+  height: 3rem;
+  width: 10rem;
+  margin: 0.5rem;
+  border-radius: 30px;
+  border: none;
 }
 </style>
 <style src="@vueform/slider/themes/default.css"></style>

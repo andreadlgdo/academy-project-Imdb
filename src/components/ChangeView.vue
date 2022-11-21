@@ -29,7 +29,6 @@ export default defineComponent({
   methods: {
     changeView: function (value: boolean) {
       createStore.dispatch("setView", value);
-      console.log(createStore.state.changeView);
     },
   },
 });

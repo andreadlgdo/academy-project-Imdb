@@ -76,7 +76,6 @@ export default defineComponent({
           createStore.state.images[index] = "button";
         }
       });
-      console.log(createStore.state.images);
       return createStore.state.images;
     },
   },

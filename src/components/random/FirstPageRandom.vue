@@ -13,8 +13,16 @@
           :src="emotions.image"
           alt="image emotion"
           class="button_emotions-img"
+          :class="{ 'button_emotions-selected': this.itemsSelected[index] }"
         />
-        <p class="button_emotions-title">{{ emotions.title }}</p>
+        <p
+          class="button_emotions-title"
+          :class="{
+            'button_emotions-titleSelected': this.itemsSelected[index],
+          }"
+        >
+          {{ emotions.title }}
+        </p>
       </button>
     </section>
     <div class="main_buttons">
@@ -83,28 +91,9 @@ export default defineComponent({
         if (this.itemsSelected[value] == true) {
           this.itemsSelected[value] = false;
           this.numberTrue--;
-          let element =
-            document.querySelectorAll<HTMLElement>(".button_emotions");
-          if (element[value] != null) {
-            element[value].style.fontWeight = "normal";
-            element[value].style.opacity = "0.6";
-          }
         } else {
           this.numberTrue++;
           this.itemsSelected[value] = true;
-          for (let i = 0; i < this.itemsSelected.length; i++) {
-            if (this.itemsSelected[i]) {
-              let element =
-                document.querySelectorAll<HTMLElement>(".button_emotions");
-              let elementImg = document.querySelectorAll<HTMLElement>(
-                ".button_emotions-img"
-              );
-              if (element[value] != null && elementImg[value] !== null) {
-                elementImg[value].style.opacity = "1";
-                element[value].style.fontWeight = "bold";
-              }
-            }
-          }
         }
       }
     },
@@ -178,8 +167,14 @@ export default defineComponent({
       opacity: 1;
     }
   }
+  &-selected {
+    opacity: 1;
+  }
   &-title {
     position: absolute;
+    &Selected {
+      font-weight: bold;
+    }
   }
 }
 .main_buttons {

@@ -96,6 +96,11 @@ export default defineComponent({
     },
     getMovies() {
       if (createStore.state.filmsByGenre.length === 0) {
+        if (createStore.state.isFilters) {
+          console.log("test");
+          console.log(createStore.state.moviesByFilters);
+          return createStore.state.moviesByFilters;
+        }
         return createStore.state.allFilms;
       } else {
         return createStore.state.filmsByGenre;
