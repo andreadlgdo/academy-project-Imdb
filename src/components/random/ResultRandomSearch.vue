@@ -1,4 +1,9 @@
 <template>
+  <link
+    href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
+    rel="stylesheet"
+    type="text/css"
+  />
   <main>
     <section class="main_resultRandom">
       <h2 class="main_randomTitle">Your personal results</h2>
@@ -10,26 +15,50 @@
         class="main_movies"
       >
         <div
+          @click="changeCart = !changeCart"
           class="main_movie"
           v-for="(movie, index) in getMovies"
           :key="index"
         >
-          <h2>{{ movie.primaryTitle }}</h2>
-          <img
-            v-if="getImages[index] !== 'button'"
-            class="image-img"
-            :src="getImages[index]"
-          />
-          <button
-            v-if="getImages[index] === 'button'"
-            class="image-button"
-          ></button>
-          <p>Score : {{ movie.averageRating }}</p>
-          <ul>
-            <li v-for="(genre, index) in movie.genres" :key="index">
-              {{ genre }}
-            </li>
-          </ul>
+          <transition
+            name="custom-classes-transition"
+            leave-active-class="animated bounceOutRight"
+          >
+            <div class="first_side" v-if="!changeCart">
+              <h2>{{ movie.primaryTitle }}</h2>
+              <img
+                v-if="getImages[index] !== 'button'"
+                class="image-img"
+                :src="getImages[index]"
+              />
+              <button
+                v-if="getImages[index] === 'button'"
+                class="image-button"
+              ></button>
+              <div class="movie_score">
+                <Starts :rating="movie.averageRating"></Starts>
+                <p class="score_number">Score: {{ movie.averageRating }}</p>
+              </div>
+            </div>
+          </transition>
+          <transition>
+            <div class="second_side" v-if="changeCart">
+              <h2>{{ movie.primaryTitle }}</h2>
+              <div class="movie_score">
+                <Starts :rating="movie.averageRating"></Starts>
+                <p class="score_number">Score: {{ movie.averageRating }}</p>
+              </div>
+              <div class="buttons_genre">
+                <button
+                  class="genre"
+                  v-for="(genre, index) in movie.genres"
+                  :key="index"
+                >
+                  {{ genre }}
+                </button>
+              </div>
+            </div>
+          </transition>
         </div>
       </section>
     </section>
@@ -47,13 +76,15 @@
 import { defineComponent } from "vue";
 import ChangeView from "@/components/ChangeView.vue";
 import createStore from "@/store";
+import Starts from "@/components/StartRating.vue";
 
 export default defineComponent({
   name: "ResultRandomSearch",
-  components: { ChangeView },
+  components: { ChangeView, Starts },
   data: function () {
     return {
       toFirstPage: false,
+      changeCart: false,
     };
   },
   computed: {
@@ -124,5 +155,33 @@ export default defineComponent({
 .image-button {
   background-image: url("@/assets/images/NotFound1.png");
   background-size: cover;
+}
+.movie_score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.score_number {
+  font-size: 1rem;
+}
+.second_side {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.buttons_genre {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+.genre {
+  border: none;
+  background: lightblue;
+  border-radius: 30px;
+  padding: 1rem;
 }
 </style>

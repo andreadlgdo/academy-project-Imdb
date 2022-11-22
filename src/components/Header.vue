@@ -9,7 +9,10 @@
             <button @click="setFirstPage(false)" class="finder_back">
               Back to top
             </button>
-            <button @click="$emit('view-all')" class="finder_back">All movies</button>
+            <button @click="$emit('view-all')" class="finder_back">
+              All movies
+            </button>
+            <button class="finder_back">Main page</button>
           </section>
           <section class="finder_right">
             <p class="right_title">More popular</p>
@@ -83,9 +86,10 @@ export default defineComponent({
   methods: {
     setFirstPage: function (value: boolean) {
       createStore.dispatch("setOpenHeader", !this.getOpenHeader);
+      createStore.dispatch("setMovieByGenre", false);
       createStore.dispatch("setFirstPage", value);
     },
-    isOpen: function (){
+    isOpen: function () {
       createStore.dispatch("setOpenHeader", !this.getOpenHeader);
     },
   },

@@ -1,6 +1,6 @@
 <template>
   <Header @view-all="goViewAllMovies(true, '')" />
-  <main class="main_page" v-if="!isGoToSeeAllMovies">
+  <main class="main_page" v-if="!getSeeAllMovies">
     <section class="main_section-categories">
       <h2 class="section_title">Categories</h2>
       <div class="slide_content">
@@ -48,7 +48,7 @@
       </div>
     </section>
   </main>
-  <FilterPage v-if="isGoToSeeAllMovies" />
+  <FilterPage v-if="getSeeAllMovies" />
 </template>
 
 <script lang="ts">
@@ -65,14 +65,12 @@ export default defineComponent({
     FilterPage,
     Categories,
   },
-  data: function () {
-    return {
-      isGoToSeeAllMovies: false,
-    };
-  },
   computed: {
     getNewsMovies() {
       return createStore.state.filmsNew;
+    },
+    getSeeAllMovies() {
+      return createStore.state.isGoToSeeAllMoviesByGenre;
     },
     getImages() {
       createStore.state.images.forEach((e, index) => {
@@ -88,8 +86,9 @@ export default defineComponent({
   },
   methods: {
     goViewAllMovies: function (value: boolean, genre: string) {
-      this.isGoToSeeAllMovies = value;
-      createStore.dispatch("setOpenHeader", !this.getOpenHeader);
+      createStore.dispatch("setMovieByGenre", value);
+      if (this.getOpenHeader)
+        createStore.dispatch("setOpenHeader", !this.getOpenHeader);
       if (genre === "") createStore.dispatch("setAllFilms");
       else createStore.dispatch("setMovieFilter", genre);
     },

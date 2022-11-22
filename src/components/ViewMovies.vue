@@ -110,7 +110,6 @@ export default defineComponent({
       }
     },
     getChangeView() {
-      console.log(createStore.state.changeView);
       return createStore.state.changeView;
     },
   },
