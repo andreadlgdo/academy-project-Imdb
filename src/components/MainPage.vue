@@ -82,10 +82,14 @@ export default defineComponent({
       });
       return createStore.state.images;
     },
+    getOpenHeader() {
+      return createStore.state.openHeader;
+    },
   },
   methods: {
     goViewAllMovies: function (value: boolean, genre: string) {
       this.isGoToSeeAllMovies = value;
+      createStore.dispatch("setOpenHeader", !this.getOpenHeader);
       if (genre === "") createStore.dispatch("setAllFilms");
       else createStore.dispatch("setMovieFilter", genre);
     },

@@ -3,8 +3,8 @@
     <h1 class="header_title">The world of movies</h1>
     <div class="header_search">
       <div :class="{ finder_open: opened }">
-        <input type="text" @click="opened = !opened" class="header_searcher" />
-        <div class="finder" v-if="opened">
+        <input type="text" @click="isOpen()" class="header_searcher" />
+        <div class="finder" v-if="getOpenHeader">
           <section class="finder_left">
             <button @click="setFirstPage(false)" class="finder_back">
               Back to top
@@ -68,6 +68,9 @@ export default defineComponent({
     getNewsMovies() {
       return createStore.state.filmsNew;
     },
+    getOpenHeader() {
+      return createStore.state.openHeader;
+    },
     getImages() {
       createStore.state.images.forEach((e, index) => {
         if (e === "N/A" || e === undefined) {
@@ -79,7 +82,11 @@ export default defineComponent({
   },
   methods: {
     setFirstPage: function (value: boolean) {
+      createStore.dispatch("setOpenHeader", !this.getOpenHeader);
       createStore.dispatch("setFirstPage", value);
+    },
+    isOpen: function (){
+      createStore.dispatch("setOpenHeader", !this.getOpenHeader);
     },
   },
 });
