@@ -9,8 +9,10 @@
             <button @click="setFirstPage(false)" class="finder_back">
               Back to top
             </button>
+            <button @click="$emit('view-all')" class="finder_back">All movies</button>
           </section>
           <section class="finder_right">
+            <p class="right_title">More popular</p>
             <div class="sliding-panel">
               <div class="section">
                 <div class="section_popular">
@@ -21,6 +23,7 @@
                       :key="index"
                     >
                       <p class="title_movie">{{ movie.primaryTitle }}</p>
+                      <Starts :rating="movie.averageRating"></Starts>
                     </section>
                   </section>
                 </div>
@@ -50,10 +53,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import createStore from "@/store";
+import Starts from "@/components/StartRating.vue";
 
 export default defineComponent({
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Header",
+  components: { Starts },
   data: function () {
     return {
       opened: false,
@@ -140,7 +145,7 @@ export default defineComponent({
   width: 2.5rem;
 }
 .finder {
-  height: 10rem;
+  height: 15rem;
   width: 30rem;
   display: grid;
   grid-template-columns: 30% 70%;
@@ -156,11 +161,16 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
 }
+.finder_right {
+  display: flex;
+  flex-direction: column;
+}
 .finder_back {
   border: none;
   padding: 0.5rem;
   background: #f7dfc2;
   border-radius: 30px;
+  margin-bottom: 1rem;
   &:hover {
     background: #f2ad9f;
   }
@@ -205,5 +215,13 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.right_title {
+  display: flex;
+  font-family: sans-serif;
+  padding-left: 2rem;
+  justify-content: left;
+  padding-bottom: 1rem;
+  border-bottom: lightgrey solid;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Header @view-all="goViewAllMovies(true, '')" />
   <main class="main_page" v-if="!isGoToSeeAllMovies">
     <section class="main_section-categories">
       <h2 class="section_title">Categories</h2>
