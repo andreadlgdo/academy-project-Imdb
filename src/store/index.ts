@@ -25,6 +25,7 @@ export default createStore({
     filtersOfAside: [] as any[],
     isFilters: false,
     moviesByFilters: [] as any[],
+    genresOfAside: [] as any[],
   },
   mutations: {
     change(state, value) {
@@ -71,6 +72,12 @@ export default createStore({
         state.paramsOfAside[i] = value[i];
       }
     },
+    setAsideGenders(state: any, value: string) {
+      state.genresOfAside = [];
+      for (let i = 0; i < value.length; i++) {
+        state.genresOfAside[i] = value[i];
+      }
+    },
     setAsideFilters(state: any, value: string) {
       for (let i = 0; i < value.length; i++) {
         state.filtersOfAside[i] = value[i];
@@ -102,6 +109,9 @@ export default createStore({
     setAsideFilters(context: any, value: string) {
       context.commit("setAsideFilters", value);
     },
+    setAsideGenders(context: any, value: string) {
+      context.commit("setAsideGenders", value);
+    },
     setIsFilter(context: any, value: boolean) {
       context.commit("setIsFilter", value);
     },
@@ -131,7 +141,8 @@ export default createStore({
     async searchFiltersAside(context) {
       const response = await requestFilterFilms(
         context.state.paramsOfAside,
-        context.state.filtersOfAside
+        context.state.filtersOfAside,
+        context.state.genresOfAside
       );
       console.log(response);
       context.commit("setMoviesByFilters", response);

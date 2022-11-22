@@ -70,9 +70,27 @@ export async function requestFilterRandomFilms(params: any[], filters: any[]) {
     return results.hits;
   }
 }
-export async function requestFilterFilms(params: any[], filters: any[]) {
+export async function requestFilterFilms(
+  params: any[],
+  filters: any[],
+  genres: any[]
+) {
+  console.log(genres);
+  let filterGenres = "&genres=";
+  if (genres.length === 1) {
+    filterGenres += genres[0];
+  } else if (genres.length === 2) {
+    filterGenres += genres[0] + "," + genres[1];
+  } else if (genres.length === 3) {
+    filterGenres += genres[0] + "," + genres[1] + "," + genres[2];
+  } else if (genres.length === 0) {
+    filterGenres = "genres";
+  }
+  console.log(filterGenres);
   const request =
-    "http://localhost:8080/search/?types=movie&" +
+    "http://localhost:8080/search/?types=movie" +
+    filterGenres +
+    "&" +
     filters[0] +
     "=" +
     params[0] +

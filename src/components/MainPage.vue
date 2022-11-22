@@ -1,6 +1,14 @@
 <template>
   <Header />
   <main class="main_page" v-if="!isGoToSeeAllMovies">
+    <section class="main_section-categories">
+      <h2 class="section_title">Categories</h2>
+      <div class="slide_content">
+        <div class="sliding-panel">
+          <Categories @change-page="(genre) => goViewAllMovies(true, genre)" />
+        </div>
+      </div>
+    </section>
     <section class="main_section-news">
       <div class="section_news">
         <h2 class="section_title">News</h2>
@@ -12,35 +20,31 @@
             alt="arrow"
         /></a>
       </div>
-      <div class="section_news-films">
-        <section class="section">
-          <div class="section_news-info">
-            <section class="movie_info">
-              <section
-                class="movie_all-info"
-                v-for="(movie, index) in getNewsMovies"
-                :key="index"
-              >
-                <img
-                  v-if="getImages[index] !== 'button'"
-                  class="image-img"
-                  :src="getImages[index]"
-                />
-                <button
-                  v-if="getImages[index] === 'button'"
-                  class="image-button"
-                ></button>
-                <p class="title_movie">{{ movie.primaryTitle }}</p>
+      <div class="slide_content">
+        <div class="sliding-panel">
+          <section class="section">
+            <div class="section_news-info">
+              <section class="movie_info">
+                <section
+                  class="movie_all-info"
+                  v-for="(movie, index) in getNewsMovies"
+                  :key="index"
+                >
+                  <img
+                    v-if="getImages[index] !== 'button'"
+                    class="image-img"
+                    :src="getImages[index]"
+                  />
+                  <button
+                    v-if="getImages[index] === 'button'"
+                    class="image-button"
+                  ></button>
+                  <p class="title_movie">{{ movie.primaryTitle }}</p>
+                </section>
               </section>
-            </section>
-          </div>
-        </section>
-      </div>
-    </section>
-    <section class="main_section-categories">
-      <h2 class="section_title">Categories</h2>
-      <div class="sliding-panel">
-        <Categories @change-page="(genre) => goViewAllMovies(true, genre)" />
+            </div>
+          </section>
+        </div>
       </div>
     </section>
   </main>
@@ -95,11 +99,8 @@ export default defineComponent({
   margin-right: 3rem;
   margin-top: 1rem;
 }
-.main_section-categories {
-  padding-bottom: 5rem;
-}
 .sliding-panel {
-  width: 100%;
+  width: 90%;
   overflow-x: scroll;
 }
 .section_news {
@@ -127,10 +128,6 @@ export default defineComponent({
 .section_icon-arrow {
   margin-left: 1rem;
 }
-.section_news-films {
-  width: 100%;
-  overflow-x: scroll;
-}
 .section {
   display: flex;
 }
@@ -141,6 +138,12 @@ export default defineComponent({
 .movie_info {
   display: flex;
   gap: 2rem;
+}
+.slide_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .image-img,
 .image-button {

@@ -10,119 +10,126 @@
         />
       </button>
     </section>
-    <nav class="nav_aside">
-      <section class="nav_item">
-        <button class="button_aside" @click="isOpenSort = !isOpenSort">
-          Sort by
-        </button>
-        <ul class="nav_subItem" v-if="isOpenSort">
-          <!-- <li><input type="radio" name="sort-by" checked /> No sorted</li>-->
-          <li>
-            <input
-              type="radio"
-              @click="sort = 'desc'"
-              name="sort-by"
-              class="sort_desc"
-              checked
-            />
-            By score: High to Low
-          </li>
-          <li>
-            <input
-              type="radio"
-              name="sort-by"
-              @click="sort = 'asc'"
-              class="sort_asc"
-            />
-            By score: Low to High
-          </li>
-        </ul>
-      </section>
-      <section class="nav_item">
-        <button class="button_aside" @click="isOpenScore = !isOpenScore">
-          Score
-        </button>
-        <div class="nav_subItem" v-if="isOpenScore">
-          <div class="slider_score">
-            <Slider
-              @click="setValue()"
-              class="slider"
-              v-model="range"
-              :max="10"
-              :min="0"
-            />
-          </div>
-        </div>
-      </section>
-      <section class="nav_item">
-        <button class="button_aside" @click="isOpenGenre = !isOpenGenre">
-          Genre
-        </button>
-        <div class="nav_subItem" v-if="isOpenGenre">
-          <div class="filters_genre">
-            <div
-              class="square"
-              @dragenter="enter($event)"
-              @dragover="over($event)"
-              @dragleave="leave($event)"
-              @drop="drop($event)"
-            >
-              <button
-                v-for="(category, index) in categories"
-                :key="index"
-                class="button_genre-drag"
-                :id="'arrastable' + index"
-                draggable="true"
-                @dragstart="start($event)"
-                @dragend="end($event)"
-                :style="'background:' + category.color"
-              >
-                {{ category.title }}
-              </button>
+    <div class="nav_scroll">
+      <nav class="nav_aside">
+        <section class="nav_item">
+          <button class="button_aside" @click="isOpenSort = !isOpenSort">
+            Sort by
+          </button>
+          <ul class="nav_subItem" v-if="isOpenSort">
+            <!-- <li><input type="radio" name="sort-by" checked /> No sorted</li>-->
+            <li>
+              <input
+                type="radio"
+                @click="sort = 'desc'"
+                name="sort-by"
+                class="sort_desc"
+                checked
+              />
+              By score: High to Low
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="sort-by"
+                @click="sort = 'asc'"
+                class="sort_asc"
+              />
+              By score: Low to High
+            </li>
+          </ul>
+        </section>
+        <section class="nav_item">
+          <button class="button_aside" @click="isOpenScore = !isOpenScore">
+            Score
+          </button>
+          <div class="nav_subItem" v-if="isOpenScore">
+            <div class="slider_score">
+              <Slider
+                @click="setValue()"
+                class="slider"
+                v-model="range"
+                :max="10"
+                :min="0"
+              />
             </div>
-            <div
-              class="square"
-              @dragenter="enter($event)"
-              @dragover="over($event)"
-              @dragleave="leave($event)"
-              @drop="drop($event)"
-            ></div>
           </div>
-        </div>
-      </section>
-      <section class="nav_item">
-        <button class="button_aside" @click="isOpenYear = !isOpenYear">
-          Year
-        </button>
-        <div class="nav_subItem" v-if="isOpenYear">
-          <div class="slider_score">
-            <Slider
-              @click="setValue()"
-              class="slider"
-              v-model="rangeYear"
-              :max="2022"
-              :min="1980"
-            />
+        </section>
+        <section class="nav_item">
+          <button class="button_aside" @click="openGenre()">Genre</button>
+          <div class="nav_subItem" v-if="isOpenGenre">
+            <div class="filters_genre">
+              <div
+                class="square1"
+                @dragenter="enter($event)"
+                @dragover="over($event)"
+                @dragleave="leave($event)"
+                @drop="drop($event)"
+              >
+                <button
+                  v-for="(category, index) in categories"
+                  :key="index"
+                  class="button_genre-drag"
+                  :id="'astraddle' + index"
+                  draggable="true"
+                  @dragstart="start($event)"
+                  @dragend="end($event)"
+                  :style="'background:' + category.color"
+                >
+                  {{ category.title }}
+                </button>
+              </div>
+              <div>
+                <p>
+                  You can choose
+                  <br />
+                  three movie genres
+                </p>
+                <div
+                  class="square2"
+                  @dragenter="enter($event)"
+                  @dragover="over($event)"
+                  @dragleave="leave($event)"
+                  @drop="drop($event)"
+                ></div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-      <section class="nav_item">
-        <button class="button_aside" @click="isOpenMinutes = !isOpenMinutes">
-          Minutes
-        </button>
-        <div class="nav_subItem" v-if="isOpenMinutes">
-          <div class="slider_score">
-            <Slider
-              @click="setValue()"
-              class="slider"
-              v-model="rangeTime"
-              :max="300"
-              :min="50"
-            />
+        </section>
+        <section class="nav_item">
+          <button class="button_aside" @click="isOpenYear = !isOpenYear">
+            Year
+          </button>
+          <div class="nav_subItem" v-if="isOpenYear">
+            <div class="slider_score">
+              <Slider
+                @click="setValue()"
+                class="slider"
+                v-model="rangeYear"
+                :max="2022"
+                :min="1980"
+              />
+            </div>
           </div>
-        </div>
-      </section>
-    </nav>
+        </section>
+        <section class="nav_item">
+          <button class="button_aside" @click="isOpenMinutes = !isOpenMinutes">
+            Minutes
+          </button>
+          <div class="nav_subItem" v-if="isOpenMinutes">
+            <div class="slider_score">
+              <Slider
+                @click="setValue()"
+                class="slider"
+                v-model="rangeTime"
+                :max="300"
+                :min="50"
+              />
+            </div>
+          </div>
+        </section>
+      </nav>
+    </div>
     <div class="aside_button-applyFilters">
       <button @click="applyFilters()" class="button_view-results">
         View X Results
@@ -150,6 +157,7 @@ export default defineComponent({
       rangeTime: [50, 300],
       rangeYear: [1980, 2022],
       sort: "desc",
+      genres: [] as any[],
       filters: [
         "minScore",
         "maxScore",
@@ -183,11 +191,27 @@ export default defineComponent({
         },
         {
           title: "Fantasy",
-          color: "rgba(177, 255, 247, 0.67)",
+          color: "rgb(146,255,250)",
         },
         {
-          title: "SCI-FI",
-          color: "rgba(151, 255, 130, 0.67)",
+          title: "Sci-Fi",
+          color: "rgba(150,245,133,0.67)",
+        },
+        {
+          title: "Musical",
+          color: "rgb(255,180,240)",
+        },
+        {
+          title: "Documentary",
+          color: "rgba(166,235,255,0.67)",
+        },
+        {
+          title: "Musical",
+          color: "#f2ad9f",
+        },
+        {
+          title: "Documentary",
+          color: "rgba(224, 255, 74, 0.67)",
         },
       ],
     };
@@ -228,8 +252,26 @@ export default defineComponent({
         }
       }
     },
+    setGenre: function () {
+      let genres = document.querySelector(".square2");
+      if (genres !== null) {
+        for (let i = 0; i < genres.childElementCount; i++) {
+          this.genres[i] = genres.childNodes[i].textContent;
+        }
+      }
+    },
+    openGenre: function () {
+      this.setGenre();
+      this.isOpenGenre = !this.isOpenGenre;
+    },
     applyFilters: function () {
       this.params[this.params.length - 1] = this.sort;
+      if (this.genres.length === 0 && this.isOpenGenre) {
+        this.setGenre();
+      }
+      createStore.dispatch("setAsideGenders", this.genres);
+      console.log(this.genres);
+      console.log(createStore.state.genresOfAside);
       createStore.dispatch("setAsideFilters", this.filters);
       createStore.dispatch("setAsideParams", this.params);
       createStore.dispatch("setIsFilter", true);
@@ -237,15 +279,25 @@ export default defineComponent({
       this.closeFilters(false);
     },
     drop: function (e: any) {
-      var elementoArrastrado = e.dataTransfer.getData("Data"); // Elemento arrastrado
-      e.target.appendChild(document.getElementById(elementoArrastrado));
+      var elementAstraddle = e.dataTransfer.getData("Data"); // Elemento arrastrado
+      e.target.appendChild(document.getElementById(elementAstraddle));
       e.target.style.border = ""; // Quita el borde
     },
     over: function (e: any) {
+      if (e.target.className === "button_genre-drag") {
+        return true;
+      }
+      if (e.target.className === "square2") {
+        let element = document.querySelector(".square2");
+        if (element !== null) {
+          if (element.childElementCount === 3) {
+            return true;
+          }
+        }
+      }
       e.preventDefault();
     },
     start: function (e: any) {
-      console.log(e.target.id);
       e.dataTransfer.effecAllowed = "move"; // Define el efecto como mover (Es el por defecto)
       e.dataTransfer.setData("Data", e.target.id); // Coje el elemento que se va a mover
       e.dataTransfer.setDragImage(e.target, 0, 0); // Define la imagen que se vera al ser arrastrado el elemento y por donde se coje el elemento que se va a mover (el raton aparece en la esquina sup_izq con 0,0)
@@ -256,7 +308,7 @@ export default defineComponent({
       e.dataTransfer.clearData("Data");
     },
     enter: function (e: any) {
-      e.target.style.border = "3px dotted #555";
+      e.target.style.border = "2px solid grey";
     },
     leave: function (e: any) {
       e.target.style.border = "";
@@ -352,18 +404,24 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-.square {
+.square1,
+.square2 {
   margin-left: 1rem;
   margin-right: 1rem;
   display: flex;
   flex-direction: column;
-  height: 30rem;
+  height: 40rem;
+  margin-bottom: 1rem;
+}
+.square2 {
+  background: #f7dfc2;
+  height: 20rem;
 }
 .button_genre-drag {
   height: 3rem;
   width: 10rem;
   margin: 0.5rem;
-  border-radius: 30px;
+  border-radius: 40px;
   border: none;
 }
 </style>

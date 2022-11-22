@@ -39,7 +39,7 @@ export default defineComponent({
           image: require("@/assets/images/categories/action.png"),
         },
         {
-          title: "SCI-FI",
+          title: "Sci-Fi",
           image: require("@/assets/images/categories/sci-fi.png"),
         },
         {
@@ -67,8 +67,28 @@ export default defineComponent({
           image: require("@/assets/images/categories/adventure.png"),
         },
         {
-          title: "Superhero",
-          image: require("@/assets/images/categories/superhero.png"),
+          title: "Family",
+          image: require("@/assets/images/categories/family.png"),
+        },
+        {
+          title: "Documentary",
+          image: require("@/assets/images/categories/documentary.png"),
+        },
+        {
+          title: "Musical",
+          image: require("@/assets/images/categories/musical.png"),
+        },
+        {
+          title: "War",
+          image: require("@/assets/images/categories/war.png"),
+        },
+        {
+          title: "Biography",
+          image: require("@/assets/images/categories/biography.png"),
+        },
+        {
+          title: "Mystery",
+          image: require("@/assets/images/categories/mystery.png"),
         },
       ]
     }
@@ -103,7 +123,7 @@ export default defineComponent({
       top: 0;
       bottom: 0;
       margin: auto;
-      font-size: 2rem;
+      font-size: 1.8rem;
       background: black;
       color: white;
       font-weight: bold;
