@@ -16,9 +16,26 @@
           Sort by
         </button>
         <ul class="nav_subItem" v-if="isOpenSort">
-          <li><input type="radio" name="sort-by" checked /> No sorted</li>
-          <li><input type="radio" name="sort-by" /> By score: Low to High</li>
-          <li><input type="radio" name="sort-by" /> By score: High to Low</li>
+          <!-- <li><input type="radio" name="sort-by" checked /> No sorted</li>-->
+          <li>
+            <input
+              type="radio"
+              @click="sort = 'desc'"
+              name="sort-by"
+              class="sort_desc"
+              checked
+            />
+            By score: High to Low
+          </li>
+          <li>
+            <input
+              type="radio"
+              name="sort-by"
+              @click="sort = 'asc'"
+              class="sort_asc"
+            />
+            By score: Low to High
+          </li>
         </ul>
       </section>
       <section class="nav_item">
@@ -132,6 +149,7 @@ export default defineComponent({
       range: [0, 10],
       rangeTime: [50, 300],
       rangeYear: [1980, 2022],
+      sort: "desc",
       filters: [
         "minScore",
         "maxScore",
@@ -139,8 +157,9 @@ export default defineComponent({
         "maxYear",
         "minMinutes",
         "maxMinutes",
+        "sortRating",
       ],
-      params: ["0", "10", "1980", "2022", "50", "300"],
+      params: ["0", "10", "1980", "2022", "50", "300", "desc"],
       categories: [
         {
           title: "Romance",
@@ -182,7 +201,6 @@ export default defineComponent({
     setValue: function () {
       let element = document.querySelectorAll(".slider-handle");
       if (element !== null) {
-        console.log(element);
         for (let i = 0; i < element.length; i = i + 2) {
           if (element[i].ariaValueMin === "0.0") {
             console.log(element[i]);
@@ -211,6 +229,7 @@ export default defineComponent({
       }
     },
     applyFilters: function () {
+      this.params[this.params.length - 1] = this.sort;
       createStore.dispatch("setAsideFilters", this.filters);
       createStore.dispatch("setAsideParams", this.params);
       createStore.dispatch("setIsFilter", true);

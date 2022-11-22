@@ -1,24 +1,24 @@
 export async function requestFilmsByGenre(value: string) {
   const data = await fetch(
-    "http://localhost:8080/search/?type=movie&genres=" + value
+    "http://localhost:8080/search/?type=movie&maxNHits=48&genres=" + value
   );
   const results = await data.json();
-  results.hits.splice(48, results.hits.length);
+  //results.hits.splice(48, results.hits.length);
   console.log(results.hits);
   return results.hits;
 }
 export async function requestLatestFilms() {
   const data = await fetch(
-    "http://localhost:8080/search/?type=movie&minYear=2022&minScore=7"
+    "http://localhost:8080/search/?type=movie&minYear=2022&minScore=5"
   );
   const results = await data.json();
-  console.log(results.hits);
   return results.hits;
 }
 export async function requestAllFilms() {
-  const data = await fetch("http://localhost:8080/search/?type=movie");
+  const data = await fetch(
+    "http://localhost:8080/search/?type=movie&maxNHits=48"
+  );
   const results = await data.json();
-  results.hits.splice(48, results.hits.length);
   return results.hits;
 }
 export async function requestImages(title: string) {
@@ -32,7 +32,7 @@ export async function requestImages(title: string) {
 export async function requestFilterRandomFilms(params: any[], filters: any[]) {
   if (filters.length === 3) {
     const data = await fetch(
-      "http://localhost:8080/search/?type=movie&" +
+      "http://localhost:8080/search/?type=movie&maxNHits=8&" +
         filters[0] +
         "=" +
         params[0] +
@@ -46,11 +46,11 @@ export async function requestFilterRandomFilms(params: any[], filters: any[]) {
         params[2]
     );
     const results = await data.json();
-    results.hits.splice(8, results.hits.length);
+    //results.hits.splice(8, results.hits.length);
     return results.hits;
   } else {
     const data = await fetch(
-      "http://localhost:8080/search/?type=movie&" +
+      "http://localhost:8080/search/?type=movie&maxNHits=8&" +
         filters[0] +
         "=" +
         params[0] +
@@ -66,7 +66,7 @@ export async function requestFilterRandomFilms(params: any[], filters: any[]) {
         params[3]
     );
     const results = await data.json();
-    results.hits.splice(8, results.hits.length);
+    //results.hits.splice(8, results.hits.length);
     return results.hits;
   }
 }
@@ -95,10 +95,15 @@ export async function requestFilterFilms(params: any[], filters: any[]) {
     "&" +
     filters[5] +
     "=" +
-    params[5];
+    params[5] +
+    "&" +
+    filters[6] +
+    "=" +
+    params[6] +
+    "&maxNHits=48";
   console.log(request);
   const data = await fetch(request);
   const results = await data.json();
-  results.hits.splice(48, results.hits.length);
+  //results.hits.splice(48, results.hits.length);
   return results.hits;
 }
