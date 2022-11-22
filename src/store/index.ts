@@ -26,6 +26,7 @@ export default createStore({
     isFilters: false,
     moviesByFilters: [] as any[],
     genresOfAside: [] as any[],
+    firstPage: false,
   },
   mutations: {
     change(state, value) {
@@ -51,6 +52,9 @@ export default createStore({
     },
     setImages(state, value) {
       state.images = value;
+    },
+    setFirstPage(state, value) {
+      state.firstPage = value;
     },
     setRandomFilms(state, value) {
       state.randomFilms = value;
@@ -114,6 +118,9 @@ export default createStore({
     },
     setIsFilter(context: any, value: boolean) {
       context.commit("setIsFilter", value);
+    },
+    setFirstPage(context: any, value: boolean) {
+      context.commit("setFirstPage", value);
     },
     async setMovieFilter(context, value) {
       const response = await requestFilmsByGenre(value);

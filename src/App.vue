@@ -1,6 +1,6 @@
 <template>
   <transition name="init">
-    <main class="main_app" v-if="typeOfSearch.length === 0">
+    <main class="main_app" v-if="!getOtherPage">
       <section class="app_section-title">
         <p class="main_title-company">IMDb</p>
         <h1 class="main_title-movies">
@@ -43,9 +43,15 @@ export default defineComponent({
       typeOfSearch: "",
     };
   },
+  computed: {
+    getOtherPage(){
+      return createStore.state.firstPage;
+    },
+  },
   methods: {
     setSearchType: function (value: string) {
       this.typeOfSearch = value;
+      createStore.dispatch("setFirstPage", true);
       if (value === "normal") {
         createStore.dispatch("setFilmsNew");
       }
