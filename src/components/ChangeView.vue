@@ -39,7 +39,6 @@ export default defineComponent({
   display: flex;
   justify-content: right;
   align-items: center;
-  margin-right: 4rem;
 }
 .button_view {
   display: flex;

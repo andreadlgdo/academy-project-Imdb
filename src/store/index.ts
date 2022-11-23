@@ -28,6 +28,8 @@ export default createStore({
     genresOfAside: [] as any[],
     firstPage: false,
     openHeader: false,
+    goLikes: false,
+    typeOfSearch: "",
   },
   mutations: {
     change(state, value) {
@@ -35,6 +37,9 @@ export default createStore({
     },
     changeGenre(state, value) {
       state.filterByGenre = value;
+    },
+    setTypeOfSearch(state, value) {
+      state.typeOfSearch = value;
     },
     setMoviesByGenre(state, value) {
       state.isGoToSeeAllMoviesByGenre = value;
@@ -44,6 +49,9 @@ export default createStore({
     },
     setAllFilms(state, value) {
       state.allFilms = value;
+    },
+    setLikes(state, value) {
+      state.goLikes = value;
     },
     setFilmsNew(state, value) {
       state.filmsNew = value;
@@ -105,6 +113,9 @@ export default createStore({
     setView(context, value) {
       context.commit("setView", value);
     },
+    setLikes(context, value) {
+      context.commit("setLikes", value);
+    },
     setRandomParams(context: any, value: string) {
       context.commit("setRandomParams", value);
     },
@@ -119,6 +130,9 @@ export default createStore({
     },
     setAsideGenders(context: any, value: string) {
       context.commit("setAsideGenders", value);
+    },
+    setTypeOfSearch(context: any, value: string) {
+      context.commit("setTypeOfSearch", value);
     },
     setIsFilter(context: any, value: boolean) {
       context.commit("setIsFilter", value);

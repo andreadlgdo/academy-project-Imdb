@@ -13,13 +13,16 @@
           class="main_movies"
         >
           <div
-            @click="changeCart = !changeCart"
             class="main_movie"
             v-for="(movie, index) in getMovies"
             :key="index"
           >
             <transition>
-              <div class="first_side" v-if="!changeCart">
+              <div
+                @click="changeCart = !changeCart"
+                class="first_side"
+                v-if="!changeCart"
+              >
                 <h2>{{ movie.primaryTitle }}</h2>
                 <img
                   v-if="getImages[index] !== 'button'"
@@ -37,7 +40,18 @@
               </div>
             </transition>
             <div class="heart_button">
-              <button @click="setSession(movie)" v-if="!movie.like">
+              <button
+                @click="setLike(movie)"
+                class="heart_isNotLike"
+                v-if="!movie.like"
+              >
+                Like ♥
+              </button>
+              <button
+                @click="unLike(movie)"
+                class="heart_isLike"
+                v-if="movie.like"
+              >
                 Like ♥
               </button>
             </div>
@@ -45,7 +59,11 @@
               name="custom-classes-transition"
               enter-active-class="animate__animated animate__tada"
             >
-              <div class="second_side" v-if="changeCart">
+              <div
+                @click="changeCart = !changeCart"
+                class="second_side"
+                v-if="changeCart"
+              >
                 <h2>{{ movie.primaryTitle }}</h2>
                 <div class="movie_score">
                   <Starts :rating="movie.averageRating"></Starts>
@@ -93,6 +111,13 @@ export default defineComponent({
     };
   },
   methods: {
+    setLike: function (movie: any) {
+      movie.like = true;
+      this.setSession(movie);
+    },
+    unLike: function (movie: any) {
+      movie.like = false;
+    },
     setSession: function (value: any) {
       this.scores[this.indexScore] = value.averageRating;
       this.titles[this.indextTitle] = value.primaryTitle;
@@ -266,10 +291,13 @@ export default defineComponent({
 input[type="radio"] {
   display: none;
 }
-.heart {
+.heart_isLike {
+  color: red;
+  padding: 0.5rem;
+  border: red solid;
+}
+.heart_isNotLike {
   color: black;
-  &_like {
-    color: red;
-  }
+  padding: 0.5rem;
 }
 </style>

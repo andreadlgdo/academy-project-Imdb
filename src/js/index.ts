@@ -19,7 +19,7 @@ export async function requestAllFilms() {
     "http://localhost:8080/search/?type=movie&maxNHits=48"
   );
   const results = await data.json();
-  for (let i = 0; i < results.length; i++) {
+  for (let i = 0; i < results.length; i = i + 1) {
     results.hits[i].like = false;
   }
   return results.hits;

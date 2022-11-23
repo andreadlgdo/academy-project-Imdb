@@ -22,8 +22,9 @@
       </section>
     </main>
   </transition>
-  <FirstPage v-if="typeOfSearch === 'normal'" />
-  <FirstPageRandom v-if="typeOfSearch === 'random'" />
+  <FirstPage v-if="getTypeOfSearch === 'normal'" />
+  <FirstPageRandom v-if="getTypeOfSearch === 'random'" />
+  <FilmsLiked v-if="getIsGoLikes" />
 </template>
 
 <script lang="ts">
@@ -31,26 +32,31 @@ import { defineComponent } from "vue";
 import FirstPage from "@/components/MainPage.vue";
 import FirstPageRandom from "@/components/random/FirstPageRandom.vue";
 import createStore from "@/store";
+import FilmsLiked from "@/components/FilmsLiked.vue";
 
 export default defineComponent({
   name: "App",
   components: {
     FirstPage,
     FirstPageRandom,
-  },
-  data: function () {
-    return {
-      typeOfSearch: "",
-    };
+    FilmsLiked,
   },
   computed: {
     getOtherPage() {
       return createStore.state.firstPage;
     },
+    getTypeOfSearch() {
+      console.log(createStore.state.typeOfSearch);
+      return createStore.state.typeOfSearch;
+    },
+    getIsGoLikes() {
+      console.log(createStore.state.goLikes);
+      return createStore.state.goLikes;
+    },
   },
   methods: {
     setSearchType: function (value: string) {
-      this.typeOfSearch = value;
+      createStore.dispatch("setTypeOfSearch", value);
       createStore.dispatch("setFirstPage", true);
       if (value === "normal") {
         createStore.dispatch("setFilmsNew");

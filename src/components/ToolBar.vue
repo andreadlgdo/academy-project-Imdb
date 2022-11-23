@@ -10,7 +10,10 @@
         <p class="button_filters-name">Filters & sort</p>
       </button>
     </section>
-    <ChangeView />
+    <div class="right_toolBar">
+      <ChangeView />
+      <PersonalView />
+    </div>
   </section>
 </template>
 
@@ -18,10 +21,11 @@
 import { defineComponent } from "vue";
 import ChangeView from "@/components/ChangeView.vue";
 import createStore from "@/store";
+import PersonalView from "@/components/PersonalView.vue";
 
 export default defineComponent({
   name: "ToolBar",
-  components: { ChangeView },
+  components: { PersonalView, ChangeView },
   methods: {
     goFilters: function (value: boolean) {
       createStore.dispatch("change", value);
@@ -61,5 +65,11 @@ export default defineComponent({
 .button_filters-img {
   height: 2.5rem;
   width: 2.5rem;
+}
+.right_toolBar {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 1.5rem;
 }
 </style>
