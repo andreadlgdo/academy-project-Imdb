@@ -1,6 +1,6 @@
 <template>
   <link
-    href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css"
     rel="stylesheet"
     type="text/css"
   />
@@ -18,10 +18,7 @@
             v-for="(movie, index) in getMovies"
             :key="index"
           >
-            <transition
-              name="custom-classes-transition"
-              leave-active-class="animated bounceOutRight"
-            >
+            <transition>
               <div class="first_side" v-if="!changeCart">
                 <h2>{{ movie.primaryTitle }}</h2>
                 <img
@@ -39,7 +36,15 @@
                 </div>
               </div>
             </transition>
-            <transition>
+            <div class="heart_button">
+              <button @click="setSession(movie)" v-if="!movie.like">
+                Like ♥
+              </button>
+            </div>
+            <transition
+              name="custom-classes-transition"
+              enter-active-class="animate__animated animate__tada"
+            >
               <div class="second_side" v-if="changeCart">
                 <h2>{{ movie.primaryTitle }}</h2>
                 <div class="movie_score">
@@ -73,6 +78,7 @@ import ToolBar from "@/components/ToolBar.vue";
 import AsideFilters from "@/components/AsideFilters.vue";
 import Starts from "@/components/StartRating.vue";
 import createStore from "@/store";
+import { ParserOptions } from "@typescript-eslint/parser/dist/parser";
 
 export default defineComponent({
   name: "ViewMovies",
@@ -80,7 +86,48 @@ export default defineComponent({
   data: function () {
     return {
       changeCart: false,
+      indextTitle: 0,
+      indexScore: 0,
+      titles: [] as any[],
+      scores: [] as any[],
     };
+  },
+  methods: {
+    setSession: function (value: any) {
+      this.scores[this.indexScore] = value.averageRating;
+      this.titles[this.indextTitle] = value.primaryTitle;
+      this.indextTitle++;
+      this.indexScore++;
+      if (this.indextTitle !== null)
+        localStorage.setItem("count", this.indextTitle.toString());
+      if (localStorage.getItem("titleFilm") != null) {
+        let titleFilm = localStorage.getItem("titleFilm");
+        if (titleFilm !== null && this.indextTitle == 1) {
+          let f = titleFilm.substring(1, titleFilm.length - 1).split(",");
+          for (let j = 0; j < f.length; j++) {
+            this.titles[this.indextTitle++] = f[j].substring(
+              1,
+              f[j].length - 1
+            );
+          }
+        }
+        localStorage.titleFilm = JSON.stringify(this.titles);
+      } else {
+        localStorage.titleFilm = JSON.stringify(this.titles);
+      }
+      if (localStorage.getItem("scoreFilm") != null) {
+        let scoreFilm = localStorage.getItem("scoreFilm");
+        if (scoreFilm != null && this.indexScore == 1) {
+          let f = scoreFilm.substring(1, scoreFilm.length - 1).split(",");
+          for (let j = 0; j < f.length; j++) {
+            this.scores[this.indexScore++] = f[j];
+          }
+        }
+        localStorage.scoreFilm = JSON.stringify(this.scores);
+      } else {
+        localStorage.scoreFilm = JSON.stringify(this.scores);
+      }
+    },
   },
   computed: {
     getOpenFilters() {
@@ -97,13 +144,11 @@ export default defineComponent({
     getMovies() {
       if (createStore.state.filmsByGenre.length === 0) {
         if (createStore.state.isFilters) {
-          console.log(createStore.state.moviesByFilters);
           return createStore.state.moviesByFilters;
         }
         return createStore.state.allFilms;
       } else {
         if (createStore.state.isFilters) {
-          console.log("test");
           return createStore.state.moviesByFilters;
         }
         return createStore.state.filmsByGenre;
@@ -127,7 +172,7 @@ export default defineComponent({
 .main_view-movies {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 95%;
 }
 .main_movies {
   display: grid;
@@ -143,6 +188,8 @@ export default defineComponent({
   box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
     0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 .first_side {
   display: flex;
@@ -209,5 +256,20 @@ export default defineComponent({
   background: lightblue;
   border-radius: 30px;
   padding: 1rem;
+}
+.heart_button {
+  display: flex;
+  justify-content: right;
+  margin: 1rem;
+  padding-right: 1rem;
+}
+input[type="radio"] {
+  display: none;
+}
+.heart {
+  color: black;
+  &_like {
+    color: red;
+  }
 }
 </style>

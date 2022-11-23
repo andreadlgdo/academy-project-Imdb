@@ -12,7 +12,7 @@
             <button @click="$emit('view-all')" class="finder_back">
               All movies
             </button>
-            <button class="finder_back">Main page</button>
+            <button @click="goMainPage()" class="finder_back">Main page</button>
           </section>
           <section class="finder_right">
             <p class="right_title">More popular</p>
@@ -91,6 +91,9 @@ export default defineComponent({
     },
     isOpen: function () {
       createStore.dispatch("setOpenHeader", !this.getOpenHeader);
+    },
+    goMainPage: function () {
+      createStore.dispatch("setMovieByGenre", false);
     },
   },
 });

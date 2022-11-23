@@ -44,7 +44,7 @@ export default defineComponent({
     };
   },
   computed: {
-    getOtherPage(){
+    getOtherPage() {
       return createStore.state.firstPage;
     },
   },
