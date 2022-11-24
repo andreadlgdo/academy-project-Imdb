@@ -8,10 +8,15 @@
         <th>Score</th>
       </tr>
       <tr v-for="(film, index) in getTitlesFilms" :key="index">
-        <td>{{ film }}</td>
-        <td>{{ film }}</td>
+        <td>{{ film.title }}</td>
+        <td>{{ film.score }}</td>
       </tr>
     </table>
+  </section>
+  <section class="section_button">
+    <button @click="removeLikes()" class="button_remove-likes">
+      Remove likes
+    </button>
   </section>
 </template>
 
@@ -19,50 +24,36 @@
 import { defineComponent } from "vue";
 import Header from "@/components/Header.vue";
 
-console.log(localStorage.getItem("scoreFilm"));
-console.log(localStorage.getItem("titleFilm"));
 export default defineComponent({
   name: "FilmsLiked",
   components: { Header },
   computed: {
     getTitlesFilms() {
-      let titles = [] as any[];
+      let f = [] as any;
       let filmsString = localStorage.getItem("titleFilm");
-      if (filmsString != null) {
+      let scoreString = localStorage.getItem("scoreFilm");
+      if (filmsString != null && scoreString != null) {
         let filmsStore = filmsString
           .substring(1, filmsString.length - 1)
           .split(",");
-        console.log(filmsStore);
-        for (let i = 0; i < filmsStore.length; i++) {
-          titles[i] = filmsStore[i].substring(1, filmsStore[i].length - 1);
-        }
-      }
-      let scores = [] as any;
-      let scoreString = localStorage.getItem("scoreFilm");
-      if (scoreString != null) {
         let scoreStore = scoreString
           .substring(1, scoreString.length - 1)
           .split(",");
-        for (let i = 0; i < scoreStore.length; i++) {
-          scores[i] = scoreStore[i];
+        for (let i = 0; i < filmsStore.length; i++) {
+          let elem = {
+            title: filmsStore[i].substring(1, filmsStore[i].length - 1),
+            score: scoreStore[i],
+          };
+          f[i] = elem;
         }
       }
-      let films = [
-        {
-          score: scores[0],
-          title: titles[0],
-        },
-        {
-          score: scores[1],
-          title: titles[1],
-        },
-        {
-          score: scores[2],
-          title: titles[2],
-        },
-      ] as any;
-      console.log(films[0].score);
-      return titles;
+      console.log(f);
+      return f;
+    },
+  },
+  methods: {
+    removeLikes: function () {
+      localStorage.clear();
     },
   },
 });
@@ -90,5 +81,25 @@ export default defineComponent({
   padding-bottom: 12px;
   text-align: left;
   background: #efc592;
+}
+.button_remove-likes {
+  border-radius: 30px;
+  border: none;
+  border: red solid;
+  background: white;
+  color: red;
+  height: 3rem;
+  width: 10rem;
+  font-size: 1rem;
+  &:hover {
+    background: rgba(255, 0, 11, 0.55);
+    color: black;
+  }
+}
+.section_button {
+  margin: 5rem;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 </style>

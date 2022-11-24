@@ -1,6 +1,6 @@
 export async function requestFilmsByGenre(value: string) {
   const data = await fetch(
-    "http://localhost:8080/search/?type=movie&maxNHits=48&genres=" + value
+    "http://localhost:8080/search/?type=movie&genres=" + value + "&maxNHits=48"
   );
   const results = await data.json();
   //results.hits.splice(48, results.hits.length);
@@ -19,9 +19,24 @@ export async function requestAllFilms() {
     "http://localhost:8080/search/?type=movie&maxNHits=48"
   );
   const results = await data.json();
-  for (let i = 0; i < results.length; i = i + 1) {
-    results.hits[i].like = false;
+  const films = localStorage.getItem("titleFilm");
+
+  if (films !== null) {
+    const film = films.substring(1, films.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let l = false;
+      for (let j = 0; j < film.length; j++) {
+        if (
+          film[j].substring(1, film[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          l = true;
+        }
+      }
+      results.hits[i].like = l;
+    }
   }
+  console.log(results.hits);
   return results.hits;
 }
 export async function requestImages(title: string) {

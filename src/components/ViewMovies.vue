@@ -117,6 +117,7 @@ export default defineComponent({
     },
     unLike: function (movie: any) {
       movie.like = false;
+      this.removeSession(movie);
     },
     setSession: function (value: any) {
       this.scores[this.indexScore] = value.averageRating;
@@ -151,6 +152,25 @@ export default defineComponent({
         localStorage.scoreFilm = JSON.stringify(this.scores);
       } else {
         localStorage.scoreFilm = JSON.stringify(this.scores);
+      }
+    },
+    removeSession: function (value: any) {
+      const films = localStorage.getItem("titleFilm");
+      if (films !== null) {
+        const film = films.substring(1, films.length - 1).split(",");
+        for (let j = 0; j < film.length; j++) {
+          if (film[j].substring(1, film[j].length - 1) === value.primaryTitle) {
+            console.log(film);
+            film[j] = "";
+          }
+        }
+        let newList = [] as any[];
+        for (let j = 0; j < film.length; j++) {
+          if (film[j].substring(1, film[j].length - 1) !== "") {
+            newList[j] = film[j];
+          }
+        }
+        console.log(newList);
       }
     },
   },

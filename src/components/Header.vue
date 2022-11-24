@@ -88,12 +88,17 @@ export default defineComponent({
       createStore.dispatch("setOpenHeader", !this.getOpenHeader);
       createStore.dispatch("setMovieByGenre", false);
       createStore.dispatch("setFirstPage", value);
+      createStore.dispatch("setLikes", false);
+      createStore.dispatch("setTypeOfSearch", "");
     },
     isOpen: function () {
       createStore.dispatch("setOpenHeader", !this.getOpenHeader);
     },
     goMainPage: function () {
+      createStore.dispatch("setOpenHeader", !this.getOpenHeader);
       createStore.dispatch("setMovieByGenre", false);
+      createStore.dispatch("setLikes", false);
+      createStore.dispatch("setTypeOfSearch", "normal");
     },
   },
 });
