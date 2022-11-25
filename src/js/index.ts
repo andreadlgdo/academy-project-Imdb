@@ -20,7 +20,7 @@ export async function requestAllFilms() {
   );
   const results = await data.json();
   const films = localStorage.getItem("titleFilm");
-
+  console.log(films);
   if (films !== null) {
     const film = films.substring(1, films.length - 1).split(",");
     for (let i = 0; i < results.hits.length; i = i + 1) {
@@ -35,8 +35,8 @@ export async function requestAllFilms() {
       }
       results.hits[i].like = l;
     }
+    console.log(results.hits);
   }
-  console.log(results.hits);
   return results.hits;
 }
 export async function requestImages(title: string) {

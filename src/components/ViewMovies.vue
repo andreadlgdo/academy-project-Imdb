@@ -149,6 +149,12 @@ export default defineComponent({
             this.scores[this.indexScore++] = f[j];
           }
         }
+        for (let j = 0; j < this.scores.length; j++) {
+          console.log(typeof this.scores[j]);
+          if (typeof this.scores[j] === "string") {
+            this.scores[j] = parseInt(this.scores[j]);
+          }
+        }
         localStorage.scoreFilm = JSON.stringify(this.scores);
       } else {
         localStorage.scoreFilm = JSON.stringify(this.scores);
@@ -156,21 +162,39 @@ export default defineComponent({
     },
     removeSession: function (value: any) {
       const films = localStorage.getItem("titleFilm");
-      if (films !== null) {
+      const scores = localStorage.getItem("scoreFilm");
+
+      if (films !== null && scores !== null) {
         const film = films.substring(1, films.length - 1).split(",");
-        for (let j = 0; j < film.length; j++) {
-          if (film[j].substring(1, film[j].length - 1) === value.primaryTitle) {
-            console.log(film);
-            film[j] = "";
+        if (film.length > 1) {
+          const score = scores.substring(1, scores.length - 1).split(",");
+          for (let j = 0; j < film.length; j++) {
+            if (
+              film[j].substring(1, film[j].length - 1) === value.primaryTitle
+            ) {
+              film[j] = "";
+              score[j] = "";
+            }
           }
-        }
-        let newList = [] as any[];
-        for (let j = 0; j < film.length; j++) {
-          if (film[j].substring(1, film[j].length - 1) !== "") {
-            newList[j] = film[j];
+          let newFilms = [] as any[];
+          let newScores = [] as any[];
+          for (let j = 0; j < film.length; j++) {
+            if (
+              film[j].substring(1, film[j].length - 1) !== "" &&
+              film[j].substring(1, film[j].length - 1).length !== 0
+            ) {
+              newFilms[j] = film[j].substring(1, film[j].length - 1);
+              newScores[j] = score[j];
+            }
           }
-        }
-        console.log(newList);
+          for (let j = 0; j < newScores.length; j++) {
+            if (typeof newScores[j] === "string") {
+              newScores[j] = parseInt(newScores[j]);
+            }
+          }
+          localStorage.titleFilm = JSON.stringify(newFilms);
+          localStorage.scoreFilm = JSON.stringify(newScores);
+        } else localStorage.clear();
       }
     },
   },
