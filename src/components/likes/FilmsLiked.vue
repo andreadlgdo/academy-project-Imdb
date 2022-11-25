@@ -1,6 +1,6 @@
 <template>
   <Header @view-all="goViewAllMovies(true, '')" />
-  <div v-if="!getSeeAllMovies">
+  <div v-if="getLikes">
     <section class="section_likes">
       <div class="section_title">
         <h2 class="table_title">Movies you like</h2>
@@ -43,23 +43,34 @@ export default defineComponent({
     getSeeAllMovies() {
       return createStore.state.isGoToSeeAllMoviesByGenre;
     },
+    getLikes() {
+      return createStore.state.goLikes;
+    },
     getTitlesFilms() {
       let f = [] as any;
       let filmsString = localStorage.getItem("titleFilm");
       let scoreString = localStorage.getItem("scoreFilm");
       if (filmsString != null && scoreString != null) {
+        console.log(filmsString);
         let filmsStore = filmsString
           .substring(1, filmsString.length - 1)
           .split(",");
         let scoreStore = scoreString
           .substring(1, scoreString.length - 1)
           .split(",");
+        let j = 0;
         for (let i = 0; i < filmsStore.length; i++) {
-          let elem = {
-            title: filmsStore[i].substring(1, filmsStore[i].length - 1),
-            score: scoreStore[i],
-          };
-          f[i] = elem;
+          console.log(typeof scoreStore[i]);
+          if (scoreStore[i] === "null") {
+            console.log(scoreStore[i]);
+          } else {
+            let elem = {
+              title: filmsStore[j].substring(1, filmsStore[j].length - 1),
+              score: scoreStore[j],
+            };
+            f[j] = elem;
+            j++;
+          }
         }
       }
       console.log(f);
@@ -139,9 +150,10 @@ export default defineComponent({
   padding-top: 1rem;
 }
 .section_button {
-  margin: 5rem;
   display: flex;
   justify-content: right;
   align-items: center;
+  margin: 5rem;
+  padding-bottom: 3rem;
 }
 </style>

@@ -45,14 +45,20 @@
                 class="heart_isNotLike"
                 v-if="!movie.like"
               >
-                Like ♥
+                <img
+                  class="heart_icon-unlike"
+                  :src="require('@/assets/images/heart.svg')"
+                />
               </button>
               <button
                 @click="unLike(movie)"
                 class="heart_isLike"
                 v-if="movie.like"
               >
-                Like ♥
+                <img
+                  class="heart_icon-like"
+                  :src="require('@/assets/images/heart.svg')"
+                />
               </button>
             </div>
             <transition
@@ -120,6 +126,7 @@ export default defineComponent({
       this.removeSession(movie);
     },
     setSession: function (value: any) {
+      console.log(this.scores);
       this.scores[this.indexScore] = value.averageRating;
       this.titles[this.indextTitle] = value.primaryTitle;
       this.indextTitle++;
@@ -176,24 +183,31 @@ export default defineComponent({
               score[j] = "";
             }
           }
-          let newFilms = [] as any[];
-          let newScores = [] as any[];
+          console.log(this.titles);
+          for (let i = 0; i < this.titles.length; i++) {
+            console.log(i);
+            this.titles.pop();
+            this.scores.pop();
+          }
+          console.log(this.titles);
           for (let j = 0; j < film.length; j++) {
             if (
               film[j].substring(1, film[j].length - 1) !== "" &&
               film[j].substring(1, film[j].length - 1).length !== 0
             ) {
-              newFilms[j] = film[j].substring(1, film[j].length - 1);
-              newScores[j] = score[j];
+              this.titles[j] = film[j].substring(1, film[j].length - 1);
+              this.scores[j] = score[j];
             }
           }
-          for (let j = 0; j < newScores.length; j++) {
-            if (typeof newScores[j] === "string") {
-              newScores[j] = parseInt(newScores[j]);
+          for (let j = 0; j < this.scores.length; j++) {
+            if (typeof this.scores[j] === "string") {
+              this.scores[j] = parseInt(this.scores[j]);
             }
           }
-          localStorage.titleFilm = JSON.stringify(newFilms);
-          localStorage.scoreFilm = JSON.stringify(newScores);
+          console.log("titulos despues borrar" + this.titles);
+          localStorage.titleFilm = JSON.stringify(this.titles);
+          localStorage.scoreFilm = JSON.stringify(this.scores);
+          console.log("Despues borrar" + localStorage.getItem("titleFilm"));
         } else localStorage.clear();
       }
     },
@@ -215,6 +229,7 @@ export default defineComponent({
         if (createStore.state.isFilters) {
           return createStore.state.moviesByFilters;
         }
+        console.log(createStore.state.allFilms);
         return createStore.state.allFilms;
       } else {
         if (createStore.state.isFilters) {
@@ -336,14 +351,41 @@ input[type="radio"] {
   display: none;
 }
 .heart_isLike {
-  color: red;
+  display: flex;
+  align-content: center;
   padding: 0.5rem;
   border: red solid;
   background: white;
+  border-radius: 30px;
+  &:hover {
+    border: black solid;
+    &:before {
+      content: "Unlike";
+      margin-right: 0.5rem;
+    }
+  }
 }
 .heart_isNotLike {
+  display: flex;
+  align-content: center;
   background: white;
   color: black;
   padding: 0.5rem;
+  border-radius: 30px;
+  &:hover {
+    border: red solid;
+    &:before {
+      content: "Like";
+      margin-right: 0.5rem;
+    }
+  }
+}
+.heart_icon-like {
+  height: 1rem;
+  width: 1rem;
+}
+.heart_icon-unlike {
+  height: 1rem;
+  width: 1rem;
 }
 </style>
