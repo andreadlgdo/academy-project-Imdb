@@ -43,21 +43,41 @@
               <button
                 @click="setLike(movie)"
                 class="heart_isNotLike"
-                v-if="!movie.like"
+                v-if="!movie.liked"
               >
                 <img
-                  class="heart_icon-unlike"
+                  class="heart_icon"
                   :src="require('@/assets/images/heart.svg')"
                 />
               </button>
               <button
                 @click="unLike(movie)"
                 class="heart_isLike"
-                v-if="movie.like"
+                v-if="movie.liked"
               >
                 <img
-                  class="heart_icon-like"
+                  class="heart_icon"
                   :src="require('@/assets/images/heart.svg')"
+                />
+              </button>
+              <button
+                @click="setSaved(movie)"
+                class="heart_isNotSave"
+                v-if="!movie.saved"
+              >
+                <img
+                  class="heart_icon"
+                  :src="require('@/assets/images/save.svg')"
+                />
+              </button>
+              <button
+                @click="unSaved(movie)"
+                class="heart_isSave"
+                v-if="movie.saved"
+              >
+                <img
+                  class="heart_icon"
+                  :src="require('@/assets/images/save.svg')"
                 />
               </button>
             </div>
@@ -118,12 +138,18 @@ export default defineComponent({
   },
   methods: {
     setLike: function (movie: any) {
-      movie.like = true;
+      movie.liked = true;
       this.setSession(movie);
     },
     unLike: function (movie: any) {
-      movie.like = false;
+      movie.liked = false;
       this.removeSession(movie);
+    },
+    setSaved: function (movie: any) {
+      movie.saved = true;
+    },
+    unSaved: function (movie: any) {
+      movie.saved = false;
     },
     setSession: function (value: any) {
       console.log(this.scores);
@@ -344,6 +370,7 @@ export default defineComponent({
 .heart_button {
   display: flex;
   justify-content: right;
+  gap: 1rem;
   margin: 1rem;
   padding-right: 1rem;
 }
@@ -365,6 +392,21 @@ input[type="radio"] {
     }
   }
 }
+.heart_isSave {
+  display: flex;
+  align-content: center;
+  padding: 0.5rem;
+  border: #faa544 solid;
+  background: white;
+  border-radius: 30px;
+  &:hover {
+    border: black solid;
+    &:before {
+      content: "Unsave";
+      margin-right: 0.5rem;
+    }
+  }
+}
 .heart_isNotLike {
   display: flex;
   align-content: center;
@@ -380,11 +422,23 @@ input[type="radio"] {
     }
   }
 }
-.heart_icon-like {
-  height: 1rem;
-  width: 1rem;
+.heart_isNotSave {
+  display: flex;
+  align-content: center;
+  background: white;
+  color: black;
+  padding: 0.5rem;
+  border-radius: 30px;
+  &:hover {
+    border: #faa544 solid;
+    &:before {
+      content: "Save";
+      margin-right: 0.5rem;
+    }
+  }
 }
-.heart_icon-unlike {
+.heart_icon,
+.heart_icon {
   height: 1rem;
   width: 1rem;
 }

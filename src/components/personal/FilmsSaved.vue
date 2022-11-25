@@ -1,32 +1,23 @@
 <template>
   <Header @view-all="goViewAllMovies(true, '')" />
   <div v-if="!getSeeAllMovies">
-    <section class="section_likes">
+    <section class="section_saved">
       <div class="section_title">
-        <h2 class="table_title">Movies you like</h2>
+        <h2 class="table_title">Saved movies</h2>
       </div>
       <section class="section_table">
-        <table class="table_likes">
+        <table class="table_saved">
           <tr>
             <th>Film</th>
             <th>Score</th>
-            <th>You like</th>
-          </tr>
-          <tr
-            :v-if="getTitlesFilms.length !== 0"
-            v-for="(film, index) in getTitlesFilms"
-            :key="index"
-          >
-            <td>{{ film.title }}</td>
-            <td>{{ film.score }}</td>
-            <td>❤️</td>
+            <th>Save</th>
           </tr>
         </table>
       </section>
     </section>
     <section class="section_button">
       <button @click="removeLikes()" class="button_remove-likes">
-        Remove likes
+        Remove saved
       </button>
     </section>
   </div>
@@ -99,7 +90,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.section_likes {
+.section_saved {
   display: flex;
   flex-direction: column;
 }
@@ -108,16 +99,16 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
 }
-.table_likes {
+.table_saved {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 90%;
 }
-.table_likes td {
+.table_saved td {
   border: 1px solid black;
   padding: 1rem;
 }
-.table_likes th {
+.table_saved th {
   border-bottom: 5px solid black;
   padding-top: 12px;
   padding-bottom: 12px;

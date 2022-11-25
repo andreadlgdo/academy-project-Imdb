@@ -25,6 +25,7 @@
   <FirstPage v-if="getTypeOfSearch === 'normal'" />
   <FirstPageRandom v-if="getTypeOfSearch === 'random'" />
   <FilmsLiked v-if="getIsGoLikes" />
+  <FilmsSaved v-if="getIsGoSaved" />
 </template>
 
 <script lang="ts">
@@ -32,26 +33,29 @@ import { defineComponent } from "vue";
 import FirstPage from "@/components/MainPage.vue";
 import FirstPageRandom from "@/components/random/FirstPageRandom.vue";
 import createStore from "@/store";
-import FilmsLiked from "@/components/likes/FilmsLiked.vue";
-
+import FilmsLiked from "@/components/personal/FilmsLiked.vue";
+import FilmsSaved from "@/components/personal/FilmsSaved.vue";
 export default defineComponent({
   name: "App",
   components: {
     FirstPage,
     FirstPageRandom,
     FilmsLiked,
+    FilmsSaved,
   },
   computed: {
     getOtherPage() {
       return createStore.state.firstPage;
     },
     getTypeOfSearch() {
-      console.log(createStore.state.typeOfSearch);
       return createStore.state.typeOfSearch;
     },
     getIsGoLikes() {
-      console.log(createStore.state.goLikes);
       return createStore.state.goLikes;
+    },
+    getIsGoSaved() {
+      console.log(createStore.state.goSaved);
+      return createStore.state.goSaved;
     },
   },
   methods: {

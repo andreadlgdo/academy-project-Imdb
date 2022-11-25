@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import createStore from "@/store";
-import PersonalView from "@/components/likes/PersonalView.vue";
+import PersonalView from "@/components/personal/PersonalView.vue";
 
 export default defineComponent({
   name: "InfoBar",

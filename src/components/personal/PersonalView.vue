@@ -1,5 +1,8 @@
 <template>
-  <section>
+  <section class="personal_info">
+    <button @click="goSaved(true)" class="button_save">
+      <img class="img_personal" :src="require('@/assets/images/save.svg')" />
+    </button>
     <button @click="goLikes(true)" class="button_personal">
       <img class="img_personal" :src="require('@/assets/images/heart.svg')" />
     </button>
@@ -25,6 +28,13 @@ export default defineComponent({
         createStore.dispatch("setOpenHeader", !this.getOpenHeader);
       createStore.dispatch("setLikes", value);
     },
+    goSaved: function (value: boolean) {
+      createStore.dispatch("setMovieByGenre", false);
+      createStore.dispatch("setTypeOfSearch", "");
+      if (this.getOpenHeader)
+        createStore.dispatch("setOpenHeader", !this.getOpenHeader);
+      createStore.dispatch("setSaved", value);
+    },
   },
 });
 </script>
@@ -49,6 +59,31 @@ export default defineComponent({
       margin-left: 1rem;
     }
   }
+}
+.button_save {
+  height: 3rem;
+  width: 3rem;
+  border: black solid;
+  border-radius: 30px;
+  margin-right: 1rem;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    width: 10rem;
+    border: #faa544 solid;
+    &:after {
+      content: "Save";
+      margin-left: 1rem;
+      font-size: 1rem;
+    }
+  }
+}
+.personal_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .img_personal {
   height: 1.5rem;

@@ -21,7 +21,7 @@
 import { defineComponent } from "vue";
 import ChangeView from "@/components/ChangeView.vue";
 import createStore from "@/store";
-import PersonalView from "@/components/likes/PersonalView.vue";
+import PersonalView from "@/components/personal/PersonalView.vue";
 
 export default defineComponent({
   name: "ToolBar",

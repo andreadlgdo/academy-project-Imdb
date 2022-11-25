@@ -8,15 +8,18 @@ export async function requestFilmsByGenre(value: string) {
     const film = films.substring(1, films.length - 1).split(",");
     for (let i = 0; i < results.hits.length; i = i + 1) {
       let l = false;
+      let s = false;
       for (let j = 0; j < film.length; j++) {
         if (
           film[j].substring(1, film[j].length - 1) ===
           results.hits[i].primaryTitle
         ) {
           l = true;
+          s = true;
         }
       }
-      results.hits[i].like = l;
+      results.hits[i].liked = l;
+      results.hits[i].saved = s;
     }
   }
   return results.hits;
@@ -46,7 +49,7 @@ export async function requestAllFilms() {
           l = true;
         }
       }
-      results.hits[i].like = l;
+      results.hits[i].liked = l;
     }
   }
   return results.hits;
@@ -163,7 +166,7 @@ export async function requestFilterFilms(
           l = true;
         }
       }
-      results.hits[i].like = l;
+      results.hits[i].liked = l;
     }
   }
   return results.hits;

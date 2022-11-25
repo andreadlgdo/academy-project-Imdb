@@ -29,6 +29,7 @@ export default createStore({
     firstPage: false,
     openHeader: false,
     goLikes: false,
+    goSaved: false,
     typeOfSearch: "",
   },
   mutations: {
@@ -52,6 +53,9 @@ export default createStore({
     },
     setLikes(state, value) {
       state.goLikes = value;
+    },
+    setSaved(state, value) {
+      state.goSaved = value;
     },
     setFilmsNew(state, value) {
       state.filmsNew = value;
@@ -112,6 +116,9 @@ export default createStore({
     },
     setView(context, value) {
       context.commit("setView", value);
+    },
+    setSaved(context, value) {
+      context.commit("setSaved", value);
     },
     setLikes(context, value) {
       context.commit("setLikes", value);
