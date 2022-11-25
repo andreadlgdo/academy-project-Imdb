@@ -1,6 +1,6 @@
 <template>
   <Header @view-all="goViewAllMovies(true, '')" />
-  <div v-if="getLikes">
+  <div v-if="!getSeeAllMovies">
     <section class="section_likes">
       <div class="section_title">
         <h2 class="table_title">Movies you like</h2>
@@ -10,6 +10,7 @@
           <tr>
             <th>Film</th>
             <th>Score</th>
+            <th>You like</th>
           </tr>
           <tr
             :v-if="getTitlesFilms.length !== 0"
@@ -18,6 +19,7 @@
           >
             <td>{{ film.title }}</td>
             <td>{{ film.score }}</td>
+            <td>❤️</td>
           </tr>
         </table>
       </section>
