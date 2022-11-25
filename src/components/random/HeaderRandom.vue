@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <h1 class="header_title">The world of movies</h1>
+    <section class="section_title">
+      <button class="header_title">The world of movies</button>
+    </section>
     <div class="header_logo">
       <img
         :src="require('@/assets/images/logo.png')"
@@ -25,20 +27,27 @@ export default defineComponent({
   grid-template-columns: 1fr 1fr;
   flex-wrap: wrap;
   margin: 0rem;
-  border-bottom: solid black;
+  border-bottom: solid lightgrey;
   padding: 1rem;
   border-width: 0.3rem;
-  background: #f7dfc2;
 }
-.header_title {
+.section_title {
   display: flex;
   justify-content: left;
   align-items: center;
-  padding-left: 7rem;
-  font-family: fantasy;
-  font-weight: 700;
-  font-size: 3.5rem;
+  margin-left: 3rem;
+}
+.header_title {
+  padding: 1rem;
+  border: black solid;
+  background: transparent;
+  font-family: Copperplate;
+  font-weight: lighter;
+  font-size: 2.5rem;
   font-variant: all-small-caps;
+  &:hover {
+    border: #faa544 solid;
+  }
 }
 .header_logo {
   display: flex;
@@ -46,8 +55,8 @@ export default defineComponent({
   padding-right: 7rem;
   align-items: center;
   &-img {
-    height: 10rem;
-    width: 12rem;
+    height: 8rem;
+    width: 10rem;
     border-radius: 50%;
   }
 }

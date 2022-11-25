@@ -106,7 +106,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .main_resultRandom {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -141,8 +141,7 @@ export default defineComponent({
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px lightgrey, -1em 0 0.4em lightgrey;
   margin: 1rem;
 }
 .image-img,
@@ -183,5 +182,15 @@ export default defineComponent({
   background: lightblue;
   border-radius: 30px;
   padding: 1rem;
+}
+.button_repeat-search {
+  margin-top: 3rem;
+  border-radius: 30px;
+  padding: 1rem;
+  border: none;
+  background: lightblue;
+  &:hover {
+    border: cadetblue solid;
+  }
 }
 </style>

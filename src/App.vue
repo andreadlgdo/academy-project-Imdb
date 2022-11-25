@@ -32,7 +32,7 @@ import { defineComponent } from "vue";
 import FirstPage from "@/components/MainPage.vue";
 import FirstPageRandom from "@/components/random/FirstPageRandom.vue";
 import createStore from "@/store";
-import FilmsLiked from "@/components/FilmsLiked.vue";
+import FilmsLiked from "@/components/likes/FilmsLiked.vue";
 
 export default defineComponent({
   name: "App",
@@ -74,6 +74,7 @@ html {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   height: 100%;
+  position: relative;
 }
 body {
   margin: 0rem;

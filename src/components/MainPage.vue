@@ -1,53 +1,58 @@
 <template>
   <Header @view-all="goViewAllMovies(true, '')" />
-  <main class="main_page" v-if="!getSeeAllMovies">
-    <section class="main_section-categories">
-      <h2 class="section_title">Categories</h2>
-      <div class="slide_content">
-        <div class="sliding-panel">
-          <Categories @change-page="(genre) => goViewAllMovies(true, genre)" />
+  <div v-if="!getSeeAllMovies">
+    <InfoBar />
+    <main class="main_page">
+      <section class="main_section-categories">
+        <h2 class="section_title">Categories</h2>
+        <div class="slide_content">
+          <div class="sliding-panel">
+            <Categories
+              @change-page="(genre) => goViewAllMovies(true, genre)"
+            />
+          </div>
         </div>
-      </div>
-    </section>
-    <section class="main_section-news">
-      <div class="section_news">
-        <h2 class="section_title">News</h2>
-        <a class="section_view-all" @click="goViewAllMovies(true, '')"
-          >View all
-          <img
-            class="section_icon-arrow"
-            :src="require('@/assets/images/arrow.png')"
-            alt="arrow"
-        /></a>
-      </div>
-      <div class="slide_content">
-        <div class="sliding-panel">
-          <section class="section">
-            <div class="section_news-info">
-              <section class="movie_info">
-                <section
-                  class="movie_all-info"
-                  v-for="(movie, index) in getNewsMovies"
-                  :key="index"
-                >
-                  <img
-                    v-if="getImages[index] !== 'button'"
-                    class="image-img"
-                    :src="getImages[index]"
-                  />
-                  <button
-                    v-if="getImages[index] === 'button'"
-                    class="image-button"
-                  ></button>
-                  <p class="title_movie">{{ movie.primaryTitle }}</p>
+      </section>
+      <section class="main_section-news">
+        <div class="section_news">
+          <h2 class="section_title">News</h2>
+          <a class="section_view-all" @click="goViewAllMovies(true, '')"
+            >View all
+            <img
+              class="section_icon-arrow"
+              :src="require('@/assets/images/arrow.png')"
+              alt="arrow"
+          /></a>
+        </div>
+        <div class="slide_content">
+          <div class="sliding-panel">
+            <section class="section">
+              <div class="section_news-info">
+                <section class="movie_info">
+                  <section
+                    class="movie_all-info"
+                    v-for="(movie, index) in getNewsMovies"
+                    :key="index"
+                  >
+                    <img
+                      v-if="getImages[index] !== 'button'"
+                      class="image-img"
+                      :src="getImages[index]"
+                    />
+                    <button
+                      v-if="getImages[index] === 'button'"
+                      class="image-button"
+                    ></button>
+                    <p class="title_movie">{{ movie.primaryTitle }}</p>
+                  </section>
                 </section>
-              </section>
-            </div>
-          </section>
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
   <FilterPage v-if="getSeeAllMovies" />
 </template>
 
@@ -57,10 +62,12 @@ import Header from "./Header.vue";
 import FilterPage from "./ViewMovies.vue";
 import Categories from "@/components/categories/AllCategories.vue";
 import createStore from "@/store";
+import InfoBar from "@/components/InfoBar.vue";
 
 export default defineComponent({
   name: "MainPage",
   components: {
+    InfoBar,
     Header,
     FilterPage,
     Categories,

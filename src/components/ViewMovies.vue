@@ -254,8 +254,8 @@ export default defineComponent({
   grid-template-columns: 1fr 1fr;
 }
 .main_movie {
-  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
-    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px lightgrey, -1em 0 0.4em lightgrey;
+  background: white;
   margin: 1rem;
   display: flex;
   flex-direction: column;
@@ -339,8 +339,10 @@ input[type="radio"] {
   color: red;
   padding: 0.5rem;
   border: red solid;
+  background: white;
 }
 .heart_isNotLike {
+  background: white;
   color: black;
   padding: 0.5rem;
 }

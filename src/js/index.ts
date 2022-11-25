@@ -3,8 +3,22 @@ export async function requestFilmsByGenre(value: string) {
     "http://localhost:8080/search/?type=movie&genres=" + value + "&maxNHits=48"
   );
   const results = await data.json();
-  //results.hits.splice(48, results.hits.length);
-  console.log(results.hits);
+  const films = localStorage.getItem("titleFilm");
+  if (films !== null) {
+    const film = films.substring(1, films.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let l = false;
+      for (let j = 0; j < film.length; j++) {
+        if (
+          film[j].substring(1, film[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          l = true;
+        }
+      }
+      results.hits[i].like = l;
+    }
+  }
   return results.hits;
 }
 export async function requestLatestFilms() {
@@ -20,7 +34,6 @@ export async function requestAllFilms() {
   );
   const results = await data.json();
   const films = localStorage.getItem("titleFilm");
-  console.log(films);
   if (films !== null) {
     const film = films.substring(1, films.length - 1).split(",");
     for (let i = 0; i < results.hits.length; i = i + 1) {
@@ -35,7 +48,6 @@ export async function requestAllFilms() {
       }
       results.hits[i].like = l;
     }
-    console.log(results.hits);
   }
   return results.hits;
 }
@@ -93,7 +105,6 @@ export async function requestFilterFilms(
   filters: any[],
   genres: any[]
 ) {
-  console.log(genres);
   let filterGenres = "&genres=";
   if (genres.length === 1) {
     filterGenres += genres[0];
@@ -104,7 +115,6 @@ export async function requestFilterFilms(
   } else if (genres.length === 0) {
     filterGenres = "genres";
   }
-  console.log(filterGenres);
   const request =
     "http://localhost:8080/search/?types=movie" +
     filterGenres +
@@ -140,6 +150,21 @@ export async function requestFilterFilms(
   console.log(request);
   const data = await fetch(request);
   const results = await data.json();
-  //results.hits.splice(48, results.hits.length);
+  const films = localStorage.getItem("titleFilm");
+  if (films !== null) {
+    const film = films.substring(1, films.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let l = false;
+      for (let j = 0; j < film.length; j++) {
+        if (
+          film[j].substring(1, film[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          l = true;
+        }
+      }
+      results.hits[i].like = l;
+    }
+  }
   return results.hits;
 }

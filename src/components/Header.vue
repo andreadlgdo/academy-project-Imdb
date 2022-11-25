@@ -1,9 +1,13 @@
 <template>
   <div class="header">
-    <h1 class="header_title">The world of movies</h1>
     <div class="header_search">
       <div :class="{ finder_open: opened }">
-        <input type="text" @click="isOpen()" class="header_searcher" />
+        <input
+          placeholder="&#128270;   Buscar..."
+          type="text"
+          @click="isOpen()"
+          class="header_searcher"
+        />
         <div class="finder" v-if="getOpenHeader">
           <section class="finder_left">
             <button @click="setFirstPage(false)" class="finder_back">
@@ -35,14 +39,12 @@
           </section>
         </div>
       </div>
-      <button class="header_search-button">
-        <img
-          :src="require('@/assets/images/search.png')"
-          class="header_search-icon"
-          alt="searcher"
-        />
-      </button>
     </div>
+    <section class="section_title">
+      <button @click="setFirstPage(false)" class="header_title">
+        The world of movies
+      </button>
+    </section>
     <div class="header_logo">
       <img
         :src="require('@/assets/images/logo.png')"
@@ -85,7 +87,7 @@ export default defineComponent({
   },
   methods: {
     setFirstPage: function (value: boolean) {
-      createStore.dispatch("setOpenHeader", !this.getOpenHeader);
+      if (this.getOpenHeader) createStore.dispatch("setOpenHeader", false);
       createStore.dispatch("setMovieByGenre", false);
       createStore.dispatch("setFirstPage", value);
       createStore.dispatch("setLikes", false);
@@ -110,19 +112,26 @@ export default defineComponent({
   grid-template-columns: 1fr 2fr 1fr;
   flex-wrap: wrap;
   margin: 0rem;
-  border-bottom: solid black;
+  border-bottom: solid lightgrey;
   padding: 1rem;
   border-width: 0.3rem;
 }
-.header_title {
+.section_title {
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
-  padding-left: 2rem;
-  font-family: fantasy;
-  font-weight: 700;
+}
+.header_title {
+  padding: 1rem;
+  border: black solid;
+  background: transparent;
+  font-family: Copperplate;
+  font-weight: lighter;
   font-size: 2.5rem;
   font-variant: all-small-caps;
+  &:hover {
+    border: #faa544 solid;
+  }
 }
 .header_logo {
   display: flex;
@@ -130,8 +139,8 @@ export default defineComponent({
   align-items: center;
 }
 .header_logo-img {
-  height: 10rem;
-  width: 12rem;
+  height: 8rem;
+  width: 10rem;
   border-radius: 50%;
 }
 .header_search {
@@ -141,23 +150,13 @@ export default defineComponent({
 }
 .header_searcher {
   height: 2.5rem;
-  width: 28rem;
-  border-radius: 30px;
-  padding-left: 1.5rem;
-}
-.header_search-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  height: 4rem;
-  width: 5rem;
-  margin-left: 1rem;
+  width: 15rem;
+  padding-left: 1rem;
   border: none;
-  border-radius: 50%;
-}
-.header_search-button:hover {
-  background: aliceblue;
+  border-bottom: black solid;
+  &:hover {
+    border-bottom: #faa544 solid;
+  }
 }
 .header_search-icon {
   height: 2.5rem;
@@ -170,6 +169,8 @@ export default defineComponent({
   grid-template-columns: 30% 70%;
   border: lightgrey solid;
   background: white;
+  position: absolute;
+  z-index: 1;
 }
 .finder_open {
   display: grid;

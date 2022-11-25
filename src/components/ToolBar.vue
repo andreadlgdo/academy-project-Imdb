@@ -21,7 +21,7 @@
 import { defineComponent } from "vue";
 import ChangeView from "@/components/ChangeView.vue";
 import createStore from "@/store";
-import PersonalView from "@/components/PersonalView.vue";
+import PersonalView from "@/components/likes/PersonalView.vue";
 
 export default defineComponent({
   name: "ToolBar",
@@ -39,6 +39,8 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: lightgrey solid;
 }
 .section_filters-sort {
   display: flex;
