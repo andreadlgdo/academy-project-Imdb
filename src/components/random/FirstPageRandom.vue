@@ -188,7 +188,7 @@ export default defineComponent({
   border: none;
   height: 4rem;
   width: 4rem;
-  background: #f7dfc2;
+  margin-bottom: 2rem;
   &:hover {
     background: #efc592;
   }

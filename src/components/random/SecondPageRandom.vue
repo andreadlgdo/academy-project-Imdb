@@ -86,7 +86,6 @@ export default defineComponent({
   border: none;
   height: 4rem;
   width: 4rem;
-  background: #efc592;
   margin-right: 4rem;
   &:hover {
     background: #faa544;

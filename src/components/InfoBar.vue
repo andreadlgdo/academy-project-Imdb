@@ -6,7 +6,11 @@
       </button>
     </section>
     <section class="section_right">
-      <button @click="randomSearch()" class="button_random">
+      <button
+        v-if="getTypeSearch"
+        @click="randomSearch()"
+        class="button_random"
+      >
         <img
           class="random_icon"
           :src="require('@/assets/images/random/random.svg')"

@@ -123,8 +123,9 @@ export default defineComponent({
 .section_title {
   display: flex;
   justify-content: left;
+  font-family: Copperplate;
+  font-weight: lighter;
   padding-left: 4rem;
-  font-family: serif;
   font-size: 3rem;
 }
 .section_view-all {

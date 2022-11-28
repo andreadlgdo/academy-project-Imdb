@@ -13,14 +13,17 @@
       />
     </div>
   </div>
+  <InfoBar />
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import createStore from "@/store";
+import InfoBar from "@/components/InfoBar.vue";
 
 export default defineComponent({
   name: "HeaderRandom",
+  components: { InfoBar },
   computed: {
     getOpenHeader() {
       return createStore.state.openHeader;

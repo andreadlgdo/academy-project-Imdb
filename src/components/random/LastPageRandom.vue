@@ -101,7 +101,6 @@ export default defineComponent({
   border: none;
   height: 4rem;
   width: 4rem;
-  background: #efc592;
   margin-top: 5rem;
   margin-right: 6rem;
   &:hover {
