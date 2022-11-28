@@ -26,7 +26,7 @@
   <FirstPageRandom v-if="getTypeOfSearch === 'random'" />
   <FilmsLiked v-if="getIsGoLikes" />
   <FilmsSaved v-if="getIsGoSaved" />
-  <FilmsSeen v-if="getIsGoSeen"/>
+  <FilmsSeen v-if="getIsGoSeen" />
 </template>
 
 <script lang="ts">

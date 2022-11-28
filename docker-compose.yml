@@ -1,0 +1,9 @@
+version: '2.1'
+services:
+  imdbapp:
+    container_name: front_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"

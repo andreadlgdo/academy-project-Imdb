@@ -1,6 +1,8 @@
+const apiEndPoint = process.env.SEARCH_API_URI || "http://localhost:8080";
+
 export async function requestFilmsByGenre(value: string) {
   const data = await fetch(
-    "http://localhost:8080/search/?type=movie&genres=" + value + "&maxNHits=48"
+    apiEndPoint + "/search/?type=movie&genres=" + value + "&maxNHits=48"
   );
   const results = await data.json();
   const films = localStorage.getItem("titleFilm");
@@ -55,15 +57,13 @@ export async function requestFilmsByGenre(value: string) {
 }
 export async function requestLatestFilms() {
   const data = await fetch(
-    "http://localhost:8080/search/?type=movie&minYear=2022&minScore=5"
+    apiEndPoint + "/search/?type=movie&minYear=2022&minScore=5"
   );
   const results = await data.json();
   return results.hits;
 }
 export async function requestAllFilms() {
-  const data = await fetch(
-    "http://localhost:8080/search/?type=movie&maxNHits=48"
-  );
+  const data = await fetch(apiEndPoint + "/search/?type=movie&maxNHits=48");
   const results = await data.json();
   const films = localStorage.getItem("titleFilm");
   const filmsSaved = localStorage.getItem("titleSavedFilm");
@@ -125,7 +125,8 @@ export async function requestImages(title: string) {
 export async function requestFilterRandomFilms(params: any[], filters: any[]) {
   if (filters.length === 3) {
     const data = await fetch(
-      "http://localhost:8080/search/?type=movie&maxNHits=8&" +
+      apiEndPoint +
+        "/search/?type=movie&maxNHits=8&" +
         filters[0] +
         "=" +
         params[0] +
@@ -143,7 +144,8 @@ export async function requestFilterRandomFilms(params: any[], filters: any[]) {
     return results.hits;
   } else {
     const data = await fetch(
-      "http://localhost:8080/search/?type=movie&maxNHits=8&" +
+      apiEndPoint +
+        "/search/?type=movie&maxNHits=8&" +
         filters[0] +
         "=" +
         params[0] +
@@ -179,7 +181,8 @@ export async function requestFilterFilms(
     filterGenres = "";
   }
   const request =
-    "http://localhost:8080/search/?types=movie" +
+    apiEndPoint +
+    "/search/?types=movie" +
     filterGenres +
     "&" +
     filters[0] +
