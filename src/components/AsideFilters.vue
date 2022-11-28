@@ -270,8 +270,6 @@ export default defineComponent({
         this.setGenre();
       }
       createStore.dispatch("setAsideGenders", this.genres);
-      console.log(this.genres);
-      console.log(createStore.state.genresOfAside);
       createStore.dispatch("setAsideFilters", this.filters);
       createStore.dispatch("setAsideParams", this.params);
       createStore.dispatch("setIsFilter", true);

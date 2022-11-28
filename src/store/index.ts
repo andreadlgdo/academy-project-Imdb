@@ -30,6 +30,7 @@ export default createStore({
     openHeader: false,
     goLikes: false,
     goSaved: false,
+    goSeen: false,
     typeOfSearch: "",
   },
   mutations: {
@@ -46,7 +47,11 @@ export default createStore({
       state.isGoToSeeAllMoviesByGenre = value;
     },
     setFilms(state, value) {
-      state.filmsByGenre = value;
+      console.log(value);
+      if (value === "") {
+        state.filmsByGenre = [] as any[];
+        console.log(state.filmsByGenre.length);
+      } else state.filmsByGenre = value;
     },
     setAllFilms(state, value) {
       state.allFilms = value;
@@ -56,6 +61,9 @@ export default createStore({
     },
     setSaved(state, value) {
       state.goSaved = value;
+    },
+    setSeen(state, value) {
+      state.goSeen = value;
     },
     setFilmsNew(state, value) {
       state.filmsNew = value;
@@ -120,6 +128,9 @@ export default createStore({
     setSaved(context, value) {
       context.commit("setSaved", value);
     },
+    setSeen(context, value) {
+      context.commit("setSeen", value);
+    },
     setLikes(context, value) {
       context.commit("setLikes", value);
     },
@@ -151,9 +162,12 @@ export default createStore({
       context.commit("setOpenHeader", value);
     },
     async setMovieFilter(context, value) {
-      const response = await requestFilmsByGenre(value);
-      await context.dispatch("findImages", response);
-      context.commit("setFilms", response);
+      if (value === "") context.commit("setFilms", "");
+      else {
+        const response = await requestFilmsByGenre(value);
+        await context.dispatch("findImages", response);
+        context.commit("setFilms", response);
+      }
     },
     async setFilmsNew(context) {
       const response = await requestLatestFilms();
@@ -163,6 +177,8 @@ export default createStore({
     async setAllFilms(context) {
       const response = await requestAllFilms();
       await context.dispatch("findImages", response);
+      console.log("test");
+      console.log(response);
       context.commit("setAllFilms", response);
     },
     async searchRandom(context) {

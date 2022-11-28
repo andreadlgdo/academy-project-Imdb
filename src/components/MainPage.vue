@@ -96,8 +96,10 @@ export default defineComponent({
       createStore.dispatch("setMovieByGenre", value);
       if (this.getOpenHeader)
         createStore.dispatch("setOpenHeader", !this.getOpenHeader);
-      if (genre === "") createStore.dispatch("setAllFilms");
-      else createStore.dispatch("setMovieFilter", genre);
+      if (genre === "") {
+        createStore.dispatch("setMovieFilter", "");
+        createStore.dispatch("setAllFilms");
+      } else createStore.dispatch("setMovieFilter", genre);
     },
   },
 });

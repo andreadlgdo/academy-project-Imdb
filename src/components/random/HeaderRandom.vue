@@ -1,7 +1,9 @@
 <template>
   <div class="header">
     <section class="section_title">
-      <button class="header_title">The world of movies</button>
+      <button @click="setFirstPage(false)" class="header_title">
+        The world of movies
+      </button>
     </section>
     <div class="header_logo">
       <img
@@ -15,9 +17,25 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import createStore from "@/store";
 
 export default defineComponent({
   name: "HeaderRandom",
+  computed: {
+    getOpenHeader() {
+      return createStore.state.openHeader;
+    },
+  },
+  methods: {
+    setFirstPage: function (value: boolean) {
+      if (this.getOpenHeader) createStore.dispatch("setOpenHeader", false);
+      createStore.dispatch("setMovieByGenre", false);
+      createStore.dispatch("setFirstPage", value);
+      createStore.dispatch("setLikes", false);
+      createStore.dispatch("setSaved", false);
+      createStore.dispatch("setTypeOfSearch", "");
+    },
+  },
 });
 </script>
 

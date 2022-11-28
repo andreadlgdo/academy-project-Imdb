@@ -1,6 +1,7 @@
 <template>
   <Header @view-all="goViewAllMovies(true, '')" />
   <div v-if="!getSeeAllMovies">
+    <InfoBar />
     <section class="section_likes">
       <div class="section_title">
         <h2 class="table_title">Movies you like</h2>
@@ -38,15 +39,13 @@ import { defineComponent } from "vue";
 import Header from "@/components/Header.vue";
 import createStore from "@/store";
 import ViewMovies from "@/components/ViewMovies.vue";
+import InfoBar from "@/components/InfoBar.vue";
 export default defineComponent({
   name: "FilmsLiked",
-  components: { Header, ViewMovies },
+  components: { InfoBar, Header, ViewMovies },
   computed: {
     getSeeAllMovies() {
       return createStore.state.isGoToSeeAllMoviesByGenre;
-    },
-    getLikes() {
-      return createStore.state.goLikes;
     },
     getTitlesFilms() {
       let f = [] as any;
@@ -67,11 +66,19 @@ export default defineComponent({
             console.log(scoreStore[i]);
           } else {
             let elem = {
-              title: filmsStore[j].substring(1, filmsStore[j].length - 1),
-              score: scoreStore[j],
+              title: filmsStore[i].substring(1, filmsStore[i].length - 1),
+              score: scoreStore[i],
             };
-            f[j] = elem;
-            j++;
+            let igual = false;
+            for (let k = 0; k < f.length; k++) {
+              if (f[k].title === elem.title) {
+                igual = true;
+              }
+            }
+            if (!igual) {
+              f[j] = elem;
+              j++;
+            }
           }
         }
       }
@@ -84,15 +91,17 @@ export default defineComponent({
   },
   methods: {
     removeLikes: function () {
-      localStorage.clear();
+      localStorage.removeItem("titleFilm");
+      localStorage.removeItem("scoreFilm");
       location.reload();
     },
     goViewAllMovies: function (value: boolean, genre: string) {
       createStore.dispatch("setMovieByGenre", value);
       if (this.getOpenHeader)
         createStore.dispatch("setOpenHeader", !this.getOpenHeader);
-      if (genre === "") createStore.dispatch("setAllFilms");
-      else createStore.dispatch("setMovieFilter", genre);
+      createStore.dispatch("setLikes", false);
+      createStore.dispatch("setTypeOfSearch", "normal");
+      createStore.dispatch("setAllFilms");
     },
   },
 });

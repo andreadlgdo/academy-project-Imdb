@@ -1,6 +1,9 @@
 <template>
   <section class="section_toolbar">
     <section class="section_filters-sort">
+      <button @click="goMainPage()" class="button_home">
+        <img class="home_icon" :src="require('@/assets/images/home.png')" />
+      </button>
       <button class="button_open-filters" @click="goFilters(true)">
         <img
           class="button_filters-img"
@@ -26,9 +29,22 @@ import PersonalView from "@/components/personal/PersonalView.vue";
 export default defineComponent({
   name: "ToolBar",
   components: { PersonalView, ChangeView },
+  computed: {
+    getOpenHeader() {
+      return createStore.state.openHeader;
+    },
+  },
   methods: {
     goFilters: function (value: boolean) {
       createStore.dispatch("change", value);
+    },
+    goMainPage: function () {
+      if (this.getOpenHeader) createStore.dispatch("setOpenHeader", false);
+      createStore.dispatch("setMovieByGenre", false);
+      createStore.dispatch("setLikes", false);
+      createStore.dispatch("setSaved", false);
+      createStore.dispatch("setSeen", false);
+      createStore.dispatch("setTypeOfSearch", "normal");
     },
   },
 });
@@ -73,5 +89,29 @@ export default defineComponent({
   justify-content: right;
   align-items: center;
   gap: 1.5rem;
+}
+.button_home {
+  height: 3rem;
+  width: 3rem;
+  border: black solid;
+  border-radius: 30px;
+  margin-right: 1rem;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    width: 12rem;
+    border: cadetblue solid 3px;
+    &:after {
+      content: "Home";
+      margin-left: 1rem;
+      font-size: 1rem;
+    }
+  }
+}
+.home_icon {
+  height: 1.8rem;
+  width: 1.8rem;
 }
 </style>

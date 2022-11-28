@@ -4,22 +4,51 @@ export async function requestFilmsByGenre(value: string) {
   );
   const results = await data.json();
   const films = localStorage.getItem("titleFilm");
+  const filmsSaved = localStorage.getItem("titleSavedFilm");
+  const filmsSeen = localStorage.getItem("titleSeenFilm");
   if (films !== null) {
     const film = films.substring(1, films.length - 1).split(",");
     for (let i = 0; i < results.hits.length; i = i + 1) {
       let l = false;
-      let s = false;
       for (let j = 0; j < film.length; j++) {
         if (
           film[j].substring(1, film[j].length - 1) ===
           results.hits[i].primaryTitle
         ) {
           l = true;
-          s = true;
         }
       }
       results.hits[i].liked = l;
+    }
+  }
+  if (filmsSaved !== null) {
+    const filmSaved = filmsSaved.substring(1, filmsSaved.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let s = false;
+      for (let j = 0; j < filmSaved.length; j++) {
+        if (
+          filmSaved[j].substring(1, filmSaved[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          s = true;
+        }
+      }
       results.hits[i].saved = s;
+    }
+  }
+  if (filmsSeen !== null) {
+    const filmSeen = filmsSeen.substring(1, filmsSeen.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let v = false;
+      for (let j = 0; j < filmSeen.length; j++) {
+        if (
+          filmSeen[j].substring(1, filmSeen[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          v = true;
+        }
+      }
+      results.hits[i].seen = v;
     }
   }
   return results.hits;
@@ -37,6 +66,8 @@ export async function requestAllFilms() {
   );
   const results = await data.json();
   const films = localStorage.getItem("titleFilm");
+  const filmsSaved = localStorage.getItem("titleSavedFilm");
+  const filmsSeen = localStorage.getItem("titleSeenFilm");
   if (films !== null) {
     const film = films.substring(1, films.length - 1).split(",");
     for (let i = 0; i < results.hits.length; i = i + 1) {
@@ -52,6 +83,36 @@ export async function requestAllFilms() {
       results.hits[i].liked = l;
     }
   }
+  if (filmsSaved !== null) {
+    const filmSaved = filmsSaved.substring(1, filmsSaved.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let s = false;
+      for (let j = 0; j < filmSaved.length; j++) {
+        if (
+          filmSaved[j].substring(1, filmSaved[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          s = true;
+        }
+      }
+      results.hits[i].saved = s;
+    }
+  }
+  if (filmsSeen !== null) {
+    const filmSeen = filmsSeen.substring(1, filmsSeen.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let v = false;
+      for (let j = 0; j < filmSeen.length; j++) {
+        if (
+          filmSeen[j].substring(1, filmSeen[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          v = true;
+        }
+      }
+      results.hits[i].seen = v;
+    }
+  }
   return results.hits;
 }
 export async function requestImages(title: string) {
@@ -59,7 +120,6 @@ export async function requestImages(title: string) {
     "https://www.omdbapi.com/?apikey=c901ed49&t=" + title
   );
   const results = await data.json();
-  console.log(results);
   return results.Poster;
 }
 export async function requestFilterRandomFilms(params: any[], filters: any[]) {
@@ -116,7 +176,7 @@ export async function requestFilterFilms(
   } else if (genres.length === 3) {
     filterGenres += genres[0] + "," + genres[1] + "," + genres[2];
   } else if (genres.length === 0) {
-    filterGenres = "genres";
+    filterGenres = "";
   }
   const request =
     "http://localhost:8080/search/?types=movie" +
@@ -150,10 +210,11 @@ export async function requestFilterFilms(
     "=" +
     params[6] +
     "&maxNHits=48";
-  console.log(request);
   const data = await fetch(request);
   const results = await data.json();
   const films = localStorage.getItem("titleFilm");
+  const filmsSaved = localStorage.getItem("titleSavedFilm");
+  const filmsSeen = localStorage.getItem("titleSeenFilm");
   if (films !== null) {
     const film = films.substring(1, films.length - 1).split(",");
     for (let i = 0; i < results.hits.length; i = i + 1) {
@@ -167,6 +228,36 @@ export async function requestFilterFilms(
         }
       }
       results.hits[i].liked = l;
+    }
+  }
+  if (filmsSaved !== null) {
+    const filmSaved = filmsSaved.substring(1, filmsSaved.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let s = false;
+      for (let j = 0; j < filmSaved.length; j++) {
+        if (
+          filmSaved[j].substring(1, filmSaved[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          s = true;
+        }
+      }
+      results.hits[i].saved = s;
+    }
+  }
+  if (filmsSeen !== null) {
+    const filmSeen = filmsSeen.substring(1, filmsSeen.length - 1).split(",");
+    for (let i = 0; i < results.hits.length; i = i + 1) {
+      let v = false;
+      for (let j = 0; j < filmSeen.length; j++) {
+        if (
+          filmSeen[j].substring(1, filmSeen[j].length - 1) ===
+          results.hits[i].primaryTitle
+        ) {
+          v = true;
+        }
+      }
+      results.hits[i].seen = v;
     }
   }
   return results.hits;

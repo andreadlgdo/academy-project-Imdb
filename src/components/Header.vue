@@ -16,7 +16,7 @@
             <button @click="$emit('view-all')" class="finder_back">
               All movies
             </button>
-            <button @click="goMainPage()" class="finder_back">Main page</button>
+            <button @click="goMainPage()" class="finder_back">Home</button>
           </section>
           <section class="finder_right">
             <p class="right_title">More popular</p>
@@ -91,6 +91,8 @@ export default defineComponent({
       createStore.dispatch("setMovieByGenre", false);
       createStore.dispatch("setFirstPage", value);
       createStore.dispatch("setLikes", false);
+      createStore.dispatch("setSaved", false);
+      createStore.dispatch("setSeen", false);
       createStore.dispatch("setTypeOfSearch", "");
     },
     isOpen: function () {
@@ -100,6 +102,8 @@ export default defineComponent({
       createStore.dispatch("setOpenHeader", !this.getOpenHeader);
       createStore.dispatch("setMovieByGenre", false);
       createStore.dispatch("setLikes", false);
+      createStore.dispatch("setSaved", false);
+      createStore.dispatch("setSeen", false);
       createStore.dispatch("setTypeOfSearch", "normal");
     },
   },

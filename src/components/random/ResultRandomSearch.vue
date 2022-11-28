@@ -111,6 +111,7 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-top: 1rem;
+  margin-right: 2rem;
 }
 .main_randomTitle {
   display: flex;

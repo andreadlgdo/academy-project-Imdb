@@ -2,16 +2,16 @@
   <Header @view-all="goViewAllMovies(true, '')" />
   <div v-if="!getSeeAllMovies">
     <InfoBar />
-    <section class="section_saved">
+    <section class="section_seen">
       <div class="section_title">
-        <h2 class="table_title">Saved movies</h2>
+        <h2 class="table_title">Movies you have seen</h2>
       </div>
       <section class="section_table">
-        <table class="table_saved">
+        <table class="table_seen">
           <tr>
             <th>Film</th>
             <th>Score</th>
-            <th>Save</th>
+            <th>Seen</th>
           </tr>
           <tr
             :v-if="getTitlesFilms.length !== 0"
@@ -22,8 +22,8 @@
             <td>{{ film.score }}</td>
             <td>
               <img
-                :src="require('@/assets/images/saveColor.png')"
-                style="height: 1.5rem; width: 1.5rem; background: white"
+                :src="require('@/assets/images/tickGreen.png')"
+                style="height: 2rem; width: 2rem; background: white"
               />
             </td>
           </tr>
@@ -32,7 +32,7 @@
     </section>
     <section class="section_button">
       <button @click="removeLikes()" class="button_remove-likes">
-        Remove all saved films
+        Remove all seen films
       </button>
     </section>
   </div>
@@ -45,8 +45,9 @@ import Header from "@/components/Header.vue";
 import createStore from "@/store";
 import ViewMovies from "@/components/ViewMovies.vue";
 import InfoBar from "@/components/InfoBar.vue";
+
 export default defineComponent({
-  name: "FilmsLiked",
+  name: "FilmsSeen",
   components: { InfoBar, Header, ViewMovies },
   computed: {
     getSeeAllMovies() {
@@ -54,8 +55,8 @@ export default defineComponent({
     },
     getTitlesFilms() {
       let f = [] as any;
-      let filmsString = localStorage.getItem("titleSavedFilm");
-      let scoreString = localStorage.getItem("scoreSavedFilm");
+      let filmsString = localStorage.getItem("titleSeenFilm");
+      let scoreString = localStorage.getItem("scoreSeenFilm");
       if (filmsString != null && scoreString != null) {
         let filmsStore = filmsString
           .substring(1, filmsString.length - 1)
@@ -65,7 +66,6 @@ export default defineComponent({
           .split(",");
         let j = 0;
         for (let i = 0; i < filmsStore.length; i++) {
-          console.log(scoreStore[i] === "null");
           if (scoreStore[i] === "null") {
             console.log(scoreStore[i]);
           } else {
@@ -94,15 +94,15 @@ export default defineComponent({
   },
   methods: {
     removeLikes: function () {
-      localStorage.removeItem("titleSavedFilm");
-      localStorage.removeItem("scoreSavedFilm");
+      localStorage.removeItem("titleSeenFilm");
+      localStorage.removeItem("scoreSeenFilm");
       location.reload();
     },
     goViewAllMovies: function (value: boolean, genre: string) {
       createStore.dispatch("setMovieByGenre", value);
       if (this.getOpenHeader)
         createStore.dispatch("setOpenHeader", !this.getOpenHeader);
-      createStore.dispatch("setSaved", false);
+      createStore.dispatch("setSeen", false);
       createStore.dispatch("setTypeOfSearch", "normal");
       createStore.dispatch("setAllFilms");
     },
@@ -111,7 +111,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.section_saved {
+.section_seen {
   display: flex;
   flex-direction: column;
 }
@@ -120,16 +120,16 @@ export default defineComponent({
   justify-content: center;
   align-items: center;
 }
-.table_saved {
+.table_seen {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 90%;
 }
-.table_saved td {
+.table_seen td {
   border: 1px solid black;
   padding: 1rem;
 }
-.table_saved th {
+.table_seen th {
   border-bottom: 5px solid black;
   padding-top: 12px;
   padding-bottom: 12px;
@@ -139,6 +139,7 @@ export default defineComponent({
 }
 .button_remove-likes {
   border-radius: 30px;
+  border: none;
   border: red solid;
   background: white;
   color: red;
