@@ -1,5 +1,30 @@
 version: '2.1'
 services:
+  elasticsearch:
+    image: "alvarorg14/imdb:es_index"
+    hostname: "elasticsearch"
+    container_name: elasticsearch-docker
+    environment:
+      - "discovery.type=single-node"
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: [ "CMD", "curl", "-u", "elastic:searchPathRules", "-f", "localhost:9200" ]
+      interval: 30s
+      retries: 10
+
+  searchapi:
+    image: "alvarorg14/search:latest"
+    container_name: searchApi
+    hostname: "searchapi"
+    ports:
+      - "8080:8080"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    links:
+      - elasticsearch
+
   imdbapp:
     container_name: front_app
     build:
@@ -7,3 +32,5 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8081:8080"
+    depends_on:
+      - searchapi
