@@ -4,7 +4,7 @@
     <InfoBar />
     <main class="main_page">
       <section class="main_section-categories">
-        <h2 class="section_title">Categories</h2>
+        <h2 class="section_title">Genres</h2>
         <div class="slide_content">
           <div class="sliding-panel">
             <Categories

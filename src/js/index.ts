@@ -140,7 +140,6 @@ export async function requestFilterRandomFilms(params: any[], filters: any[]) {
         params[2]
     );
     const results = await data.json();
-    //results.hits.splice(8, results.hits.length);
     return results.hits;
   } else {
     const data = await fetch(
@@ -161,7 +160,6 @@ export async function requestFilterRandomFilms(params: any[], filters: any[]) {
         params[3]
     );
     const results = await data.json();
-    //results.hits.splice(8, results.hits.length);
     return results.hits;
   }
 }

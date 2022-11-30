@@ -132,7 +132,7 @@
     </div>
     <div class="aside_button-applyFilters">
       <button @click="applyFilters()" class="button_view-results">
-        View X Results
+        View Results
       </button>
     </div>
   </aside>

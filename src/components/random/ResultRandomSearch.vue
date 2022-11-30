@@ -62,12 +62,27 @@
         </div>
       </section>
     </section>
-    <section v-if="getMovies.length === 0">
+    <section
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+      "
+      v-if="getMovies.length === 0"
+    >
       <img
         :src="require('../../assets/images/NoResults.png')"
         class="image_NoResults"
       />
-      <button class="button_repeat-search">Repeat search</button>
+      <button
+        style="margin: 1rem; height: 3rem; width: 12rem"
+        class="button_repeat-search"
+        @click="goInit(false)"
+      >
+        Go init
+      </button>
     </section>
   </main>
 </template>
@@ -101,6 +116,15 @@ export default defineComponent({
     },
     getChangeView() {
       return createStore.state.changeView;
+    },
+  },
+  methods: {
+    goInit: function (value: boolean) {
+      createStore.dispatch("setMovieByGenre", false);
+      createStore.dispatch("setFirstPage", value);
+      createStore.dispatch("setLikes", false);
+      createStore.dispatch("setSaved", false);
+      createStore.dispatch("setTypeOfSearch", "");
     },
   },
 });

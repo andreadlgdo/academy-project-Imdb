@@ -47,10 +47,8 @@ export default createStore({
       state.isGoToSeeAllMoviesByGenre = value;
     },
     setFilms(state, value) {
-      console.log(value);
       if (value === "") {
         state.filmsByGenre = [] as any[];
-        console.log(state.filmsByGenre.length);
       } else state.filmsByGenre = value;
     },
     setAllFilms(state, value) {
@@ -177,8 +175,6 @@ export default createStore({
     async setAllFilms(context) {
       const response = await requestAllFilms();
       await context.dispatch("findImages", response);
-      console.log("test");
-      console.log(response);
       context.commit("setAllFilms", response);
     },
     async searchRandom(context) {
@@ -195,14 +191,13 @@ export default createStore({
         context.state.filtersOfAside,
         context.state.genresOfAside
       );
-      console.log(response);
       context.commit("setMoviesByFilters", response);
     },
     async findImages(context, films) {
       const allImages = [] as any[];
       for (let i = 0; i < films.length; i++) {
-        const image = "N/A";
-        //const image = await requestImages(films[i].primaryTitle);
+        //const image = "N/A";
+        const image = await requestImages(films[i].primaryTitle);
         allImages[i] = image;
       }
       context.commit("setImages", allImages);
