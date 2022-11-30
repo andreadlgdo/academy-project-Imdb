@@ -196,8 +196,8 @@ export default createStore({
     async findImages(context, films) {
       const allImages = [] as any[];
       for (let i = 0; i < films.length; i++) {
-        //const image = "N/A";
-        const image = await requestImages(films[i].primaryTitle);
+        const image = "N/A";
+        //const image = await requestImages(films[i].primaryTitle);
         allImages[i] = image;
       }
       context.commit("setImages", allImages);
