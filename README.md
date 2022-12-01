@@ -1,7 +1,7 @@
 # imdb-andrea
 
 ## Wiki
-[Historias de usuario](https://github.com/andreadlgdo/academy-project-Imdb/wiki)
+[User Histories](https://github.com/andreadlgdo/academy-project-Imdb/wiki)
 
 ## Project setup
 
